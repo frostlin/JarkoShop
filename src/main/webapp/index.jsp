@@ -2,17 +2,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link href="${pageContext.request.contextPath}/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>;
-    <title>JSP - Hello World</title>
 </head>
 <body>
-<h1><%= "Hello World!" %>
-</h1>
-
-<br/>
-<a href="hello-servlet">Hello Servlet</a>
-<script type="text/javascript" src="${pageContext.request.contextPath}/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/assets/bootstrap/js/jquery.js"></script>
-
+<jsp:forward page="/controller">
+    <jsp:param name="command" value="to_main"/>
+</jsp:forward>
 </body>
 </html>

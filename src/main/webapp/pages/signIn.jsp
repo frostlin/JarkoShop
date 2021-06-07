@@ -1,13 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <html><head><title>Login</title></head>
 <body>
-<form name="signInForm" method="POST" action="controller">
-    <input type="hidden" name="command" value="login" />
+<form name="signIn" method="POST" action="controller">
+    <input type="hidden" name="command" value="signIn" />
+
     Login:<br/>
-    <input type="text" name="login" value=""/>
-    <br/>Password:<br/>
-    <input type="password" name="password" value=""/>
-    <br/>
+    <input type="text" name="login" value=""/><br/>
+
+    Password:<br/>
+    <input type="password" name="password" value=""/><br/>
+
     ${errorLoginPassMessage}
     <br/>
     ${wrongAction}

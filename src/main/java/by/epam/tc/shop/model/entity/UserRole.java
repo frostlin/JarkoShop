@@ -1,7 +1,7 @@
 package by.epam.tc.shop.model.entity;
 
 public enum UserRole {
-    GUEST{
+    ADMIN{
         {
             this.roleId = 0;
             this.roleName = "admin";
@@ -13,7 +13,7 @@ public enum UserRole {
             this.roleName = "user";
         }
     },
-    ADMIN{
+    GUEST{
         {
             this.roleId = 2;
             this.roleName = "guest";

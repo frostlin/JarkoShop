@@ -1,4 +1,4 @@
-package by.epam.tc.shop.model.service.validator;
+package by.epam.tc.shop.model.service.impl.validator;
 
 public class UserValidator {
     private static final String ID_REGEX = "^[1-9]{0,9}$";

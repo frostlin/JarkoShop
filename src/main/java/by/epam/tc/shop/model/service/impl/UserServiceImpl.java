@@ -16,7 +16,7 @@ public class UserServiceImpl implements UserService  {
     private final UserDao userDao = UserDaoImpl.getInstance();
 
     @Override
-    public List<User> getAll() throws ServiceException {
+    public List<User> getAllUsers() throws ServiceException {
         try {
             return userDao.getAll();
         } catch (DaoException e) {
@@ -25,14 +25,14 @@ public class UserServiceImpl implements UserService  {
     }
 
     @Override
-    public boolean create(String login, String password, String email) throws ServiceException {
+    public boolean createUser(String login, String password, String email) throws ServiceException {
         boolean isCreated = false;
         try {
             if (UserValidator.isLoginCorrect(login)
                     && UserValidator.isPasswordCorrect(password)
                     && UserValidator.isEmailCorrect(email))
             {
-                if (userDao.isLoginRegistered(login) || userDao.isEmailRegistered(email)){
+                if (userDao.getByLogin(login).isPresent() || userDao.getByEmail(email).isPresent()){
                     return isCreated;
                 }
                 Optional<String> encryptedPassword = PasswordEncryptor.encryptPassword(password);
@@ -45,6 +45,26 @@ public class UserServiceImpl implements UserService  {
         }
 
         return isCreated;
+    }
+
+    @Override
+    public Optional<User> authorizeUser(String login, String password) throws ServiceException {
+        Optional<User> user = Optional.empty();
+        try {
+            if (UserValidator.isLoginCorrect(login) && UserValidator.isPasswordCorrect(password)) {
+                Optional<User> optionalUser = userDao.getByLogin(login);
+                if (optionalUser.isPresent()) {
+                    String rightPassword = optionalUser.get().getPassword();
+                    Optional<String> encPassword = PasswordEncryptor.encryptPassword(password);
+
+                    if (encPassword.isPresent() && rightPassword.equals(encPassword.get()))
+                        user = optionalUser;
+                }
+            }
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+        return user;
     }
 
 }

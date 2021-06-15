@@ -3,6 +3,7 @@ package by.epam.tc.shop.model.entity;
 import java.io.Serializable;
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class User implements Serializable {
@@ -10,7 +11,7 @@ public class User implements Serializable {
     private int id;
     private String email;
     private UserRole role;
-    private ArrayList<Address> addresses;
+    private List<Address> addresses;
 
     private String login;
     private String password;
@@ -23,16 +24,21 @@ public class User implements Serializable {
     private Date dateRegistered;
 
     public User(){}
-    public User(int id, String email, String login, String password, Date dateRegistered) {
+
+    public User(int id, String email, UserRole role, String login, String password, Date dateRegistered) {
         this.id = id;
         this.email = email;
+        this.role = role;
         this.login = login;
         this.password = password;
         this.dateRegistered = dateRegistered;
     }
-    public User(int id, String email, String login, String password, String surname, String name, String lastname, String telephone, Date dateRegistered) {
+
+    public User(int id, String email, UserRole role, List<Address> addresses, String login, String password, String surname, String name, String lastname, String telephone, Date dateRegistered) {
         this.id = id;
         this.email = email;
+        this.role = role;
+        this.addresses = addresses;
         this.login = login;
         this.password = password;
         this.surname = surname;
@@ -40,6 +46,22 @@ public class User implements Serializable {
         this.lastname = lastname;
         this.telephone = telephone;
         this.dateRegistered = dateRegistered;
+    }
+
+    public UserRole getRole() {
+        return role;
+    }
+
+    public void setRole(UserRole role) {
+        this.role = role;
+    }
+
+    public List<Address> getAddresses() {
+        return addresses;
+    }
+
+    public void setAddresses(List<Address> addresses) {
+        this.addresses = addresses;
     }
 
     public int getId() {

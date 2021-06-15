@@ -14,7 +14,4 @@ public interface UserDao {
     public Optional<User> getByEmail(String login) throws DaoException;
     public Optional<User> getById(int id) throws DaoException;
 
-    public boolean isLoginRegistered(String login) throws DaoException;
-    public boolean isEmailRegistered(String email) throws DaoException;
-
 }

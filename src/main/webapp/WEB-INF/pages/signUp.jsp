@@ -7,7 +7,7 @@
     <title><fmt:message key="header.sign_up"/></title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/WEB-INF/assets/bootstrap/css/bootstrap.min.css">
 
 </head>
 <body>
@@ -40,7 +40,7 @@
     </form>
 </div>
 
-<script type="text/javascript" src="${pageContext.request.contextPath}/assets/bootstrap/js/jquery.min.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/WEB-INF/assets/bootstrap/js/jquery.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/WEB-INF/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

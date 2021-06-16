@@ -8,7 +8,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link href="${pageContext.request.contextPath}/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        <link href="${pageContext.request.contextPath}/WEB-INF/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
         <title>main</title>
     </head>
 
@@ -16,7 +16,7 @@
     <jsp:include page="modules/header.jsp"/>
 
 
-
+    <br/>
         <h1><fmt:message key="main.greeting"/></h1>
     <br/>
 
@@ -24,7 +24,7 @@
 
 
 
-    <script type="text/javascript" src="${pageContext.request.contextPath}/assets/bootstrap/js/jquery.min.js"></script>
-    <script type="text/javascript" src="${pageContext.request.contextPath}/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/WEB-INF/assets/bootstrap/js/jquery.min.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/WEB-INF/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
     </body>
 </html>

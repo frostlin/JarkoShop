@@ -15,12 +15,7 @@
         <div class="container p-1">
             <div class="row">
                 <div class="mb-4 ml-3 mb-md-0 text-left">
-                    <h5 class="text-uppercase">Footer text</h5>
-                    <p>
-                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste atque ea quis
-                        molestias. Fugiat pariatur maxime quis culpa corporis vitae repudiandae
-                        aliquam voluptatem veniam, est atque cumque eum delectus sint!
-                    </p>
+
                 </div>
             </div>
         </div>

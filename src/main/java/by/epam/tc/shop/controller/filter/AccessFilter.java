@@ -35,7 +35,7 @@ public class AccessFilter implements Filter {
         String commandName = request.getParameter(RequestParameter.COMMAND);
         Command command = CommandProvider.defineCommand(commandName);
 
-        String roleName = session.getAttribute(SessionAttribute.ROLE).toString();
+        String roleName = (String)session.getAttribute(SessionAttribute.ROLE);
         UserRole userRole;
 
         if (roleName == null)

@@ -11,7 +11,7 @@ import java.util.Optional;
 
 public class PasswordEncryptor {
     private static final Logger logger = LogManager.getLogger();
-    private static final String ENCRYPTOR_ALGORITHM = "SHA-1";
+    private static final String ENCRYPTOR_ALGORITHM = "SHA-256";
 
     private PasswordEncryptor(){}
 
@@ -21,6 +21,7 @@ public class PasswordEncryptor {
             MessageDigest messageDigest = MessageDigest.getInstance(ENCRYPTOR_ALGORITHM);
             messageDigest.update(password.getBytes(StandardCharsets.UTF_8));
             byte[] bytesEncoded = messageDigest.digest();
+
             BigInteger bigInteger = new BigInteger(1,bytesEncoded);
             encPassword = Optional.of(bigInteger.toString(16));
         } catch (NoSuchAlgorithmException e) {

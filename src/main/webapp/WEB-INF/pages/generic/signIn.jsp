@@ -7,11 +7,10 @@
     <title><fmt:message key="header.sign_in"/> </title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/bootstrap/css/bootstrap.min.css">
 
 </head>
 <body>
-<jsp:include page="modules/header.jsp"/>
+<jsp:include page="../modules/header.jsp"/>
 
 <div class="container justify-content-center" style="width: 380px; margin-left: auto; margin-right: auto">
     <form action="controller" method="post">
@@ -27,12 +26,10 @@
         </div>
         <label style="color: red">${errorSignInMessage}</label>
         <br/>
-        <button type="submit" class="btn btn-primary" id="signUpButton"><fmt:message key="signup.signin"/></button>
-        <input type="hidden" name="command" value="sign_in">
+        <button type="submit" name="command" value="sign_in" class="btn btn-primary">
+            <fmt:message key="signup.signin"/>
+        </button>
     </form>
 </div>
-
-<script type="text/javascript" src="${pageContext.request.contextPath}/assets/bootstrap/js/jquery.min.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

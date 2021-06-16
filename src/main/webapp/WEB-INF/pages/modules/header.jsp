@@ -7,6 +7,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link href="../../../assets/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 
@@ -52,6 +53,9 @@
         </div>
 
     </div>
+
 </nav>
+<script type="text/javascript" src="../../../assets/bootstrap/js/jquery.min.js"></script>
+<script type="text/javascript" src="../../../assets/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

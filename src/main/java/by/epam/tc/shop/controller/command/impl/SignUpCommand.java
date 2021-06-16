@@ -18,7 +18,7 @@ public class SignUpCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest request) {
-        String page = PagePath.HOME;
+        String page;
 
         String login = request.getParameter(RequestParameter.LOGIN);
         String email = request.getParameter(RequestParameter.EMAIL);

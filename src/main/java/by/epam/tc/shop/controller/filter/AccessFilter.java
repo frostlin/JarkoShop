@@ -22,10 +22,6 @@ public class AccessFilter implements Filter {
     private static final int ACCESS_FORBIDDEN_ERROR = 403;
 
     @Override
-    public void init(FilterConfig config) {
-    }
-
-    @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain chain)
             throws ServletException, IOException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
@@ -55,9 +51,5 @@ public class AccessFilter implements Filter {
             return;
         }
         chain.doFilter(servletRequest, servletResponse);
-    }
-
-    @Override
-    public void destroy() {
     }
 }

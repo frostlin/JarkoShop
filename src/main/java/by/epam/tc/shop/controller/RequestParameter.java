@@ -9,6 +9,5 @@ public class RequestParameter {
     public static final String CONFIRM = "confirmedPassword";
     public static final String EMAIL = "email";
 
-
     private RequestParameter(){}
 }

@@ -3,19 +3,19 @@ package by.epam.tc.shop.model.entity;
 public enum UserRole {
     ADMIN{
         {
-            this.roleId = 0;
+            this.roleId = 1;
             this.roleName = "admin";
         }
     },
     USER{
         {
-            this.roleId = 1;
+            this.roleId = 2;
             this.roleName = "user";
         }
     },
     GUEST{
         {
-            this.roleId = 2;
+            this.roleId = 3;
             this.roleName = "guest";
         }
     };

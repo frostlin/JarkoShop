@@ -1,6 +1,5 @@
 package by.epam.tc.shop.controller.command;
 
-import by.epam.tc.shop.controller.*;
 import by.epam.tc.shop.controller.command.impl.*;
 
 public enum CommandType {
@@ -34,9 +33,6 @@ public enum CommandType {
             this.command = new SignUpCommand();
         }
     };
-
-
-
 
     Command command;
     public Command getCommand(){

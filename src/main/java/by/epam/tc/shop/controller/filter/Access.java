@@ -19,10 +19,12 @@ public enum Access {
             TO_MAIN,
             CHANGE_LOCALE
     ).map(CommandType::getCommand).collect(Collectors.toSet())),
+
     USER(Stream.of(
             TO_MAIN,
             CHANGE_LOCALE
     ).map(CommandType::getCommand).collect(Collectors.toSet())),
+
     ADMIN(Stream.of(
             TO_MAIN,
             CHANGE_LOCALE

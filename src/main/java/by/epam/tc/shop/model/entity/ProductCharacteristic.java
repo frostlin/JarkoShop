@@ -8,7 +8,7 @@ public class ProductCharacteristic {
     private String value;
     private String description;
 
-    ProductCharacteristic(){};
+    public ProductCharacteristic(){};
 
     public ProductCharacteristic(int id, String name, String value, String description) {
         this.id = id;

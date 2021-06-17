@@ -18,7 +18,7 @@ public class Product implements Serializable {
     private int warranty;
     private int stockAmount;
 
-    private Product (){};
+    public Product (){};
 
     public Product(int id, String brand, String category, List<ProductCharacteristic> characteristics,
                    float price, String model, String description, int warranty, int stockAmount, List<String> photos) {
@@ -104,6 +104,14 @@ public class Product implements Serializable {
 
     public void setStockAmount(int stockAmount) {
         this.stockAmount = stockAmount;
+    }
+
+    public List<String> getPhotos() {
+        return photos;
+    }
+
+    public void setPhotos(List<String> photos) {
+        this.photos = photos;
     }
 
     @Override

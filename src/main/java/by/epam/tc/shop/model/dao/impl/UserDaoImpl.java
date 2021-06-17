@@ -21,10 +21,9 @@ public class UserDaoImpl implements UserDao {
 
     private static final String ADD = "INSERT INTO user (role_id,email,login,password) VALUES (?,?,?,?)";
     private static final String GET_ALL =
-            "SELECT user.id,role.name,email,login,password,surname,name,lastname,telephone,date_registered, " +
+            "SELECT user.id,role.name,email,login,password,surname,user.name,lastname,telephone,date_registered " +
             "FROM user " +
-            "JOIN role r ON role_id=r.id " +
-            "JOIN payment_card c ON c.user_id = user.id";
+            "JOIN role ON user.role_id=role.id";
     private static final String GET_BY_LOGIN = GET_ALL + " WHERE login LIKE ?";
     private static final String GET_BY_EMAIL = GET_ALL + " WHERE email LIKE ?";
     private static final String GET_BY_ID = GET_ALL + " WHERE id LIKE ?";
@@ -74,8 +73,8 @@ public class UserDaoImpl implements UserDao {
         {
             statement.setString(1, login);
             ResultSet resultSet = statement.executeQuery();
-
-            user = Optional.of(getUserFromResultSet(resultSet));
+            if (resultSet.next())
+                user = Optional.of(getUserFromResultSet(resultSet));
         } catch(SQLException e){
             throw new DaoException("Error getting all users data ", e);
         }

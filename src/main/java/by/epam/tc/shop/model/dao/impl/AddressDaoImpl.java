@@ -26,9 +26,11 @@ public class AddressDaoImpl implements AdderssDao {
         List<Address> addresses = new ArrayList<>();
 
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
-             PreparedStatement statement = connection.prepareStatement(GET_BY_USER_ID);
-             ResultSet resultSet = statement.executeQuery())
+             PreparedStatement statement = connection.prepareStatement(GET_BY_USER_ID))
         {
+            statement.setInt(1, userId);
+            ResultSet resultSet = statement.executeQuery();
+
             while(resultSet.next()){
                    addresses.add(new Address(
                            resultSet.getInt(ColumnNames.ADDRESS_ID),

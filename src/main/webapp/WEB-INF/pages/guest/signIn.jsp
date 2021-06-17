@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page contentType="text/html" pageEncoding="UTF-8" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <fmt:setLocale value="${currentLocale}"/>
 <fmt:setBundle basename="l10n.text"/>
@@ -24,10 +24,9 @@
             <input type="password" name="password" class="form-control" id="inputPassword"
                    placeholder="<fmt:message key="signup.passwordPlaceholder"/>" required pattern="^[\w]{3,20}$">
         </div>
-        <label style="color: red">${errorSignInMessage}</label>
-        <br/>
+        <label style="color: red">${errorSignInMessage}</label><br/>
         <button type="submit" name="command" value="sign_in" class="btn btn-primary">
-            <fmt:message key="signup.signin"/>
+            <fmt:message key="header.sign_in"/>
         </button>
     </form>
 </div>

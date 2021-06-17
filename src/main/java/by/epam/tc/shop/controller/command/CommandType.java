@@ -32,6 +32,11 @@ public enum CommandType {
         {
             this.command = new SignUpCommand();
         }
+    },
+    SEARCH{
+        {
+            this.command = new SearchCommand();
+        }
     };
 
     Command command;

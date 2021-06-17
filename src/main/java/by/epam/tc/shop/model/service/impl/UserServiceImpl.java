@@ -37,7 +37,7 @@ public class UserServiceImpl implements UserService  {
                 }
                 Optional<String> encryptedPassword = PasswordEncryptor.encryptPassword(password);
                 if (encryptedPassword.isPresent()){
-                    isCreated = userDao.add(1, email, login, encryptedPassword.get());
+                    isCreated = userDao.add(2, email, login, encryptedPassword.get());
                 }
             }
         } catch (DaoException e){

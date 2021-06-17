@@ -23,14 +23,14 @@ public class SignUpCommand implements Command {
         String login = request.getParameter(RequestParameter.LOGIN);
         String email = request.getParameter(RequestParameter.EMAIL);
         String password = request.getParameter(RequestParameter.PASSWORD);
-        String password2 = request.getParameter(RequestParameter.CONFIRM);
+        String password2 = request.getParameter(RequestParameter.CONFIRM_PASSWORD);
 
         if (!password.equals(password2)) {
             page = PagePath.SIGN_UP;
             request.setAttribute(RequestAttribute.SIGN_UP_ERROR, "Passwords do not match!");
         } else {
             try {
-                boolean isUserCreated = userService.createUser(email, login, password);
+                boolean isUserCreated = userService.createUser(login, password, email);
                 if (isUserCreated) {
                     page = PagePath.MAIN;
                 } else {

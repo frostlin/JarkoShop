@@ -90,7 +90,8 @@ public class UserDaoImpl implements UserDao {
             statement.setString(1, email);
             ResultSet resultSet = statement.executeQuery();
 
-            user =  Optional.of(getUserFromResultSet(resultSet));
+            if (resultSet.next())
+                user =  Optional.of(getUserFromResultSet(resultSet));
         } catch(SQLException e){
             throw new DaoException("Error getting all users data ", e);
         }
@@ -106,7 +107,8 @@ public class UserDaoImpl implements UserDao {
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
 
-            user = Optional.of(getUserFromResultSet(resultSet));
+            if (resultSet.next())
+                user = Optional.of(getUserFromResultSet(resultSet));
         } catch(SQLException e){
             throw new DaoException("Error getting all users data ", e);
         }

@@ -9,7 +9,7 @@
     <title>Title</title>
 </head>
 <body>
-<jsp:include page="../modules/header.jsp"/>
+<jsp:include page="modules/header.jsp"/>
 
 <label style="color: red">${searchResult}</label><br/>
         this is search

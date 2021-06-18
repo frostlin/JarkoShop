@@ -4,16 +4,24 @@
 
 <fmt:setLocale value="${currentLocale}"/>
 <fmt:setBundle basename="l10n.text"/>
-
-<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
-
     <title>main</title>
 </head>
 <body>
-    <jsp:include page="../modules/header.jsp"/>
+    <jsp:include page="modules/header.jsp"/>
+    <div class="container">
+    <div class="row">
+        <div class="col">
+
+        </div>
+        <div class="col-6">
+            <h1><fmt:message key="main.greeting"/></h1>
+
+        </div>
+    </div>
+    </div>
 
 
     <c:choose>
@@ -24,9 +32,7 @@
             user
         </c:when>
     </c:choose>
-    <br/>
-    <h1><fmt:message key="main.greeting"/></h1>
-    <br/>
+
 
 </body>
 </html>

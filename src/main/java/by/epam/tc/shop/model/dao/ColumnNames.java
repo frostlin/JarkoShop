@@ -23,22 +23,23 @@ public class ColumnNames {
     public static final String INDEX = "index";
 
     public static final String PRODUCT_ID = "product.id";
-    public static final String PRICE = "product.id";
-    public static final String MODEL = "product.id";
-    public static final String PRODUCT_DESCRIPTION = "product.id";
-    public static final String WARRANTY = "product.id";
-    public static final String STOCK_AMOUNT = "product.id";
+    public static final String PRICE = "product.price";
+    public static final String MODEL = "product.model";
+    public static final String PRODUCT_DESCRIPTION = "product.description";
+    public static final String WARRANTY = "product.warranty";
+    public static final String STOCK_AMOUNT = "product.stock_amount";
     public static final String BRAND_NAME = "brand.name";
-    public static final String CATEGORY_ID = "product.id";
-    public static final String CATEGORY_NAME = "product.id";
-    public static final String CATEGORY_DESCRIPTION = "product.id";
+
+    public static final String CATEGORY_ID = "category.id";
+    public static final String CATEGORY_NAME = "category.name";
+    public static final String CATEGORY_DESCRIPTION = "category.description";
 
     public static final String PHOTO_PATH = "photo.path";
 
     public static final String CHARACTERISTIC_ID = "product_characteristic.id";
-    public static final String CHARACTERISTIC_NAME = "product_characteristic.value";
-    public static final String CHARACTERISTIC_DESCRIPTION = "characteristic.path";
-    public static final String CHARACTERISTIC_VALUE = "photo.path";
+    public static final String CHARACTERISTIC_NAME = "characteristic.name";
+    public static final String CHARACTERISTIC_DESCRIPTION = "characteristic.description";
+    public static final String CHARACTERISTIC_VALUE = "product_characteristic.value";
 
 
 

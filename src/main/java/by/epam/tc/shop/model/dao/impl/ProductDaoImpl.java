@@ -27,18 +27,19 @@ public class ProductDaoImpl implements ProductDao {
         "JOIN category ON product.category_id=category.id " +
         "LIMIT ?, ?";
     private static final String GET_PHOTOS = "SELECT path FROM photo WHERE product_id LIKE ?";
+    private static final String GET_PRODUCT_COUNT = "SELECT COUNT(id) AS recordCount FROM product";
 
     private ProductDaoImpl() {}
     public static ProductDaoImpl getInstance(){ return instance; }
 
     @Override
-    public List<Product> getRange(int start, int end) throws DaoException {
+    public List<Product> getRange(int start, int offset) throws DaoException {
         List<Product> products = new ArrayList<>();
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
              PreparedStatement statement = connection.prepareStatement(GET_RANGE))
         {
             statement.setInt(1, start);
-            statement.setInt(2, end);
+            statement.setInt(2, offset);
 
             ResultSet resultSet = statement.executeQuery();
             while(resultSet.next())
@@ -49,20 +50,37 @@ public class ProductDaoImpl implements ProductDao {
         return products;
     }
 
+    @Override
+    public int getProductCount() throws DaoException {
+        int size = 0;
+
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(GET_PRODUCT_COUNT);
+             ResultSet resultSet = statement.executeQuery())
+        {
+            if (resultSet.next())
+                size = resultSet.getInt("recordCount");
+        } catch(SQLException e){
+            throw new DaoException("Error getting all users data ", e);
+        }
+
+        return size;
+    }
+
     private Product getProductFromResultSet(ResultSet resultSet) throws SQLException, DaoException{
         Product product = new Product();
 
         int id =             resultSet.getInt(ColumnNames.PRODUCT_ID);
         float price =        resultSet.getFloat(ColumnNames.PRICE);
         String model =       resultSet.getString(ColumnNames.MODEL);
-        String productDesc = resultSet.getString(ColumnNames.PRODUCT_DESCRIPTION);;
+        String productDesc = resultSet.getString(ColumnNames.PRODUCT_DESCRIPTION);
         int warranty =       resultSet.getInt(ColumnNames.WARRANTY);
         int stock =          resultSet.getInt(ColumnNames.STOCK_AMOUNT);
         String brandName =   resultSet.getString(ColumnNames.BRAND_NAME);
 
         int categoryId =      resultSet.getInt(ColumnNames.CATEGORY_ID);
-        String categoryName = resultSet.getString(ColumnNames.LASTNAME);
-        String categoryDesc = resultSet.getString(ColumnNames.TELEPHONE);
+        String categoryName = resultSet.getString(ColumnNames.CATEGORY_NAME);
+        String categoryDesc = resultSet.getString(ColumnNames.CATEGORY_DESCRIPTION);
 
 
         product.setId(id);

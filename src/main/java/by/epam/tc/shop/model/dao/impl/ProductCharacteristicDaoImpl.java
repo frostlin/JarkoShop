@@ -18,13 +18,12 @@ public class ProductCharacteristicDaoImpl implements ProductCharacteristicDao {
     private static final ProductCharacteristicDaoImpl instance = new ProductCharacteristicDaoImpl();
 
     private static final String GET_ALL =
-            "SELECT pc.id, c.name, c.description, pc.value " +
-                    "FROM product_characteristic pc " +
-                    "JOIN characteristic ch ON pc.characteristic_id=ch.id " +
-                    "JOIN category c ON ch.category_id=c.id " +
-                    "WHERE pc.product_id LIKE ? " +
-                    "AND ch.category_id IN ( " +
-                    "   SELECT c.id FROM c WHERE c.id LIKE ?)";
+            "SELECT characteristic.name, characteristic.description, product_characteristic.value " +
+                    "FROM product_characteristic " +
+                    "JOIN characteristic ON product_characteristic.characteristic_id=characteristic.id " +
+                    "WHERE product_characteristic.product_id LIKE ? " +
+                    "AND characteristic.category_id IN ( " +
+                    "   SELECT category.id FROM category WHERE category.id LIKE ?)";
 
     private ProductCharacteristicDaoImpl() {}
     public static ProductCharacteristicDaoImpl getInstance(){ return instance; }
@@ -51,12 +50,10 @@ public class ProductCharacteristicDaoImpl implements ProductCharacteristicDao {
     private ProductCharacteristic getProductCharacteristicsFromResultSet(ResultSet resultSet) throws SQLException, DaoException{
         ProductCharacteristic characteristic = new ProductCharacteristic();
 
-        int id =       resultSet.getInt(ColumnNames.CHARACTERISTIC_ID);
         String desc =  resultSet.getString(ColumnNames.CHARACTERISTIC_DESCRIPTION);
         String name =  resultSet.getString(ColumnNames.CHARACTERISTIC_NAME);
         String value = resultSet.getString(ColumnNames.CHARACTERISTIC_VALUE);;
 
-        characteristic.setId(id);
         characteristic.setDescription(desc);
         characteristic.setName(name);
         characteristic.setValue(value);

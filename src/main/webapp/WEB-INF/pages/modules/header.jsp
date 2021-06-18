@@ -7,7 +7,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
     <meta charset="utf-8">
     <meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
     <link href="${pageContext.request.contextPath}/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
@@ -15,11 +14,19 @@
 <body>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
     <a class="btn navbar-brand" style="color: #007bff;" href="controller?command=to_main">
         <fmt:message key="header.brand"/>
     </a>
     <div class="collapse navbar-collapse">
         <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <form action="controller" method="post" class="my-auto">
+                    <button class="btn btn-outline-primary mx-1" type="submit" name="command" value="to_catalog">
+                        <fmt:message key="header.catalog"/>
+                    </button>
+                </form>
+            </li>
             <li>
                 <div class="d-flex flex-row justify-content-end align-items-center pr-0">
                     <form class="form-inline my-2 my-lg-0" action="controller" method="post">
@@ -47,20 +54,22 @@
                 </div>
             </form>
         </div>
-        <div class="d-flex flex-row justify-content-end align-items-center pr-0">
-            <form action="controller" method="post" class="my-auto">
-                <button class="btn btn-outline-primary mx-1" type="submit" name="command" value="to_sign_in">
-                    <fmt:message key="header.sign_in"/>
-                </button>
-            </form>
-            <form action="controller" method="post" class="my-auto">
-                <button class="btn btn-primary mx-1" type="submit" name="command" value="to_sign_up">
-                    <fmt:message key="header.sign_up"/>
-                </button>
-            </form>
-        </div>
+        <c:if test="${role.equals('guest')}">
+            <div class="d-flex flex-row justify-content-end align-items-center pr-0">
+                <form action="controller" method="post" class="my-auto">
+                    <button class="btn btn-outline-primary mx-1" type="submit" name="command" value="to_sign_in">
+                        <fmt:message key="header.sign_in"/>
+                    </button>
+                </form>
+                <form action="controller" method="post" class="my-auto">
+                    <button class="btn btn-primary mx-1" type="submit" name="command" value="to_sign_up">
+                        <fmt:message key="header.sign_up"/>
+                    </button>
+                </form>
+            </div>
+        </c:if>
     </div>
-
+    </div>
 </nav>
 <script type="text/javascript" src="${pageContext.request.contextPath}/assets/bootstrap/js/jquery.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/assets/bootstrap/js/bootstrap.bundle.min.js"></script>

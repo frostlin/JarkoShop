@@ -8,4 +8,5 @@ public interface ProductDao {
 
     public List<Product> getRange(int page, int recordsPerPage) throws DaoException;
 
+    public int getProductCount() throws DaoException;
 }

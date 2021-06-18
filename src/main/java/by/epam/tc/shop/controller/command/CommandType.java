@@ -37,6 +37,11 @@ public enum CommandType {
         {
             this.command = new SearchCommand();
         }
+    },
+    TO_CATALOG{
+        {
+            this.command = new ToCatalogCommand();
+        }
     };
 
     Command command;

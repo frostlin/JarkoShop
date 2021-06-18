@@ -6,9 +6,11 @@ public class RequestParameter {
 
     public static final String LOGIN = "login";
     public static final String PASSWORD = "password";
-    public static final String CONFIRM = "confirmedPassword";
+    public static final String CONFIRM_PASSWORD = "confirmedPassword";
     public static final String EMAIL = "email";
+
     public static final String SEARCH_STRING = "searchString";
+    public static final String NEXT_PRODUCT_PAGE = "nextProductPage";
 
     private RequestParameter(){}
 }

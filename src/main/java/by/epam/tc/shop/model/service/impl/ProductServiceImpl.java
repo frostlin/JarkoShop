@@ -16,14 +16,18 @@ public class ProductServiceImpl implements ProductService {
     public List<Product> getProductPage(int pageNumber, int recordsPerPage) throws ServiceException {
         try {
             int start = (pageNumber - 1) * recordsPerPage;
-            int end = (pageNumber - 1) * recordsPerPage + recordsPerPage;
-
-            return productDao.getRange(start, end);
+            return productDao.getRange(start, recordsPerPage);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
-
     }
 
-
+    @Override
+    public int getProductCount() throws ServiceException {
+        try {
+            return productDao.getProductCount();
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
 }

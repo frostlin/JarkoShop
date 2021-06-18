@@ -17,20 +17,25 @@ public enum Access {
             TO_SIGN_IN,
             TO_SIGN_UP,
             TO_MAIN,
+            TO_CATALOG,
             CHANGE_LOCALE,
             SEARCH
     ).map(CommandType::getCommand).collect(Collectors.toSet())),
 
     USER(Stream.of(
             TO_MAIN,
+            TO_CATALOG,
             CHANGE_LOCALE,
             SEARCH
+
     ).map(CommandType::getCommand).collect(Collectors.toSet())),
 
     ADMIN(Stream.of(
             TO_MAIN,
+            TO_CATALOG,
             CHANGE_LOCALE,
             SEARCH
+
     ).map(CommandType::getCommand).collect(Collectors.toSet()));
 
     private final Set<Command> commands;

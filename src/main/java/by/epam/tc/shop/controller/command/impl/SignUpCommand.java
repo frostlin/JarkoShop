@@ -27,7 +27,7 @@ public class SignUpCommand implements Command {
 
         if (!password.equals(password2)) {
             page = PagePath.SIGN_UP;
-            request.setAttribute(RequestAttribute.SIGN_UP_ERROR, "Passwords do not match!");
+            request.setAttribute(RequestAttribute.SIGN_UP_ERROR, "signup.passwordsNotMatching");
         } else {
             try {
                 boolean isUserCreated = userService.createUser(login, password, email);
@@ -35,15 +35,13 @@ public class SignUpCommand implements Command {
                     page = PagePath.MAIN;
                 } else {
                     page = PagePath.SIGN_UP;
-                    request.setAttribute(RequestAttribute.SIGN_UP_ERROR, "Error registering user");
+                    request.setAttribute(RequestAttribute.SIGN_UP_ERROR, "signup.incorrectSignup");
                 }
             } catch (ServiceException e) {
                 logger.error("Error occurred while sign up user", e);
                 page = PagePath.HOME;
             }
         }
-
-
         return page;
     }
 }

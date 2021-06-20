@@ -1,5 +1,7 @@
 <%@ page contentType="text/html" pageEncoding="UTF-8" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <fmt:setLocale value="${currentLocale}"/>
 <fmt:setBundle basename="l10n.text"/>
 <html>
@@ -21,11 +23,9 @@
         <input type="text" name = "login" id="inputLogin" class="form-control" placeholder="<fmt:message key="signup.loginPlaceholder"/>" required autofocus pattern="^(?=.*[A-Za-z0-9]$)[A-Za-z][\w.-]{0,19}$">
         <label for="inputPassword" class="sr-only">Password</label>
         <input type="password" name="password" id="inputPassword" class="form-control" placeholder="<fmt:message key="signup.passwordPlaceholder"/>" required pattern="^[\w]{3,20}$">
-        <div class="checkbox mb-3">
-            <label>
-                <input type="checkbox" value="remember-me"> Remember me
-            </label>
-        </div>
+        <c:if test="${errorSignInMessageKey != null}">
+            <label style="color: red"><fmt:message key="${errorSignInMessageKey}"/></label>
+        </c:if>
         <button class="btn btn-lg btn-primary btn-block" type="submit" name="command" value="sign_in">
             <fmt:message key="header.sign_in"/>
         </button>

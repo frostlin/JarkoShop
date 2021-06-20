@@ -31,13 +31,13 @@ public class SignInCommand implements Command {
             if (user.isPresent()) {
                 HttpSession session = request.getSession();
 
-                session.setAttribute(SessionAttribute.LOGIN, login);
+                session.setAttribute(SessionAttribute.CURRENT_USER, user.get());
                 session.setAttribute(SessionAttribute.ROLE, user.get().getRole().getRoleName());
 
                 page = PagePath.MAIN;
             } else {
                 page = PagePath.SIGN_IN;
-                request.setAttribute(RequestAttribute.SIGN_IN_ERROR, "Incorrect login or password");
+                request.setAttribute(RequestAttribute.SIGN_IN_ERROR, "signup.incorrectSignin");
             }
         } catch (ServiceException e) {
             logger.error("Error occurred while sign in user", e);

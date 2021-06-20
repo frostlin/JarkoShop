@@ -1,5 +1,7 @@
 <%@ page contentType="text/html" pageEncoding="UTF-8" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <fmt:setLocale value="${currentLocale}"/>
 <fmt:setBundle basename="l10n.text"/>
 <html>
@@ -9,12 +11,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-<jsp:include page="../modules/header.jsp"/>
+<jsp:include page="modules/header.jsp"/>
 
 <div class="container justify-content-center" style="width: 380px; margin-left: auto; margin-right: auto">
     <form action="controller" method="post">
         <br/>
         <br/>
+
         <div class="form-group">
             <input type="email" name="email" class="form-control" id="inputEmail" aria-describedby="emailHelp"
                    placeholder="<fmt:message key="signup.emailPlaceholder"/>" required pattern="^[\w\.]{3,13}@\w{3,10}\.\w{2,5}$">
@@ -31,7 +34,9 @@
             <input type="password" name="confirmedPassword" class="form-control" id="inputConfirmPassword"
                    placeholder="<fmt:message key="signup.passwordRepeatPlaceholder"/>" required pattern="^[\w]{3,20}$">
         </div>
-        <label style="color: red">${errorSignUpMessage}</label><br/>
+        <c:if test="${errorSignUpMessageKey != null}">
+            <label style="color: red"><fmt:message key="${errorSignUpMessageKey}"/></label>
+        </c:if>
         <button type="submit" name="command" value="sign_up" class="btn btn-primary">
             <fmt:message key="header.sign_up"/>
         </button>

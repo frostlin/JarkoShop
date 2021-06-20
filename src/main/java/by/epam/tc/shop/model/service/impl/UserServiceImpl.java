@@ -3,6 +3,7 @@ package by.epam.tc.shop.model.service.impl;
 import by.epam.tc.shop.model.dao.DaoException;
 import by.epam.tc.shop.model.dao.UserDao;
 import by.epam.tc.shop.model.dao.impl.UserDaoImpl;
+import by.epam.tc.shop.model.entity.CartItem;
 import by.epam.tc.shop.model.entity.User;
 import by.epam.tc.shop.model.service.ServiceException;
 import by.epam.tc.shop.model.service.UserService;
@@ -67,4 +68,23 @@ public class UserServiceImpl implements UserService  {
         return user;
     }
 
+    @Override
+    public boolean addProductToCart(int productId, int userId) throws ServiceException{
+        boolean isAdded = false;
+        try {
+            isAdded = userDao.addCartItem(productId, userId);
+        } catch (DaoException e){
+            throw new ServiceException(e);
+        }
+        return isAdded;
+    }
+
+    @Override
+    public CartItem getCartItem(int productId, int userId) throws ServiceException{
+        try {
+            return userDao.getCartItem(productId, userId);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
 }

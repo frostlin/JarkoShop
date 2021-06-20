@@ -2,17 +2,15 @@ package by.epam.tc.shop.model.dao.impl;
 
 import by.epam.tc.shop.model.dao.ColumnNames;
 import by.epam.tc.shop.model.dao.DaoException;
-import by.epam.tc.shop.model.dao.ProductCharacteristicDao;
 import by.epam.tc.shop.model.dao.ProductDao;
-import by.epam.tc.shop.model.entity.Address;
 import by.epam.tc.shop.model.entity.Product;
 import by.epam.tc.shop.model.entity.User;
-import by.epam.tc.shop.model.entity.UserRole;
 import by.epam.tc.shop.model.pool.ConnectionPool;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class ProductDaoImpl implements ProductDao {
 
@@ -20,13 +18,15 @@ public class ProductDaoImpl implements ProductDao {
     private static final ProductCharacteristicDaoImpl characteristicDao = ProductCharacteristicDaoImpl.getInstance();
 
     private static final String ADD = "INSERT INTO user (role_id,email,login,password) VALUES (?,?,?,?)";
-    private static final String GET_RANGE =
-        "SELECT product.id,price,model,product.description,warranty,stock_amount,brand.name,category.id,category.name,category.description " +
-        "FROM product " +
-        "JOIN brand ON product.brand_id=brand.id " +
-        "JOIN category ON product.category_id=category.id " +
-        "LIMIT ?, ?";
+
+    private static final String GET_ALL =
+            "SELECT product.id,price,model,product.description,warranty,stock_amount,brand.name,category.id,category.name,category.description " +
+                    "FROM product " +
+                    "JOIN brand ON product.brand_id=brand.id " +
+                    "JOIN category ON product.category_id=category.id";
+    private static final String GET_RANGE = GET_ALL + " ORDER BY product.id LIMIT ?, ?";
     private static final String GET_PHOTOS = "SELECT path FROM photo WHERE product_id LIKE ?";
+    private static final String GET_BY_ID = GET_ALL + " WHERE product.id LIKE ?";
     private static final String GET_PRODUCT_COUNT = "SELECT COUNT(id) AS recordCount FROM product";
 
     private ProductDaoImpl() {}
@@ -49,6 +49,23 @@ public class ProductDaoImpl implements ProductDao {
         }
         return products;
     }
+
+    public Product getById(int id) throws DaoException {
+        Product product = null;
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(GET_BY_ID);)
+        {
+            statement.setInt(1, id);
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next())
+                product = getProductFromResultSet(resultSet);
+        } catch(SQLException e){
+            throw new DaoException("Error getting product by id=" + id, e);
+        }
+        return product;
+    }
+
 
     @Override
     public int getProductCount() throws DaoException {

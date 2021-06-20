@@ -23,6 +23,15 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public Product getProductById(int id) throws ServiceException {
+        try {
+            return productDao.getById(id);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
     public int getProductCount() throws ServiceException {
         try {
             return productDao.getProductCount();

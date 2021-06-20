@@ -1,5 +1,6 @@
 package by.epam.tc.shop.controller.filter;
 
+import by.epam.tc.shop.controller.PagePath;
 import by.epam.tc.shop.controller.RequestParameter;
 import by.epam.tc.shop.controller.SessionAttribute;
 import by.epam.tc.shop.controller.command.Command;
@@ -28,6 +29,10 @@ public class AccessFilter implements Filter {
         HttpServletResponse response = (HttpServletResponse) servletResponse;
         HttpSession session = request.getSession();
 
+        if (session.getAttribute(SessionAttribute.ROLE) == null) {
+            session.setAttribute(SessionAttribute.ROLE, "guest");
+        }
+
         String commandName = request.getParameter(RequestParameter.COMMAND);
         Command command = CommandProvider.defineCommand(commandName);
 
@@ -46,9 +51,9 @@ public class AccessFilter implements Filter {
             case ADMIN -> Access.ADMIN.getCommands();
         };
         if (!commands.contains(command)) {
-            logger.error("Role {} has no access to {} command", roleName, commandName);
-            response.sendError(ACCESS_FORBIDDEN_ERROR);
-            return;
+            logger.info("Role {} tried to access {} command", roleName, commandName);
+            RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher(PagePath.SIGN_IN);
+            dispatcher.forward(request, response);
         }
         chain.doFilter(servletRequest, servletResponse);
     }

@@ -42,6 +42,16 @@ public enum CommandType {
         {
             this.command = new ToCatalogCommand();
         }
+    },
+    TO_CART{
+        {
+            this.command = new ToCartCommand();
+        }
+    },
+    ADD_TO_CART{
+        {
+            this.command = new AddToCartCommand();
+        }
     };
 
     Command command;

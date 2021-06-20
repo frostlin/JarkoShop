@@ -12,6 +12,7 @@ public class User implements Serializable {
     private String email;
     private UserRole role;
     private List<Address> addresses;
+    private List<CartItem> cart;
 
     private String login;
     private String password;
@@ -46,6 +47,29 @@ public class User implements Serializable {
         this.lastname = lastname;
         this.telephone = telephone;
         this.dateRegistered = dateRegistered;
+    }
+
+    public User(int id, String email, UserRole role, List<Address> addresses, List<CartItem> cart, String login, String password, String surname, String name, String lastname, String telephone, Date dateRegistered) {
+        this.id = id;
+        this.email = email;
+        this.role = role;
+        this.addresses = addresses;
+        this.cart = cart;
+        this.login = login;
+        this.password = password;
+        this.surname = surname;
+        this.name = name;
+        this.lastname = lastname;
+        this.telephone = telephone;
+        this.dateRegistered = dateRegistered;
+    }
+
+    public List<CartItem> getCart() {
+        return cart;
+    }
+
+    public void setCart(List<CartItem> cart) {
+        this.cart = cart;
     }
 
     public UserRole getRole() {
@@ -140,22 +164,13 @@ public class User implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         User user = (User) o;
-        return id == user.id
-                && Objects.equals(email, user.email)
-                && Objects.equals(login, user.login)
-                && Objects.equals(password, user.password)
-                && Objects.equals(surname, user.surname)
-                && Objects.equals(name, user.name)
-                && Objects.equals(lastname, user.lastname)
-                && Objects.equals(telephone, user.telephone)
-                && Objects.equals(dateRegistered, user.dateRegistered);
+        return id == user.id && Objects.equals(email, user.email) && role == user.role && Objects.equals(addresses, user.addresses) && Objects.equals(cart, user.cart) && Objects.equals(login, user.login) && Objects.equals(password, user.password) && Objects.equals(surname, user.surname) && Objects.equals(name, user.name) && Objects.equals(lastname, user.lastname) && Objects.equals(telephone, user.telephone) && Objects.equals(dateRegistered, user.dateRegistered);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, email, login, password, surname, name, lastname, telephone, dateRegistered);
+        return Objects.hash(id, email, role, addresses, cart, login, password, surname, name, lastname, telephone, dateRegistered);
     }
 
     @Override
@@ -163,6 +178,9 @@ public class User implements Serializable {
         return "User{" +
                 "id=" + id +
                 ", email='" + email + '\'' +
+                ", role=" + role +
+                ", addresses=" + addresses +
+                ", cart=" + cart +
                 ", login='" + login + '\'' +
                 ", password='" + password + '\'' +
                 ", surname='" + surname + '\'' +

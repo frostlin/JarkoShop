@@ -26,16 +26,18 @@ public enum Access {
             TO_MAIN,
             TO_CATALOG,
             CHANGE_LOCALE,
-            SEARCH
-
+            SEARCH,
+            TO_CART,
+            ADD_TO_CART
     ).map(CommandType::getCommand).collect(Collectors.toSet())),
 
     ADMIN(Stream.of(
             TO_MAIN,
             TO_CATALOG,
             CHANGE_LOCALE,
-            SEARCH
-
+            SEARCH,
+            TO_CART,
+            ADD_TO_CART
     ).map(CommandType::getCommand).collect(Collectors.toSet()));
 
     private final Set<Command> commands;

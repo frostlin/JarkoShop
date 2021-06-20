@@ -17,7 +17,7 @@ import java.util.List;
 public class ProductCharacteristicDaoImpl implements ProductCharacteristicDao {
     private static final ProductCharacteristicDaoImpl instance = new ProductCharacteristicDaoImpl();
 
-    private static final String GET_ALL =
+    private static final String GET_PRODUCT_CHARACTERISTICS =
             "SELECT characteristic.name, characteristic.description, product_characteristic.value " +
                     "FROM product_characteristic " +
                     "JOIN characteristic ON product_characteristic.characteristic_id=characteristic.id " +
@@ -32,7 +32,7 @@ public class ProductCharacteristicDaoImpl implements ProductCharacteristicDao {
     public List<ProductCharacteristic> getProductCharacteristics(int productId, int categoryId) throws DaoException {
         List<ProductCharacteristic> characteristics = new ArrayList<>();
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
-             PreparedStatement statement = connection.prepareStatement(GET_ALL))
+             PreparedStatement statement = connection.prepareStatement(GET_PRODUCT_CHARACTERISTICS))
         {
             statement.setInt(1, productId);
             statement.setInt(2, categoryId);

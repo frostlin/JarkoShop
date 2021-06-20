@@ -7,5 +7,6 @@ public class PagePath {
         public static final String SIGN_UP = "/WEB-INF/pages/signUp.jsp";
         public static final String SEARCH_RESULT = "/WEB-INF/pages/searchResult.jsp";
         public static final String CATALOG = "/WEB-INF/pages/catalog.jsp";
+        public static final String CART = "/WEB-INF/pages/user/cart.jsp";
         private PagePath(){}
 }

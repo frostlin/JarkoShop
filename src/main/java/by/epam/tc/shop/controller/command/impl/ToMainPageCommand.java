@@ -22,6 +22,7 @@ public class ToMainPageCommand implements Command {
         if (session.getAttribute(SessionAttribute.ROLE) == null) {
             session.setAttribute(SessionAttribute.ROLE, "guest");
         }
+
         return PagePath.MAIN;
     }
 }

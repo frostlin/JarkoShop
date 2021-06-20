@@ -27,18 +27,8 @@
                     </button>
                 </form>
             </li>
-            <li>
-                <div class="d-flex flex-row justify-content-end align-items-center pr-0">
-                    <form class="form-inline my-2 my-lg-0" action="controller" method="post">
-                        <input class="form-control mr-sm-2" type="text" name="searchString" placeholder=<fmt:message key="header.search"/> aria-label="Search">
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit" name="command" value="search">
-                            <fmt:message key="header.search"/>
-                        </button>
-                    </form>
-                </div>
-            </li>
         </ul>
-        <div class="nav-item dropdown">
+        <div class="nav-item dropdown mt-3" style="vertical-align:middle">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <fmt:message key="header.language"/>
             </a>
@@ -54,20 +44,37 @@
                 </div>
             </form>
         </div>
-        <c:if test="${role.equals('guest')}">
-            <div class="d-flex flex-row justify-content-end align-items-center pr-0">
-                <form action="controller" method="post" class="my-auto">
-                    <button class="btn btn-outline-primary mx-1" type="submit" name="command" value="to_sign_in">
-                        <fmt:message key="header.sign_in"/>
+        <c:choose>
+            <c:when test="${role.equals('guest')}">
+                <div class="d-flex flex-row justify-content-end align-items-center pr-0">
+                    <form action="controller" method="post" class="my-auto">
+                        <button class="btn btn-outline-primary mx-1" type="submit" name="command" value="to_sign_in">
+                            <fmt:message key="header.sign_in"/>
+                        </button>
+                    </form>
+                    <form action="controller" method="post" class="my-auto">
+                        <button class="btn btn-primary mx-1" type="submit" name="command" value="to_sign_up">
+                            <fmt:message key="header.sign_up"/>
+                        </button>
+                    </form>
+                </div>
+            </c:when>
+            <c:otherwise>
+                <button class="btn btn-outline-primary mx-1" type="submit" name="command" value="to_cart">
+                    <fmt:message key="header.cart"/>
+                    <span class="badge badge-danger badge-pill mr-2"><c:out value="${currentUser.getCart().size()}"/></span>
+                </button>
+                <button class="btn btn-outline-primary mx-1" type="submit" name="command" value="to_profile">
+                    <fmt:message key="header.profile"/>
+                </button>
+                <c:if test="${role.equals('admin')}">
+                    <button class="btn btn-outline-primary mx-1" type="submit" name="command" value="to_dashboard">
+                        <fmt:message key="header.dashboard"/>
                     </button>
-                </form>
-                <form action="controller" method="post" class="my-auto">
-                    <button class="btn btn-primary mx-1" type="submit" name="command" value="to_sign_up">
-                        <fmt:message key="header.sign_up"/>
-                    </button>
-                </form>
-            </div>
-        </c:if>
+                </c:if>
+            </c:otherwise>
+        </c:choose>
+
     </div>
     </div>
 </nav>

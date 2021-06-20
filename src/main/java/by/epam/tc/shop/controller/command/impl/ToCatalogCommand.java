@@ -22,7 +22,7 @@ public class ToCatalogCommand implements Command {
         if (session.getAttribute(SessionAttribute.CURRENT_PRODUCT_PAGE) == null)
             session.setAttribute(SessionAttribute.CURRENT_PRODUCT_PAGE, 1);
         if (session.getAttribute(SessionAttribute.CURRENT_PRODUCT_PER_PAGE) == null)
-            session.setAttribute(SessionAttribute.CURRENT_PRODUCT_PER_PAGE, 4);
+            session.setAttribute(SessionAttribute.CURRENT_PRODUCT_PER_PAGE, 5);
 
         int pageNumber = (int)session.getAttribute(SessionAttribute.CURRENT_PRODUCT_PAGE);
         int productPerPage = (int)session.getAttribute(SessionAttribute.CURRENT_PRODUCT_PER_PAGE);

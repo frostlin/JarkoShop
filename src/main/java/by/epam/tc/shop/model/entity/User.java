@@ -13,6 +13,7 @@ public class User implements Serializable {
     private UserRole role;
     private List<Address> addresses;
     private List<CartItem> cart;
+    private List<PaymentCard> cards;
 
     private String login;
     private String password;
@@ -62,6 +63,14 @@ public class User implements Serializable {
         this.lastname = lastname;
         this.telephone = telephone;
         this.dateRegistered = dateRegistered;
+    }
+
+    public List<PaymentCard> getCards() {
+        return cards;
+    }
+
+    public void setCards(List<PaymentCard> cards) {
+        this.cards = cards;
     }
 
     public List<CartItem> getCart() {
@@ -165,12 +174,12 @@ public class User implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return id == user.id && Objects.equals(email, user.email) && role == user.role && Objects.equals(addresses, user.addresses) && Objects.equals(cart, user.cart) && Objects.equals(login, user.login) && Objects.equals(password, user.password) && Objects.equals(surname, user.surname) && Objects.equals(name, user.name) && Objects.equals(lastname, user.lastname) && Objects.equals(telephone, user.telephone) && Objects.equals(dateRegistered, user.dateRegistered);
+        return id == user.id && Objects.equals(email, user.email) && role == user.role && Objects.equals(addresses, user.addresses) && Objects.equals(cart, user.cart) && Objects.equals(cards, user.cards) && Objects.equals(login, user.login) && Objects.equals(password, user.password) && Objects.equals(surname, user.surname) && Objects.equals(name, user.name) && Objects.equals(lastname, user.lastname) && Objects.equals(telephone, user.telephone) && Objects.equals(dateRegistered, user.dateRegistered);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, email, role, addresses, cart, login, password, surname, name, lastname, telephone, dateRegistered);
+        return Objects.hash(id, email, role, addresses, cart, cards, login, password, surname, name, lastname, telephone, dateRegistered);
     }
 
     @Override
@@ -181,6 +190,7 @@ public class User implements Serializable {
                 ", role=" + role +
                 ", addresses=" + addresses +
                 ", cart=" + cart +
+                ", cards=" + cards +
                 ", login='" + login + '\'' +
                 ", password='" + password + '\'' +
                 ", surname='" + surname + '\'' +

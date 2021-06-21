@@ -2,46 +2,55 @@ package by.epam.tc.shop.model.dao;
 
 public class ColumnNames {
     public static final String USER_ID = "user.id";
-    public static final String EMAIL = "email";
-    public static final String ROLE_NAME = "role.name";
-    public static final String LOGIN = "login";
-    public static final String PASSWORD = "password";
-    public static final String SURNAME = "surname";
-    public static final String NAME = "name";
-    public static final String LASTNAME = "lastname";
-    public static final String TELEPHONE = "telephone";
-    public static final String DATE_REGISTERED = "date_registered";
+    public static final String USER_EMAIL = "email";
+    public static final String USER_ROLE_NAME = "role.name";
+    public static final String USER_LOGIN = "login";
+    public static final String USER_PASSWORD = "password";
+    public static final String USER_SURNAME = "surname";
+    public static final String USER_NAME = "name";
+    public static final String USER_LASTNAME = "lastname";
+    public static final String USER_TELEPHONE = "telephone";
+    public static final String USER_DATE_REGISTERED = "date_registered";
 
     public static final String ADDRESS_ID = "address.id";
     public static final String ADDRESS_USER_ID = "address.user_id";
-    public static final String COUNTRY = "country";
-    public static final String REGION = "region";
-    public static final String CITY = "city";
-    public static final String STREET = "street";
-    public static final String BUILDING = "building";
-    public static final String APARTMENT = "apartment";
-    public static final String INDEX = "index";
+    public static final String ADDRESS_COUNTRY = "country";
+    public static final String ADDRESS_REGION = "region";
+    public static final String ADDRESS_CITY = "city";
+    public static final String ADDRESS_STREET = "street";
+    public static final String ADDRESS_BUILDING = "building";
+    public static final String ADDRESS_APARTMENT = "apartment";
+    public static final String ADDRESS_INDEX = "index";
 
     public static final String PRODUCT_ID = "product.id";
-    public static final String PRICE = "product.price";
-    public static final String MODEL = "product.model";
-    public static final String PRODUCT_DESCRIPTION = "product.description";
-    public static final String WARRANTY = "product.warranty";
-    public static final String STOCK_AMOUNT = "product.stock_amount";
-    public static final String BRAND_NAME = "brand.name";
+    public static final String PRODUCT_PRICE = "product.price";
+    public static final String PRODUCT_MODEL = "product.model";
+    public static final String PRODUCT_PRODUCT_DESCRIPTION = "product.description";
+    public static final String PRODUCT_WARRANTY = "product.warranty";
+    public static final String PRODUCT_STOCK_AMOUNT = "product.stock_amount";
+    public static final String PRODUCT_BRAND_NAME = "brand.name";
+    public static final String PHOTO_PATH = "photo.path";
 
     public static final String CATEGORY_ID = "category.id";
     public static final String CATEGORY_NAME = "category.name";
     public static final String CATEGORY_DESCRIPTION = "category.description";
 
-    public static final String PHOTO_PATH = "photo.path";
 
     public static final String CHARACTERISTIC_ID = "product_characteristic.id";
     public static final String CHARACTERISTIC_NAME = "characteristic.name";
     public static final String CHARACTERISTIC_DESCRIPTION = "characteristic.description";
     public static final String CHARACTERISTIC_VALUE = "product_characteristic.value";
 
-
+    public static final String ORDER_ID = "order.id";
+    public static final String ORDER_USER_ID = "user_id";
+    public static final String ORDER_PAYMENT_METHOD = "method";
+    public static final String ORDER_ADDRESS_ID = "address_id";
+    public static final String ORDER_STATUS = "status";
+    public static final String ORDER_SUM_TO_PAY = "sum_to_pay";
+    public static final String ORDER_PAYED_SUM = "payed_sum";
+    public static final String ORDER_DATE_ORDERED = "date_ordered";
+    public static final String ORDER_DATE_SHIPPING = "date_shipping";
+    public static final String ORDER_COMMENT = "commend";
 
 
 

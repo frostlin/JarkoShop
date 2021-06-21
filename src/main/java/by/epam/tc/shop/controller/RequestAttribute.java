@@ -6,6 +6,8 @@ public class RequestAttribute {
     public static final String SEARCH_RESULT = "searchResult";
 
     public static final String ADD_PRODUCT_TO_CART_MESSAGE = "addProductMessageKey";
+    public static final String CART_PRICE = "cartPrice";
+    public static final String CART_ITEMS = "cartItems";
 
 
     public RequestAttribute(){};

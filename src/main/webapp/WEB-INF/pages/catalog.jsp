@@ -33,7 +33,7 @@
                         </form>
                     </div>
                     <c:if test="${addProductMessageKey != null}">
-                        <label style="color: red"><fmt:message key="${addProductMessageKey}"/></label>
+                        <label class="mt-1" style="color: red"><fmt:message key="${addProductMessageKey}"/></label>
                     </c:if>
                     <form class="form-inline my-2 my-lg-0" action="controller" method="post">
                         <input class="form-control mr-sm-2" type="text" name="searchString" placeholder=<fmt:message key="header.search"/> aria-label="Search">

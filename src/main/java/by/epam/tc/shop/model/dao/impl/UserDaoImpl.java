@@ -199,17 +199,17 @@ public class UserDaoImpl implements UserDao {
         User user = new User();
 
         int id = resultSet.getInt(ColumnNames.USER_ID);
-        String email = resultSet.getString(ColumnNames.EMAIL);
-        String role_name = resultSet.getString(ColumnNames.ROLE_NAME);
+        String email = resultSet.getString(ColumnNames.USER_EMAIL);
+        String role_name = resultSet.getString(ColumnNames.USER_ROLE_NAME);
         List<Address> addresses = addressDao.getByUser(id);
         List<CartItem> cart = getCart(id);
-        String login = resultSet.getString(ColumnNames.LOGIN);
-        String password = resultSet.getString(ColumnNames.PASSWORD);
-        String surname = resultSet.getString(ColumnNames.SURNAME);
-        String name = resultSet.getString(ColumnNames.NAME);
-        String lastname = resultSet.getString(ColumnNames.LASTNAME);
-        String telephone = resultSet.getString(ColumnNames.TELEPHONE);
-        Date dateRegistered = resultSet.getDate(ColumnNames.DATE_REGISTERED);
+        String login = resultSet.getString(ColumnNames.USER_LOGIN);
+        String password = resultSet.getString(ColumnNames.USER_PASSWORD);
+        String surname = resultSet.getString(ColumnNames.USER_SURNAME);
+        String name = resultSet.getString(ColumnNames.USER_NAME);
+        String lastname = resultSet.getString(ColumnNames.USER_LASTNAME);
+        String telephone = resultSet.getString(ColumnNames.USER_TELEPHONE);
+        Date dateRegistered = resultSet.getDate(ColumnNames.USER_DATE_REGISTERED);
 
         user.setId(id);
         user.setEmail(email);

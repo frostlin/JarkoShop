@@ -88,12 +88,12 @@ public class ProductDaoImpl implements ProductDao {
         Product product = new Product();
 
         int id =             resultSet.getInt(ColumnNames.PRODUCT_ID);
-        float price =        resultSet.getFloat(ColumnNames.PRICE);
-        String model =       resultSet.getString(ColumnNames.MODEL);
-        String productDesc = resultSet.getString(ColumnNames.PRODUCT_DESCRIPTION);
-        int warranty =       resultSet.getInt(ColumnNames.WARRANTY);
-        int stock =          resultSet.getInt(ColumnNames.STOCK_AMOUNT);
-        String brandName =   resultSet.getString(ColumnNames.BRAND_NAME);
+        float price =        resultSet.getFloat(ColumnNames.PRODUCT_PRICE);
+        String model =       resultSet.getString(ColumnNames.PRODUCT_MODEL);
+        String productDesc = resultSet.getString(ColumnNames.PRODUCT_PRODUCT_DESCRIPTION);
+        int warranty =       resultSet.getInt(ColumnNames.PRODUCT_WARRANTY);
+        int stock =          resultSet.getInt(ColumnNames.PRODUCT_STOCK_AMOUNT);
+        String brandName =   resultSet.getString(ColumnNames.PRODUCT_BRAND_NAME);
 
         int categoryId =      resultSet.getInt(ColumnNames.CATEGORY_ID);
         String categoryName = resultSet.getString(ColumnNames.CATEGORY_NAME);

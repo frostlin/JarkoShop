@@ -17,6 +17,7 @@ public class AddressDaoImpl implements AdderssDao {
     private static final AddressDaoImpl instance = new AddressDaoImpl();
 
     private static final String GET_BY_USER_ID = "SELECT * FROM address WHERE user_id LIKE ?";
+    private static final String GET_BY_ID = "SELECT * FROM address WHERE id LIKE ?";
 
     private AddressDaoImpl() {}
     public static AddressDaoImpl getInstance(){ return instance; }
@@ -34,13 +35,13 @@ public class AddressDaoImpl implements AdderssDao {
             while(resultSet.next()){
                    addresses.add(new Address(
                            resultSet.getInt(ColumnNames.ADDRESS_ID),
-                           resultSet.getString(ColumnNames.COUNTRY),
-                           resultSet.getString(ColumnNames.REGION),
-                           resultSet.getString(ColumnNames.CITY),
-                           resultSet.getString(ColumnNames.STREET),
-                           resultSet.getString(ColumnNames.BUILDING),
-                           resultSet.getString(ColumnNames.APARTMENT),
-                           resultSet.getString(ColumnNames.INDEX))
+                           resultSet.getString(ColumnNames.ADDRESS_COUNTRY),
+                           resultSet.getString(ColumnNames.ADDRESS_REGION),
+                           resultSet.getString(ColumnNames.ADDRESS_CITY),
+                           resultSet.getString(ColumnNames.ADDRESS_STREET),
+                           resultSet.getString(ColumnNames.ADDRESS_BUILDING),
+                           resultSet.getString(ColumnNames.ADDRESS_APARTMENT),
+                           resultSet.getString(ColumnNames.ADDRESS_INDEX))
                    );
             }
             return addresses;
@@ -48,4 +49,32 @@ public class AddressDaoImpl implements AdderssDao {
             throw new DaoException("Error getting addresses for userId " + userId, e);
         }
     }
+    @Override
+    public Address getById(int addressId) throws DaoException {
+        Address address = null;
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(GET_BY_ID))
+        {
+            statement.setInt(1, addressId);
+            ResultSet resultSet = statement.executeQuery();
+
+            if(resultSet.next()){
+                address = new Address(
+                        resultSet.getInt(ColumnNames.ADDRESS_ID),
+                        resultSet.getString(ColumnNames.ADDRESS_COUNTRY),
+                        resultSet.getString(ColumnNames.ADDRESS_REGION),
+                        resultSet.getString(ColumnNames.ADDRESS_CITY),
+                        resultSet.getString(ColumnNames.ADDRESS_STREET),
+                        resultSet.getString(ColumnNames.ADDRESS_BUILDING),
+                        resultSet.getString(ColumnNames.ADDRESS_APARTMENT),
+                        resultSet.getString(ColumnNames.ADDRESS_INDEX)
+                );
+            }
+            return address;
+        } catch (SQLException e){
+            throw new DaoException("Error getting address with id=" + addressId, e);
+        }
+    }
+
+
 }

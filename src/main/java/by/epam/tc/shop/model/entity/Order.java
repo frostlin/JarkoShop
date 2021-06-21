@@ -8,24 +8,52 @@ public class Order implements Serializable {
     private int id;
     private User user;
     private Address address;
+    private String paymentMethod;
 
     private String status;
-    private float totalSum;
+    private float sumToPay;
+    private float payedSum;
     private Date dateOrdered;
     private Date dateShipping;
     private String comment;
 
-    private Order(){}
+    public Order(){}
 
-    public Order(int id, User user, Address address, String status, float totalSum, Date dateOrdered, Date dateShipping, String comment) {
+    public Order(int id, User user, Address address, String paymentMethod, String status, float sumToPay, float payedSum, Date dateOrdered, Date dateShipping, String comment) {
         this.id = id;
         this.user = user;
         this.address = address;
+        this.paymentMethod = paymentMethod;
         this.status = status;
-        this.totalSum = totalSum;
+        this.sumToPay = sumToPay;
+        this.payedSum = payedSum;
         this.dateOrdered = dateOrdered;
         this.dateShipping = dateShipping;
         this.comment = comment;
+    }
+
+    public String getPaymentMethod() {
+        return paymentMethod;
+    }
+
+    public void setPaymentMethod(String paymentMethod) {
+        this.paymentMethod = paymentMethod;
+    }
+
+    public float getSumToPay() {
+        return sumToPay;
+    }
+
+    public void setSumToPay(float sumToPay) {
+        this.sumToPay = sumToPay;
+    }
+
+    public float getPayedSum() {
+        return payedSum;
+    }
+
+    public void setPayedSum(float payedSum) {
+        this.payedSum = payedSum;
     }
 
     public int getId() {
@@ -60,14 +88,6 @@ public class Order implements Serializable {
         this.status = status;
     }
 
-    public float getTotalSum() {
-        return totalSum;
-    }
-
-    public void setTotalSum(float totalSum) {
-        this.totalSum = totalSum;
-    }
-
     public Date getDateOrdered() {
         return dateOrdered;
     }
@@ -97,19 +117,12 @@ public class Order implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Order order = (Order) o;
-        return id == order.id
-                && Float.compare(order.totalSum, totalSum) == 0
-                && Objects.equals(user, order.user)
-                && Objects.equals(address, order.address)
-                && Objects.equals(status, order.status)
-                && Objects.equals(dateOrdered, order.dateOrdered)
-                && Objects.equals(dateShipping, order.dateShipping)
-                && Objects.equals(comment, order.comment);
+        return id == order.id && Float.compare(order.sumToPay, sumToPay) == 0 && Float.compare(order.payedSum, payedSum) == 0 && Objects.equals(user, order.user) && Objects.equals(address, order.address) && Objects.equals(paymentMethod, order.paymentMethod) && Objects.equals(status, order.status) && Objects.equals(dateOrdered, order.dateOrdered) && Objects.equals(dateShipping, order.dateShipping) && Objects.equals(comment, order.comment);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, user, address, status, totalSum, dateOrdered, dateShipping, comment);
+        return Objects.hash(id, user, address, paymentMethod, status, sumToPay, payedSum, dateOrdered, dateShipping, comment);
     }
 
     @Override
@@ -118,8 +131,10 @@ public class Order implements Serializable {
                 "id=" + id +
                 ", user=" + user +
                 ", address=" + address +
+                ", paymentMethod='" + paymentMethod + '\'' +
                 ", status='" + status + '\'' +
-                ", totalSum=" + totalSum +
+                ", sumToPay=" + sumToPay +
+                ", payedSum=" + payedSum +
                 ", dateOrdered=" + dateOrdered +
                 ", dateShipping=" + dateShipping +
                 ", comment='" + comment + '\'' +

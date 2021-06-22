@@ -8,5 +8,6 @@ public class PagePath {
         public static final String SEARCH_RESULT = "/WEB-INF/pages/searchResult.jsp";
         public static final String CATALOG = "/WEB-INF/pages/catalog.jsp";
         public static final String CART = "/WEB-INF/pages/user/cart.jsp";
+        public static final String ADMIN_CONTROL_PANEL = "/WEB-INF/pages/admin/adminControlPanel.jsp";
         private PagePath(){}
 }

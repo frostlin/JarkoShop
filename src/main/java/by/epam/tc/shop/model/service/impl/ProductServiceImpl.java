@@ -23,6 +23,16 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public List<Product> getProductPageByCategory(int pageNumber, int recordsPerPage, int categoryId) throws ServiceException {
+        try {
+            int start = (pageNumber - 1) * recordsPerPage;
+            return productDao.getRange(start, recordsPerPage, categoryId);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
     public Product getProductById(int id) throws ServiceException {
         try {
             return productDao.getById(id);
@@ -35,6 +45,14 @@ public class ProductServiceImpl implements ProductService {
     public int getProductCount() throws ServiceException {
         try {
             return productDao.getProductCount();
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+    @Override
+    public int getProductCount(int categoryId) throws ServiceException {
+        try {
+            return productDao.getProductCount(categoryId);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }

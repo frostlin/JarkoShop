@@ -6,6 +6,7 @@ import by.epam.tc.shop.model.entity.ProductCharacteristic;
 import java.util.List;
 
 public interface ProductCharacteristicDao {
+    List<ProductCharacteristic> getProductCharacteristicsForCategory(int categoryId) throws DaoException;
     public List<ProductCharacteristic> getProductCharacteristics(int productId, int categoryId) throws DaoException;
 
 }

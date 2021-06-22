@@ -11,7 +11,10 @@ public class SessionAttribute {
     public static final String CURRENT_PRODUCT_PER_PAGE = "currentProductPerPage";
     public static final String PRODUCT_PAGE_COUNT = "productPageCount";
     public static final String TOTAL_PRODUCT_COUNT = "totalProductCount";
-    public static final String CATALOG_PAGE_PRODUCT_LIST = "productPageList";
+    public static final String CATALOG_PAGE_PRODUCTS = "productPageList";
+
+    public static final String CATEGORIES = "categories";
+    public static final String CURRENT_CATEGORY = "currentCategory";
     private SessionAttribute(){
     }
 }

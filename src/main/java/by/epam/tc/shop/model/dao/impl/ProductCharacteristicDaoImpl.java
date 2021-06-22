@@ -25,6 +25,10 @@ public class ProductCharacteristicDaoImpl implements ProductCharacteristicDao {
                     "AND characteristic.category_id IN ( " +
                     "   SELECT category.id FROM category WHERE category.id LIKE ?)";
 
+    private static final String GET_PRODUCT_CHARACTERISTICS_FOR_CATEGORY =
+            "SELECT characteristic.name, characteristic.description " +
+            "FROM characteristic WHERE category_id LIKE ?";
+
     private ProductCharacteristicDaoImpl() {}
     public static ProductCharacteristicDaoImpl getInstance(){ return instance; }
 
@@ -47,6 +51,24 @@ public class ProductCharacteristicDaoImpl implements ProductCharacteristicDao {
         return characteristics;
     }
 
+    @Override
+    public List<ProductCharacteristic> getProductCharacteristicsForCategory(int categoryId) throws DaoException {
+        List<ProductCharacteristic> characteristics = new ArrayList<>();
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(GET_PRODUCT_CHARACTERISTICS_FOR_CATEGORY))
+        {
+            statement.setInt(1 , categoryId);
+            ResultSet resultSet = statement.executeQuery();
+
+            while(resultSet.next())
+                characteristics.add(getProductCharacteristicsForCategoryFromResultSet(resultSet));
+
+        } catch(SQLException e){
+            throw new DaoException("Error getting all users data ", e);
+        }
+        return characteristics;
+    }
+
     private ProductCharacteristic getProductCharacteristicsFromResultSet(ResultSet resultSet) throws SQLException, DaoException{
         ProductCharacteristic characteristic = new ProductCharacteristic();
 
@@ -57,6 +79,18 @@ public class ProductCharacteristicDaoImpl implements ProductCharacteristicDao {
         characteristic.setDescription(desc);
         characteristic.setName(name);
         characteristic.setValue(value);
+
+        return characteristic;
+    }
+
+    private ProductCharacteristic getProductCharacteristicsForCategoryFromResultSet(ResultSet resultSet) throws SQLException, DaoException{
+        ProductCharacteristic characteristic = new ProductCharacteristic();
+
+        String desc =  resultSet.getString(ColumnNames.CHARACTERISTIC_DESCRIPTION);
+        String name =  resultSet.getString(ColumnNames.CHARACTERISTIC_NAME);
+
+        characteristic.setDescription(desc);
+        characteristic.setName(name);
 
         return characteristic;
     }

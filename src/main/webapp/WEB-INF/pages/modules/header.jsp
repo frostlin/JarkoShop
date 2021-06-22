@@ -10,6 +10,7 @@
     <meta charset="utf-8">
     <meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
     <link href="${pageContext.request.contextPath}/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
 </head>
 <body>
 
@@ -22,15 +23,28 @@
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
                 <form action="controller" method="post" class="my-auto">
-                    <button class="btn btn-outline-primary mx-1" type="submit" name="command" value="to_catalog">
-                        <fmt:message key="header.catalog"/>
-                    </button>
+                    <div class="btn-group">
+                        <button class="btn btn-primary mx-1" type="submit" name="currentCategory" value="0">
+                            <fmt:message key="header.catalog"/>
+                        </button>
+                        <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <div class="dropdown-menu">
+                            <c:forEach var="category" items="${categories}">
+                                <button class="dropdown-item" type="submit" name="currentCategory" value="${category.getId()}">
+                                    <fmt:message key="category.${category.getName()}"/></button>
+                            </c:forEach>
+                        </div>
+                        <input type="hidden" name="command" value="to_catalog">
+                    </div>
+
                 </form>
             </li>
         </ul>
         <div class="nav-item dropdown mt-3" style="vertical-align:middle">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <fmt:message key="header.language"/>
+                <i class='bx bx-world'></i>
             </a>
             <form action="controller" method="post">
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -60,6 +74,7 @@
                 </div>
             </c:when>
             <c:otherwise>
+            <form action="controller" method="post" class="my-auto">
                 <button class="btn btn-outline-primary mx-1" type="submit" name="command" value="to_cart">
                     <fmt:message key="header.cart"/>
                     <span class="badge badge-danger badge-pill mr-2"><c:out value="${currentUser.getCart().size()}"/></span>
@@ -68,10 +83,11 @@
                     <fmt:message key="header.profile"/>
                 </button>
                 <c:if test="${role.equals('admin')}">
-                    <button class="btn btn-outline-primary mx-1" type="submit" name="command" value="to_dashboard">
-                        <fmt:message key="header.dashboard"/>
+                    <button class="btn btn-outline-primary mx-1" type="submit" name="command" value="to_admin_control_panel">
+                        <fmt:message key="header.controlPanel"/>
                     </button>
                 </c:if>
+            </form>
             </c:otherwise>
         </c:choose>
 

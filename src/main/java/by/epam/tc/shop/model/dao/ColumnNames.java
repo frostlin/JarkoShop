@@ -34,6 +34,7 @@ public class ColumnNames {
     public static final String CATEGORY_ID = "category.id";
     public static final String CATEGORY_NAME = "category.name";
     public static final String CATEGORY_DESCRIPTION = "category.description";
+    public static final String CATEGORY_SUBCATEGORY_ID = "category.category_id";
 
 
     public static final String CHARACTERISTIC_ID = "product_characteristic.id";

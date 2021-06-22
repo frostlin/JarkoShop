@@ -9,39 +9,29 @@
     <title><fmt:message key="header.sign_up"/></title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="${pageContext.request.contextPath}/assets/style/signin.css" rel="stylesheet" type="text/css">
+
 </head>
-<body>
 <jsp:include page="modules/header.jsp"/>
 
+<body class="text-center">
 <div class="container justify-content-center" style="width: 380px; margin-left: auto; margin-right: auto">
-    <form action="controller" method="post">
-        <br/>
-        <br/>
+    <form class="form-signin" action="controller" method="post">
+        <img class="mb-4" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
+        <h1 class="h3 mb-3 font-weight-normal"><fmt:message key="header.sign_up"/></h1>
 
-        <div class="form-group">
-            <input type="email" name="email" class="form-control" id="inputEmail" aria-describedby="emailHelp"
-                   placeholder="<fmt:message key="signup.emailPlaceholder"/>" required pattern="^[\w\.]{3,13}@\w{3,10}\.\w{2,5}$">
-        </div>
-        <div class="form-group">
-            <input type="text" name="login" class="form-control" id="inputLogin" aria-describedby="loginHelp"
-                   placeholder="<fmt:message key="signup.loginPlaceholder"/>">
-        </div>
-        <div class="form-group">
-            <input type="password" name="password" class="form-control" id="inputPassword"
-                   placeholder="<fmt:message key="signup.passwordPlaceholder"/>" required pattern="^[\w]{3,20}$">
-        </div>
-        <div class="form-group">
-            <input type="password" name="confirmedPassword" class="form-control" id="inputConfirmPassword"
-                   placeholder="<fmt:message key="signup.passwordRepeatPlaceholder"/>" required pattern="^[\w]{3,20}$">
-        </div>
+        <input type="email" name = "email" id="inputEmail" class="form-control" placeholder="<fmt:message key="signup.emailPlaceholder"/>" required autofocus pattern="^[\w\.]{3,13}@\w{3,10}\.\w{2,5}$">
+        <input type="text" name = "login" id="inputLogin" class="form-control" placeholder="<fmt:message key="signup.loginPlaceholder"/>" required autofocus pattern="^(?=.*[A-Za-z0-9]$)[A-Za-z][\w.-]{0,19}$">
+        <input type="password" name="password" id="inputPassword" class="form-control" placeholder="<fmt:message key="signup.passwordPlaceholder"/>" required pattern="^[\w]{3,20}$">
+        <input type="password" name="confirmedPassword" id="inputConfirmPassword" class="form-control" placeholder="<fmt:message key="signup.passwordRepeatPlaceholder"/>" required pattern="^[\w]{3,20}$">
+
         <c:if test="${errorSignUpMessageKey != null}">
             <label style="color: red"><fmt:message key="${errorSignUpMessageKey}"/></label>
         </c:if>
-        <button type="submit" name="command" value="sign_up" class="btn btn-primary">
+        <button class="btn btn-lg btn-primary btn-block" type="submit" name="command" value="sign_up">
             <fmt:message key="header.sign_up"/>
         </button>
     </form>
 </div>
-
 </body>
 </html>

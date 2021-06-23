@@ -27,7 +27,7 @@ public class UserDaoImpl implements UserDao {
             "JOIN role ON user.role_id=role.id";
     private static final String GET_BY_LOGIN = GET_ALL + " WHERE login LIKE ?";
     private static final String GET_BY_EMAIL = GET_ALL + " WHERE email LIKE ?";
-    private static final String GET_BY_ID = GET_ALL + " WHERE id LIKE ?";
+    private static final String GET_BY_ID = GET_ALL + " WHERE user.id LIKE ?";
 
 
     private UserDaoImpl() {}

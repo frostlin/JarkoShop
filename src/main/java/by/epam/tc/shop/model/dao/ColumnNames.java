@@ -51,7 +51,7 @@ public class ColumnNames {
     public static final String ORDER_PAYED_SUM = "payed_sum";
     public static final String ORDER_DATE_ORDERED = "date_ordered";
     public static final String ORDER_DATE_SHIPPING = "date_shipping";
-    public static final String ORDER_COMMENT = "commend";
+    public static final String ORDER_COMMENT = "comment";
 
     public static final String REVIEW_ID = "review.id";
     public static final String REVIEW_USER_ID = "user_id";

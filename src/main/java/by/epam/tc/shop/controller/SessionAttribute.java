@@ -7,11 +7,14 @@ public class SessionAttribute {
     public static final String CURRENT_USER = "currentUser";
     public static final String ROLE = "role";
 
-    public static final String CURRENT_ITEMS_PAGE = "currentItemPage";
-    public static final String CURRENT_ITEMS_PER_PAGE = "currentItemsPerPage";
-    public static final String PAGE_COUNT = "itemPageCount";
-    public static final String TOTAL_PRODUCT_COUNT = "totalItemCount";
-    public static final String CATALOG_PAGE_PRODUCTS = "itemsPageList";
+    public static final String CURRENT_PRODUCTS_PAGE = "currentProductsPage";
+    public static final String CURRENT_PRODUCTS_PER_PAGE = "currentProductsPerPage";
+    public static final String CURRENT_ORDERS_PAGE = "currentOrdersPage";
+    public static final String CURRENT_ORDERS_PER_PAGE = "currentOrdersPerPage";
+
+    public static final String CURRENT_ITEMS_RANGE = "currentItemsRange";
+    public static final String TOTAL_PAGE_COUNT = "totalPageCount";
+    public static final String TOTAL_ITEM_COUNT = "totalItemCount";
 
     public static final String CATEGORIES = "categories";
     public static final String CURRENT_CATEGORY = "currentCategory";
@@ -19,6 +22,7 @@ public class SessionAttribute {
     public static final String CART_ITEMS = "cartItems";
 
     public static final String CURRENT_PRODUCT = "currentProduct";
+
     private SessionAttribute(){
     }
 }

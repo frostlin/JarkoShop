@@ -43,7 +43,7 @@
                     </form>
                 </div>
                 <ul class="list-group">
-                    <c:forEach var="product" items="${itemsPageList}" varStatus="status">
+                    <c:forEach var="product" items="${currentItemsRange}" varStatus="status">
                         <li class="list-group-item list-group-item-action justify-content-start d-flex align-text-top">
                             <div class="justify-content-center" style="width:150px;height:144px" >
                                <c:if test="${!product.photos.isEmpty()}">
@@ -80,10 +80,10 @@
                 </ul>
                 <br/>
                 <ul class="pagination">
-                    <c:forEach begin="1" end="${itemPageCount}" var="pageNumber">
+                    <c:forEach begin="1" end="${totalPageCount}" var="pageNumber">
                         <li><form action="controller" method="post" class="my-auto">
                             <c:choose>
-                                <c:when test="${pageNumber == currentItemPage}">
+                                <c:when test="${pageNumber == currentProductsPage}">
                                     <button class="btn btn-primary mx-1" type="submit" disabled>
                                             ${pageNumber}
                                     </button>

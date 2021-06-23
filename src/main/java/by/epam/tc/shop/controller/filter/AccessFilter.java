@@ -28,7 +28,6 @@ public class AccessFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
         HttpSession session = request.getSession();
-
         if (session.getAttribute(SessionAttribute.ROLE) == null) {
             session.setAttribute(SessionAttribute.ROLE, "guest");
         }

@@ -18,6 +18,7 @@ public class ProductDaoImpl implements ProductDao {
 
     private static final ProductDaoImpl instance = new ProductDaoImpl();
     private static final ProductCharacteristicDaoImpl characteristicDao = ProductCharacteristicDaoImpl.getInstance();
+    private static final CategoryDaoImpl categoryDao = CategoryDaoImpl.getInstance();
 
     private static final String ADD = "INSERT INTO user (role_id,email,login,password) VALUES (?,?,?,?)";
 
@@ -137,12 +138,7 @@ public class ProductDaoImpl implements ProductDao {
         int warranty =       resultSet.getInt(ColumnNames.PRODUCT_WARRANTY);
         int stock =          resultSet.getInt(ColumnNames.PRODUCT_STOCK_AMOUNT);
         String brandName =   resultSet.getString(ColumnNames.PRODUCT_BRAND_NAME);
-
-        int categoryId =      resultSet.getInt(ColumnNames.CATEGORY_ID);
-        String categoryName = resultSet.getString(ColumnNames.CATEGORY_NAME);
-        String categoryDesc = resultSet.getString(ColumnNames.CATEGORY_DESCRIPTION);
-
-
+        int categoryId =     resultSet.getInt(ColumnNames.CATEGORY_ID);
         product.setId(id);
         product.setPrice(price);
         product.setModel(model);
@@ -150,7 +146,7 @@ public class ProductDaoImpl implements ProductDao {
         product.setWarranty(warranty);
         product.setStockAmount(stock);
         product.setBrand(brandName);
-        product.setCategory(categoryName);
+        product.setCategory(categoryDao.getById(categoryId));
         product.setPhotos(getProductPhotos(id));
         product.setCharacteristics(characteristicDao.getProductCharacteristics(id, categoryId));
         return product;

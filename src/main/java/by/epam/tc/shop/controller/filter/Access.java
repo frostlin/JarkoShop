@@ -19,6 +19,7 @@ public enum Access {
             TO_MAIN,
             TO_CATALOG,
             CHANGE_LOCALE,
+            TO_PRODUCT,
             SEARCH
     ).map(CommandType::getCommand).collect(Collectors.toSet())),
 
@@ -28,6 +29,8 @@ public enum Access {
             CHANGE_LOCALE,
             SEARCH,
             TO_CART,
+            CHECKOUT,
+            TO_PRODUCT,
             ADD_TO_CART
     ).map(CommandType::getCommand).collect(Collectors.toSet())),
 
@@ -37,7 +40,10 @@ public enum Access {
             CHANGE_LOCALE,
             SEARCH,
             TO_CART,
-            ADD_TO_CART
+            ADD_TO_CART,
+            CHECKOUT,
+            TO_PRODUCT,
+            TO_ADMIN_CONTROL_PANEL
     ).map(CommandType::getCommand).collect(Collectors.toSet()));
 
     private final Set<Command> commands;

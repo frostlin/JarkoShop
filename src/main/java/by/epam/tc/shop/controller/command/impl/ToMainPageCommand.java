@@ -19,13 +19,19 @@ public class ToMainPageCommand implements Command {
     @Override
     public String execute(HttpServletRequest request) {
         HttpSession session = request.getSession();
+        if (session.getAttribute(SessionAttribute.ROLE) == null) {
+            session.setAttribute(SessionAttribute.ROLE, "guest");
+        }
+        if (session.getAttribute(SessionAttribute.LOCALE) == null) {
+            session.setAttribute(SessionAttribute.LOCALE, "ru_RU");
+        }
         if (session.getAttribute(SessionAttribute.CATEGORIES) == null){
             CategoryDaoImpl categoryDao = CategoryDaoImpl.getInstance();
             try{
                 session.setAttribute(SessionAttribute.CATEGORIES, categoryDao.getCategories());
             } catch (DaoException e) {
-            logger.error("Error while setting up race list", e);
-        }
+                logger.error("Error while setting up race list", e);
+            }
         }
 
         return PagePath.MAIN;

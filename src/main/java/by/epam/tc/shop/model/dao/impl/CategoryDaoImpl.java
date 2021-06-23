@@ -18,7 +18,8 @@ public class CategoryDaoImpl implements CategoryDao {
     private static final CategoryDaoImpl instance = new CategoryDaoImpl();
     private static final ProductCharacteristicDaoImpl characteristicDao = ProductCharacteristicDaoImpl.getInstance();
 
-    private static final String GET_CATEGORIES = "SELECT * FROM category";
+    private static final String GET_ALL = "SELECT * FROM category";
+    private static final String GET_BY_ID = GET_ALL + " WHERE id LIKE ?";
     private static final String GET_SUBCATEGORIES = "SELECT * FROM category WHERE category_id LIKE ?";
 
     private CategoryDaoImpl() {}
@@ -28,7 +29,7 @@ public class CategoryDaoImpl implements CategoryDao {
     public List<Category> getCategories() throws DaoException {
         List<Category> categories = new ArrayList<>();
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
-             PreparedStatement statement = connection.prepareStatement(GET_CATEGORIES);
+             PreparedStatement statement = connection.prepareStatement(GET_ALL);
              ResultSet resultSet = statement.executeQuery())
         {
             while(resultSet.next())
@@ -38,20 +39,21 @@ public class CategoryDaoImpl implements CategoryDao {
         }
         return categories;
     }
-    public List<Category> getSubCategories(int categoryId) throws DaoException {
-        List<Category> categories = new ArrayList<>();
+    @Override
+    public Category getById(int categoryId) throws DaoException {
+        Category category = null;
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
-             PreparedStatement statement = connection.prepareStatement(GET_SUBCATEGORIES))
+             PreparedStatement statement = connection.prepareStatement(GET_BY_ID))
         {
             statement.setInt(1, categoryId);
             ResultSet resultSet = statement.executeQuery();
 
-            while(resultSet.next())
-                categories.add(getCategoryFromResultSet(resultSet));
+            if(resultSet.next())
+                category = getCategoryFromResultSet(resultSet);
         } catch(SQLException e){
             throw new DaoException("Error getting all users data ", e);
         }
-        return categories;
+        return category;
     }
 
     private Category getCategoryFromResultSet(ResultSet resultSet) throws SQLException, DaoException{
@@ -74,5 +76,19 @@ public class CategoryDaoImpl implements CategoryDao {
         //category.setCategories(subCategories);
         return category;
     }
+    public List<Category> getSubCategories(int categoryId) throws DaoException {
+        List<Category> categories = new ArrayList<>();
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(GET_SUBCATEGORIES))
+        {
+            statement.setInt(1, categoryId);
+            ResultSet resultSet = statement.executeQuery();
 
+            while(resultSet.next())
+                categories.add(getCategoryFromResultSet(resultSet));
+        } catch(SQLException e){
+            throw new DaoException("Error getting all users data ", e);
+        }
+        return categories;
+    }
 }

@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 public class CartItem implements Serializable {
+    private int id;
     private Product product;
     private Discount discount;
     private int count;
@@ -20,6 +21,14 @@ public class CartItem implements Serializable {
         this.product = product;
         this.count = count;
         this.discount = discount;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public Product getProduct() {
@@ -51,18 +60,19 @@ public class CartItem implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CartItem cartItem = (CartItem) o;
-        return count == cartItem.count && Objects.equals(product, cartItem.product) && Objects.equals(discount, cartItem.discount);
+        return id == cartItem.id && count == cartItem.count && Objects.equals(product, cartItem.product) && Objects.equals(discount, cartItem.discount);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(product, discount, count);
+        return Objects.hash(id, product, discount, count);
     }
 
     @Override
     public String toString() {
         return "CartItem{" +
-                "product=" + product +
+                "id=" + id +
+                ", product=" + product +
                 ", discount=" + discount +
                 ", count=" + count +
                 '}';

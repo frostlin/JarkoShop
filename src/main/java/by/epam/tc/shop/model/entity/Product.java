@@ -8,7 +8,7 @@ import java.util.Objects;
 public class Product implements Serializable {
     private int id;
     private String brand;
-    private String category;
+    private Category category;
     private List<ProductCharacteristic> characteristics = new ArrayList<>();
     private List<String> photos = new ArrayList<>();
 
@@ -19,20 +19,6 @@ public class Product implements Serializable {
     private int stockAmount;
 
     public Product (){};
-
-    public Product(int id, String brand, String category, List<ProductCharacteristic> characteristics,
-                   float price, String model, String description, int warranty, int stockAmount, List<String> photos) {
-        this.id = id;
-        this.brand = brand;
-        this.category = category;
-        this.characteristics = characteristics;
-        this.price = price;
-        this.model = model;
-        this.description = description;
-        this.warranty = warranty;
-        this.stockAmount = stockAmount;
-        this.photos = photos;
-    }
 
     public int getId() {
         return id;
@@ -50,11 +36,11 @@ public class Product implements Serializable {
         this.brand = brand;
     }
 
-    public String getCategory() {
+    public Category getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(Category category) {
         this.category = category;
     }
 
@@ -119,20 +105,12 @@ public class Product implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Product product = (Product) o;
-        return id == product.id
-                && Float.compare(product.price, price) == 0
-                && warranty == product.warranty
-                && stockAmount == product.stockAmount
-                && Objects.equals(brand, product.brand)
-                && Objects.equals(category, product.category)
-                && Objects.equals(characteristics, product.characteristics)
-                && Objects.equals(model, product.model)
-                && Objects.equals(description, product.description);
+        return id == product.id && Float.compare(product.price, price) == 0 && warranty == product.warranty && stockAmount == product.stockAmount && Objects.equals(brand, product.brand) && Objects.equals(category, product.category) && Objects.equals(characteristics, product.characteristics) && Objects.equals(photos, product.photos) && Objects.equals(model, product.model) && Objects.equals(description, product.description);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, brand, category, characteristics, price, model, description, warranty, stockAmount);
+        return Objects.hash(id, brand, category, characteristics, photos, price, model, description, warranty, stockAmount);
     }
 
     @Override
@@ -140,8 +118,9 @@ public class Product implements Serializable {
         return "Product{" +
                 "id=" + id +
                 ", brand='" + brand + '\'' +
-                ", category='" + category + '\'' +
+                ", category=" + category +
                 ", characteristics=" + characteristics +
+                ", photos=" + photos +
                 ", price=" + price +
                 ", model='" + model + '\'' +
                 ", description='" + description + '\'' +

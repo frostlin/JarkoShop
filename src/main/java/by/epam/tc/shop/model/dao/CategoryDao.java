@@ -7,4 +7,5 @@ import java.util.List;
 public interface CategoryDao {
 
     List<Category> getCategories() throws DaoException;
+    Category getById(int categoryId) throws DaoException;
 }

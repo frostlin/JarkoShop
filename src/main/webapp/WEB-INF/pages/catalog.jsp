@@ -43,7 +43,7 @@
                     </form>
                 </div>
                 <ul class="list-group">
-                    <c:forEach var="product" items="${productPageList}" varStatus="status">
+                    <c:forEach var="product" items="${itemsPageList}" varStatus="status">
                         <li class="list-group-item list-group-item-action justify-content-start d-flex align-text-top">
                             <div class="justify-content-center" style="width:150px;height:144px" >
                                <c:if test="${!product.photos.isEmpty()}">
@@ -53,7 +53,12 @@
 
                             <div class="justify-content-end">
                                 <div class="align-self-start">
-                                    <h5><c:out value="${product.brand} ${product.model}"/></h5>
+                                    <form action="controller" method="post" class="my-auto">
+                                        <button type="submit" class="btn btn-lg btn-link " name="command" value="to_product">
+                                            <c:out value="${product.getBrand()} ${product.getModel()}"/>
+                                        </button>
+                                        <input type="hidden" name="productId" value="${product.getId()}">
+                                    </form>
                                     <c:forEach var="characteristic" items="${product.getCharacteristics()}">
                                         <c:out value="${characteristic.getName()} ${characteristic.getValue()}, "/>
                                     </c:forEach>
@@ -62,8 +67,7 @@
                                     <span class="badge badge-success badge-pill mr-2 mb-2">$<c:out value="${product.price}"/></span>
                                     <form action="controller" method="post" class="my-auto">
                                     <button class="btn btn-outline-primary mx-1" type="submit" name="command" value="add_to_cart">
-                                        <fmt:message key="catalog.add_to_card"/>
-                                    </button>
+                                        <fmt:message key="catalog.addToCard"/>
                                     <input type="hidden" name="productId" value="${product.getId()}">
                                     </form>
                                 </div>
@@ -76,16 +80,16 @@
                 </ul>
                 <br/>
                 <ul class="pagination">
-                    <c:forEach begin="1" end="${productPageCount}" var="pageNumber">
+                    <c:forEach begin="1" end="${itemPageCount}" var="pageNumber">
                         <li><form action="controller" method="post" class="my-auto">
                             <c:choose>
-                                <c:when test="${pageNumber == currentProductPage}">
+                                <c:when test="${pageNumber == currentItemPage}">
                                     <button class="btn btn-primary mx-1" type="submit" disabled>
                                             ${pageNumber}
                                     </button>
                                 </c:when>
                                 <c:otherwise>
-                                    <button class="btn btn-outline-primary mx-1" type="submit" name="nextProductPage" value="${pageNumber}">
+                                    <button class="btn btn-outline-primary mx-1" type="submit" name="nextItemPage" value="${pageNumber}">
                                             ${pageNumber}
                                     </button>
                                     <input type="hidden" name="command" value="to_catalog">

@@ -1,11 +1,9 @@
 package by.epam.tc.shop.controller.command.impl;
 
 import by.epam.tc.shop.controller.PagePath;
-import by.epam.tc.shop.controller.RequestAttribute;
 import by.epam.tc.shop.controller.RequestParameter;
 import by.epam.tc.shop.controller.SessionAttribute;
 import by.epam.tc.shop.controller.command.Command;
-import by.epam.tc.shop.model.entity.Category;
 import by.epam.tc.shop.model.service.ServiceException;
 import by.epam.tc.shop.model.service.impl.ProductServiceImpl;
 import org.apache.logging.log4j.LogManager;
@@ -22,14 +20,14 @@ public class ToCatalogCommand implements Command {
     public String execute(HttpServletRequest request) {
         HttpSession session = request.getSession();
 
-        int pageNumber = (int)session.getAttribute(SessionAttribute.CURRENT_PRODUCT_PAGE);
-        int productPerPage = (int)session.getAttribute(SessionAttribute.CURRENT_PRODUCT_PER_PAGE);
+        int pageNumber = (int)session.getAttribute(SessionAttribute.CURRENT_ITEMS_PAGE);
+        int itemsPerPage = (int)session.getAttribute(SessionAttribute.CURRENT_ITEMS_PER_PAGE);
         int categoryId = (int)session.getAttribute(SessionAttribute.CURRENT_CATEGORY);
 
-        String nextPageNumber = request.getParameter(RequestParameter.NEXT_PRODUCT_PAGE);
+        String nextPageNumber = request.getParameter(RequestParameter.NEXT_ITEM_PAGE);
         if (nextPageNumber != null){
             pageNumber = Integer.parseInt(nextPageNumber);
-            session.setAttribute(SessionAttribute.CURRENT_PRODUCT_PAGE, pageNumber);
+            session.setAttribute(SessionAttribute.CURRENT_ITEMS_PAGE, pageNumber);
         }
         String nextCategoryId = request.getParameter(RequestParameter.CURRENT_CATEGORY);
         if (nextCategoryId != null){
@@ -40,20 +38,20 @@ public class ToCatalogCommand implements Command {
         try {
             if (categoryId == 0){
                 int productCount = productService.getProductCount();
-                int productPageCount = (int) Math.ceil(productCount * 1.0 / productPerPage);
+                int itemPageCount = (int) Math.ceil(productCount * 1.0 / itemsPerPage);
 
-                session.setAttribute(SessionAttribute.PRODUCT_PAGE_COUNT, productPageCount);
+                session.setAttribute(SessionAttribute.PAGE_COUNT, itemPageCount);
                 session.setAttribute(SessionAttribute.TOTAL_PRODUCT_COUNT, productCount);
                 session.setAttribute(SessionAttribute.CATALOG_PAGE_PRODUCTS,
-                        productService.getProductPage(pageNumber, productPerPage));
+                        productService.getProductPage(pageNumber, itemsPerPage));
             } else {
                 int productCount = productService.getProductCount(categoryId);
-                int productPageCount = (int) Math.ceil(productCount * 1.0 / productPerPage);
+                int itemPageCount = (int) Math.ceil(productCount * 1.0 / itemsPerPage);
 
-                session.setAttribute(SessionAttribute.PRODUCT_PAGE_COUNT, productPageCount);
+                session.setAttribute(SessionAttribute.PAGE_COUNT, itemPageCount);
                 session.setAttribute(SessionAttribute.TOTAL_PRODUCT_COUNT, productCount);
                 session.setAttribute(SessionAttribute.CATALOG_PAGE_PRODUCTS,
-                        productService.getProductPageByCategory(pageNumber, productPerPage, categoryId));
+                        productService.getProductPageByCategory(pageNumber, itemsPerPage, categoryId));
             }
 
 

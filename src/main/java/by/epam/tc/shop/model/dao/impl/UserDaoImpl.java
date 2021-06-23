@@ -132,6 +132,7 @@ public class UserDaoImpl implements UserDao {
         String lastname = resultSet.getString(ColumnNames.USER_LASTNAME);
         String telephone = resultSet.getString(ColumnNames.USER_TELEPHONE);
         Date dateRegistered = resultSet.getDate(ColumnNames.USER_DATE_REGISTERED);
+        String fio = surname + " " + name + " " + lastname;
 
         user.setId(id);
         user.setEmail(email);
@@ -143,9 +144,9 @@ public class UserDaoImpl implements UserDao {
         user.setSurname(surname);
         user.setName(name);
         user.setLastname(lastname);
+        user.setFio(fio);
         user.setTelephone(telephone);
         user.setDateRegistered(dateRegistered);
-
         return user;
     }
 }

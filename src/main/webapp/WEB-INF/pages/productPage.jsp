@@ -4,15 +4,6 @@
 
 <fmt:setLocale value="${currentLocale}"/>
 <fmt:setBundle basename="l10n.text"/>
-<style>
-    .verticalhorizontal {
-        display: table-cell;
-        height: 300px;
-        text-align: center;
-        width: 300px;
-        vertical-align: middle;
-    }
-</style>
 <html>
 <head>
     <meta charset="utf-8">
@@ -27,14 +18,11 @@
     <h1><fmt:message key="product.${currentProduct.getCategory().getName()}"/> ${currentProduct.getBrand()} ${currentProduct.getModel()}</h1>
 <br/>
     <div class="row">
-        <div class="col">
-        </div>
-        <div class="col">
-        </div>
+        <div class="col"></div>
+        <div class="col"></div>
         <div class="col-8">
             <div>
                 <div id="demo" class="carousel slide" data-ride="carousel" style="width: 400px; height: 400px; background-color: #EFEFEF">
-                    <!-- Indicators -->
                     <ol class="carousel-indicators">
                         <c:forEach items="${currentProduct.getPhotos()}" var="photo" varStatus="loop">
                             <c:choose>
@@ -48,7 +36,6 @@
                         </c:forEach>
                     </ol>
 
-                    <!-- Wrapper for slides -->
                     <div class="carousel-inner" style=" background-color: #EFEFEF">
                         <c:forEach items="${currentProduct.getPhotos()}" var="photo" varStatus="loop">
                             <c:choose>
@@ -66,7 +53,6 @@
                         </c:forEach>
                     </div>
 
-                    <!-- Left and right controls -->
                     <a class="carousel-control-prev" href="#demo" data-slide="prev">
                         <span class="carousel-control-prev-icon"></span>
                     </a>
@@ -74,7 +60,7 @@
                         <span class="carousel-control-next-icon"></span>
                     </a>
                 </div>
-            </div>        <br/>
+            </div><br/>
             <form action="controller" method="post" class="my-auto">
                 <button class="btn btn-primary mx-1 mb-5" type="submit" name="command" value="add_to_cart">
                     <fmt:message key="catalog.addToCard"/>
@@ -82,10 +68,12 @@
                 <input type="hidden" name="productId" value="${currentProduct.getId()}">
             </form>
         </div>
-        <table class="table">
+
+
+        <table class="table table-bordered">
             <thead>
             <tr>
-                <th scope="col"><fmt:message key="table.characteristic"/> </th>
+                <th scope="col"><fmt:message key="reviewTable.characteristic"/> </th>
                 <th scope="col"> value</th>
             </tr>
             </thead>
@@ -102,7 +90,7 @@
                                 <c:out value="${characteristic.getValue()}"/>
                             </c:when>
                             <c:otherwise>
-                                <fmt:message key="table.noInfo"/>
+                                <fmt:message key="reviewTable.noInfo"/>
                             </c:otherwise>
                         </c:choose>
                     </td>
@@ -110,9 +98,9 @@
             </c:forEach>
             </tbody>
         </table>
-        <br/>
-        <br/>
-        <br/>
+
+
+        <br/><br/><br/><br/><br/>
         <form action="controller" method="post">
             <c:choose>
                 <c:when test="${role.equals('guest')}">
@@ -133,11 +121,9 @@
             <br><br>
         </form>
     </div>
-        <table class="table">
+        <table class="table table-bordered">
             <thead>
-            <tr>
-                <th scope="col"><fmt:message key="table.review"/> </th>
-            </tr>
+            <tr><th scope="col"><fmt:message key="reviewTable.review"/> </th>`</tr>
             </thead>
             <tbody>
             <c:forEach items="${reviews}" var="review" varStatus="loop">
@@ -145,8 +131,8 @@
                     <td>
                         <h5><c:out value="${review.getUser().getLogin()}"/></h5>
                         <p class="my-3"><c:out value="${review.getContent()}"/></p>
-                        <p style="font-size: smaller">Rating: <c:out value="${review.getRating()}"/> / 10</p>
-                        <p style="font-size: small"><c:out value="${review.getDate()}"/></p>
+                        <p style="font-size: smaller"><fmt:message key="review.rating"/> <c:out value="${review.getRating()}"/> / 10 <br/>
+                            <c:out value="${review.getDate()}"/></p>
                     </td>
                 </tr>
             </c:forEach>

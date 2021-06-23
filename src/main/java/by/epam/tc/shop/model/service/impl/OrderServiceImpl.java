@@ -26,7 +26,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<Order> getRange(int pageNumber, int recordsPerPage) throws ServiceException {
+    public List<Order> getOrdersPage(int pageNumber, int recordsPerPage) throws ServiceException {
         try {
             int start = (pageNumber - 1) * recordsPerPage;
             return orderDao.getRange(start, recordsPerPage);

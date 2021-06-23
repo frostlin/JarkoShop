@@ -22,48 +22,12 @@ public class User implements Serializable {
     private String name;
     private String lastname;
 
+    private String fio;
+
     private String telephone;
     private Date dateRegistered;
 
     public User(){}
-
-    public User(int id, String email, UserRole role, String login, String password, Date dateRegistered) {
-        this.id = id;
-        this.email = email;
-        this.role = role;
-        this.login = login;
-        this.password = password;
-        this.dateRegistered = dateRegistered;
-    }
-
-    public User(int id, String email, UserRole role, List<Address> addresses, String login, String password, String surname, String name, String lastname, String telephone, Date dateRegistered) {
-        this.id = id;
-        this.email = email;
-        this.role = role;
-        this.addresses = addresses;
-        this.login = login;
-        this.password = password;
-        this.surname = surname;
-        this.name = name;
-        this.lastname = lastname;
-        this.telephone = telephone;
-        this.dateRegistered = dateRegistered;
-    }
-
-    public User(int id, String email, UserRole role, List<Address> addresses, List<CartItem> cart, String login, String password, String surname, String name, String lastname, String telephone, Date dateRegistered) {
-        this.id = id;
-        this.email = email;
-        this.role = role;
-        this.addresses = addresses;
-        this.cart = cart;
-        this.login = login;
-        this.password = password;
-        this.surname = surname;
-        this.name = name;
-        this.lastname = lastname;
-        this.telephone = telephone;
-        this.dateRegistered = dateRegistered;
-    }
 
     public List<PaymentCard> getCards() {
         return cards;
@@ -169,17 +133,25 @@ public class User implements Serializable {
         this.dateRegistered = dateRegistered;
     }
 
+    public String getFio() {
+        return fio;
+    }
+
+    public void setFio(String fio) {
+        this.fio = fio;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return id == user.id && Objects.equals(email, user.email) && role == user.role && Objects.equals(addresses, user.addresses) && Objects.equals(cart, user.cart) && Objects.equals(cards, user.cards) && Objects.equals(login, user.login) && Objects.equals(password, user.password) && Objects.equals(surname, user.surname) && Objects.equals(name, user.name) && Objects.equals(lastname, user.lastname) && Objects.equals(telephone, user.telephone) && Objects.equals(dateRegistered, user.dateRegistered);
+        return id == user.id && Objects.equals(email, user.email) && role == user.role && Objects.equals(addresses, user.addresses) && Objects.equals(cart, user.cart) && Objects.equals(cards, user.cards) && Objects.equals(login, user.login) && Objects.equals(password, user.password) && Objects.equals(surname, user.surname) && Objects.equals(name, user.name) && Objects.equals(lastname, user.lastname) && Objects.equals(fio, user.fio) && Objects.equals(telephone, user.telephone) && Objects.equals(dateRegistered, user.dateRegistered);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, email, role, addresses, cart, cards, login, password, surname, name, lastname, telephone, dateRegistered);
+        return Objects.hash(id, email, role, addresses, cart, cards, login, password, surname, name, lastname, fio, telephone, dateRegistered);
     }
 
     @Override
@@ -196,6 +168,7 @@ public class User implements Serializable {
                 ", surname='" + surname + '\'' +
                 ", name='" + name + '\'' +
                 ", lastname='" + lastname + '\'' +
+                ", fio='" + fio + '\'' +
                 ", telephone='" + telephone + '\'' +
                 ", dateRegistered=" + dateRegistered +
                 '}';

@@ -42,7 +42,7 @@ public class ColumnNames {
     public static final String CHARACTERISTIC_DESCRIPTION = "characteristic.description";
     public static final String CHARACTERISTIC_VALUE = "product_characteristic.value";
 
-    public static final String ORDER_ID = "order.id";
+    public static final String ORDER_ID = "orders.id";
     public static final String ORDER_USER_ID = "user_id";
     public static final String ORDER_PAYMENT_METHOD = "method";
     public static final String ORDER_ADDRESS_ID = "address_id";

@@ -2,6 +2,10 @@ package by.epam.tc.shop.controller.filter;
 
 import by.epam.tc.shop.controller.RequestParameter;
 import by.epam.tc.shop.controller.SessionAttribute;
+import by.epam.tc.shop.model.dao.DaoException;
+import by.epam.tc.shop.model.dao.impl.CategoryDaoImpl;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
@@ -12,6 +16,8 @@ import java.io.IOException;
 
 @WebFilter(urlPatterns = {"/controller"})
 public class CatalogFilter implements Filter {
+    public static final Logger logger = LogManager.getLogger();
+
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain chain)
             throws IOException, ServletException {
@@ -21,14 +27,22 @@ public class CatalogFilter implements Filter {
         if (session.getAttribute(SessionAttribute.LOCALE) == null) {
             session.setAttribute(SessionAttribute.LOCALE, "ru_RU");
         }
-        if (session.getAttribute(SessionAttribute.CURRENT_PRODUCT_PAGE) == null
+        if (session.getAttribute(SessionAttribute.CURRENT_ITEMS_PAGE) == null
                 || request.getParameter(RequestParameter.CURRENT_CATEGORY) != null)
-            session.setAttribute(SessionAttribute.CURRENT_PRODUCT_PAGE, 1);
-        if (session.getAttribute(SessionAttribute.CURRENT_PRODUCT_PER_PAGE) == null)
-            session.setAttribute(SessionAttribute.CURRENT_PRODUCT_PER_PAGE, 2);
+            session.setAttribute(SessionAttribute.CURRENT_ITEMS_PAGE, 1);
+        if (session.getAttribute(SessionAttribute.CURRENT_ITEMS_PER_PAGE) == null)
+            session.setAttribute(SessionAttribute.CURRENT_ITEMS_PER_PAGE, 2);
         if (session.getAttribute(SessionAttribute.CURRENT_CATEGORY) == null)
             session.setAttribute(SessionAttribute.CURRENT_CATEGORY, 0);
 
+        if (session.getAttribute(SessionAttribute.CATEGORIES) == null){
+            CategoryDaoImpl categoryDao = CategoryDaoImpl.getInstance();
+            try{
+                session.setAttribute(SessionAttribute.CATEGORIES, categoryDao.getCategories());
+            } catch (DaoException e) {
+                logger.error("Error while setting up race list", e);
+            }
+        }
         chain.doFilter(request,response);
     }
 }

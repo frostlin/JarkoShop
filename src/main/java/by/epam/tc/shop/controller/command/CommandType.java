@@ -16,6 +16,10 @@ public enum CommandType {
     CHECKOUT                {{ this.command = new CheckoutCommand(); }},
     TO_PRODUCT              {{ this.command = new ToProductPageCommand(); }},
     COMMIT_REVIEW           {{ this.command = new CommitReview(); }},
+    TO_ADMIN_USERS          {{ this.command = new toAdminUsers(); }},
+    TO_ADMIN_ORDERS         {{ this.command = new toAdminOrders(); }},
+    TO_ADMIN_PRODUCTS       {{ this.command = new toAdminProducts(); }},
+    TO_ADMIN_DISCOUNTS      {{ this.command = new toAdminDiscounts(); }},
     TO_ADMIN_CONTROL_PANEL  {{ this.command = new ToAdminControlPanelCommand(); }};
 
     Command command;

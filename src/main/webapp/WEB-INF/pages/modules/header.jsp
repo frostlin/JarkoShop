@@ -83,9 +83,23 @@
                     <fmt:message key="header.profile"/>
                 </button>
                 <c:if test="${role.equals('admin')}">
-                    <button class="btn btn-outline-primary mx-1" type="submit" name="command" value="to_admin_control_panel">
-                        <fmt:message key="header.controlPanel"/>
-                    </button>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <fmt:message key="header.controlPanel"/>
+                        </button>
+                        <form action="controller" method="post">
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownAdmin">
+                                <button class="dropdown-item" type="submit" name="command" value="to_admin_orders">
+                                    <fmt:message key="admin.orders"/></button>
+                                <button class="dropdown-item" type="submit" name="command" value="to_admin_users">
+                                    <fmt:message key="admin.users"/></button>
+                                <button class="dropdown-item" type="submit" name="command" value="to_admin_products">
+                                    <fmt:message key="admin.products"/></button>
+                                <button class="dropdown-item" type="submit" name="command" value="to_admin_discounts">
+                                    <fmt:message key="admin.promocodesAndDiscounts"/></button>
+                            </div>
+                        </form>
+                    </div>
                 </c:if>
             </form>
             </c:otherwise>

@@ -45,6 +45,10 @@ public enum Access {
             CHECKOUT,
             TO_PRODUCT,
             COMMIT_REVIEW,
+            TO_ADMIN_USERS,
+            TO_ADMIN_ORDERS,
+            TO_ADMIN_PRODUCTS,
+            TO_ADMIN_DISCOUNTS,
             TO_ADMIN_CONTROL_PANEL
     ).map(CommandType::getCommand).collect(Collectors.toSet()));
 

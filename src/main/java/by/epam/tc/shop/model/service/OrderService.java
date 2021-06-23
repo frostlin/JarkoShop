@@ -1,11 +1,12 @@
 package by.epam.tc.shop.model.service;
 
+import by.epam.tc.shop.model.entity.CartItem;
 import by.epam.tc.shop.model.entity.Order;
 
 import java.util.List;
 
 public interface OrderService {
-    boolean add(int userId, int paymentMethodId, int addressId, float sumToPay, String comment) throws ServiceException;
+    int add(int userId, int paymentMethodId, int addressId, float sumToPay, String comment, List<CartItem> cart) throws ServiceException;
     List<Order> getRange(int page, int recordsPerPage) throws ServiceException;
     List<Order> getRangeByUser(int start, int offset, int userId) throws ServiceException;
     int getOrderCount() throws ServiceException;

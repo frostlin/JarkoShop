@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface OrderDao {
 
-    boolean add(int userId, int paymentMethodId, int addressId, float sumToPay, String comment) throws DaoException;
+    int add(int userId, int paymentMethodId, int addressId, float sumToPay, String comment) throws DaoException;
     List<Order> getRange(int page, int recordsPerPage) throws DaoException;
     List<Order> getRangeByUser(int start, int offset, int userId) throws DaoException;
     int getOrderCount() throws DaoException;

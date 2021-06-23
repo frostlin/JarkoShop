@@ -18,40 +18,45 @@ public class OrderDaoImpl implements OrderDao {
 
     private static final String GET_ALL =
             "SELECT o.id,user_id,method,address_id,'status',sum_to_pay,payed_sum,date_ordered,date_shipping,'comment'" +
-                    "FROM 'order' o " +
+                    "FROM orders o " +
                     "JOIN payment_method ON o.payment_method_id=payment_method.id ";
 
-    private static final String ADD = "INSERT INTO 'order' (user_id,payment_method_id,address_id,sum_to_pay,'comment') VALUES (?,?,?,?,?)";
+    private static final String ADD = "INSERT INTO orders " +
+            " (user_id,payment_method_id,address_id,sum_to_pay,comment) " +
+            "VALUES (?,?,?,?,?)";
 
     private static final String GET_BY_ID = GET_ALL + "WHERE o.id LIKE ?";
     private static final String GET_BY_USER = GET_ALL + "WHERE o.user_id LIKE ? ORDER BY o.id";
+    private static final String GET_LAST = GET_ALL + "WHERE o.id LIKE ? ORDER BY o.id DESC LIMIT 1";
 
     private static final String GET_RANGE = GET_ALL + "ORDER BY o.id LIMIT ?, ?";
     private static final String GET_RANGE_BY_USER = GET_BY_USER + " LIMIT ?, ?";
 
-    private static final String GET_ORDER_COUNT = "SELECT COUNT(id) AS recordCount FROM 'order'";
+    private static final String GET_ORDER_COUNT = "SELECT COUNT(id) AS recordCount FROM orders";
 
     private OrderDaoImpl() {}
     public static OrderDaoImpl getInstance(){ return instance; }
 
     @Override
-    public boolean add(int userId, int paymentMethodId, int addressId, float sumToPay, String comment) throws DaoException {
-        boolean isSuccessful = false;
+    public int add(int userId, int paymentMethodId, int addressId, float sumToPay, String comment) throws DaoException {
+        int id = 0;
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
-             PreparedStatement statement = connection.prepareStatement(ADD);)
+             PreparedStatement statement = connection.prepareStatement(ADD,Statement.RETURN_GENERATED_KEYS);)
         {
             statement.setInt(1, userId);
             statement.setInt(2, paymentMethodId);
             statement.setInt(3, addressId);
             statement.setFloat(4, sumToPay);
-            statement.setString(4, comment);
+            statement.setString(5, comment);
 
             statement.executeUpdate();
-            isSuccessful = true;
+            ResultSet resultSet = statement.getGeneratedKeys();
+            if (resultSet.next())
+                id = resultSet.getInt(1);
         } catch(SQLException e){
             throw new DaoException("Error inserting order ", e);
         }
-        return isSuccessful;
+        return id;
     }
 
     @Override
@@ -141,6 +146,7 @@ public class OrderDaoImpl implements OrderDao {
 
         return size;
     }
+
 
 
     private Order getOrderFromResultSet(ResultSet resultSet) throws SQLException, DaoException{

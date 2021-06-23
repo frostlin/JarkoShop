@@ -68,23 +68,5 @@ public class UserServiceImpl implements UserService  {
         return user;
     }
 
-    @Override
-    public boolean addProductToCart(int productId, int userId) throws ServiceException{
-        boolean isAdded = false;
-        try {
-            isAdded = userDao.addCartItem(productId, userId);
-        } catch (DaoException e){
-            throw new ServiceException(e);
-        }
-        return isAdded;
-    }
 
-    @Override
-    public CartItem getCartItem(int productId, int userId) throws ServiceException{
-        try {
-            return userDao.getCartItem(productId, userId);
-        } catch (DaoException e) {
-            throw new ServiceException(e);
-        }
-    }
 }

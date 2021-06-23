@@ -1,18 +1,25 @@
 package by.epam.tc.shop.model.service.impl;
 
 import by.epam.tc.shop.model.dao.DaoException;
+import by.epam.tc.shop.model.entity.CartItem;
+import by.epam.tc.shop.model.service.CartItemService;
 import by.epam.tc.shop.model.service.ServiceException;
 import by.epam.tc.shop.model.dao.impl.OrderDaoImpl;
 import by.epam.tc.shop.model.entity.Order;
 import by.epam.tc.shop.model.service.OrderService;
+import by.epam.tc.shop.model.service.UserService;
+
 import java.util.List;
 
 public class OrderServiceImpl implements OrderService {
     OrderDaoImpl orderDao = OrderDaoImpl.getInstance();
+    CartItemService cartItemService = new CartItemServiceImpl();
     @Override
-    public boolean add(int userId, int paymentMethodId, int addressId, float sumToPay, String comment) throws ServiceException {
+    public int add(int userId, int paymentMethodId, int addressId, float sumToPay, String comment, List<CartItem> cart) throws ServiceException {
         try {
-            return orderDao.add(userId, paymentMethodId, addressId, sumToPay, comment);
+            int orderId = orderDao.add(userId, paymentMethodId, addressId, sumToPay, comment);
+            cartItemService.updateCartItemsWithOrder(cart, orderId, userId);
+            return orderId;
         } catch (DaoException e) {
             throw new ServiceException(e);
         }

@@ -15,10 +15,6 @@ public interface UserDao {
     Optional<User> getByEmail(String login) throws DaoException;
     Optional<User> getById(int id) throws DaoException;
 
-    boolean addCartItem(int product_id, int user_id) throws DaoException;
-    List<CartItem>  getCart(int user_id) throws DaoException;
-    boolean deleteCartItem(int user_id, int product_id) throws DaoException;
-    CartItem getCartItem(int product_id, int user_id) throws DaoException;
 
 
 }

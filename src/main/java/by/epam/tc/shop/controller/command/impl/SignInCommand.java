@@ -25,11 +25,11 @@ public class SignInCommand implements Command {
         String page;
         String login = request.getParameter(RequestParameter.LOGIN);
         String password = request.getParameter(RequestParameter.PASSWORD);
+        HttpSession session = request.getSession();
 
         try {
             Optional<User> user = userService.authorizeUser(login, password);
             if (user.isPresent()) {
-                HttpSession session = request.getSession();
 
                 session.setAttribute(SessionAttribute.CURRENT_USER, user.get());
                 session.setAttribute(SessionAttribute.ROLE, user.get().getRole().getRoleName());
@@ -41,7 +41,8 @@ public class SignInCommand implements Command {
             }
         } catch (ServiceException e) {
             logger.error("Error occurred while sign in user", e);
-            page = PagePath.HOME;
+            request.setAttribute(RequestAttribute.SIGN_IN_ERROR, "signup.errorSignin");
+            page = (String)session.getAttribute(SessionAttribute.CURRENT_PAGE);
         }
         return page;
     }

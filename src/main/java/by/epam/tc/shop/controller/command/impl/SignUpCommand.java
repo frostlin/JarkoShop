@@ -3,6 +3,7 @@ package by.epam.tc.shop.controller.command.impl;
 import by.epam.tc.shop.controller.PagePath;
 import by.epam.tc.shop.controller.RequestAttribute;
 import by.epam.tc.shop.controller.RequestParameter;
+import by.epam.tc.shop.controller.SessionAttribute;
 import by.epam.tc.shop.controller.command.Command;
 import by.epam.tc.shop.model.service.ServiceException;
 import by.epam.tc.shop.model.service.UserService;
@@ -11,6 +12,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 public class SignUpCommand implements Command {
     private static final Logger logger = LogManager.getLogger();
@@ -19,6 +21,7 @@ public class SignUpCommand implements Command {
     @Override
     public String execute(HttpServletRequest request) {
         String page;
+        HttpSession session = request.getSession();
 
         String login = request.getParameter(RequestParameter.LOGIN);
         String email = request.getParameter(RequestParameter.EMAIL);
@@ -39,7 +42,8 @@ public class SignUpCommand implements Command {
                 }
             } catch (ServiceException e) {
                 logger.error("Error occurred while sign up user", e);
-                page = PagePath.HOME;
+                request.setAttribute(RequestAttribute.SIGN_UP_ERROR, "signup.errorSignup");
+                page = (String)session.getAttribute(SessionAttribute.CURRENT_PAGE);
             }
         }
         return page;

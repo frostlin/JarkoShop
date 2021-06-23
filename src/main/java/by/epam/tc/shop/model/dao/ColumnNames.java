@@ -53,6 +53,11 @@ public class ColumnNames {
     public static final String ORDER_DATE_SHIPPING = "date_shipping";
     public static final String ORDER_COMMENT = "commend";
 
-
+    public static final String REVIEW_ID = "review.id";
+    public static final String REVIEW_USER_ID = "user_id";
+    public static final String REVIEW_PRODUCT_ID = "product_id";
+    public static final String REVIEW_CONTENT = "content";
+    public static final String REVIEW_DATE = "date";
+    public static final String REVIEW_RATING = "rating";
 
 }

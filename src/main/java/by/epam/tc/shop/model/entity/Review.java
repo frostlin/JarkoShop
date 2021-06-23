@@ -6,23 +6,15 @@ import java.util.Objects;
 
 public class Review implements Serializable {
     private int id;
-    private int userId;
-    private int productId;
+    private User user;
+    private Product product;
 
+    private String userName;
     private String content;
     private Date date;
     private int rating;
 
     public Review (){}
-
-    public Review(int id, int userId, int productId, String content, Date date, int rating) {
-        this.id = id;
-        this.userId = userId;
-        this.productId = productId;
-        this.content = content;
-        this.date = date;
-        this.rating = rating;
-    }
 
     public int getId() {
         return id;
@@ -32,20 +24,20 @@ public class Review implements Serializable {
         this.id = id;
     }
 
-    public int getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public int getProductId() {
-        return productId;
+    public Product getProduct() {
+        return product;
     }
 
-    public void setProductId(int productId) {
-        this.productId = productId;
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
     public String getContent() {
@@ -72,30 +64,34 @@ public class Review implements Serializable {
         this.rating = rating;
     }
 
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Review review = (Review) o;
-        return id == review.id
-                && userId == review.userId
-                && productId == review.productId
-                && rating == review.rating
-                && Objects.equals(content, review.content)
-                && Objects.equals(date, review.date);
+        return id == review.id && rating == review.rating && Objects.equals(user, review.user) && Objects.equals(product, review.product) && Objects.equals(userName, review.userName) && Objects.equals(content, review.content) && Objects.equals(date, review.date);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, userId, productId, content, date, rating);
+        return Objects.hash(id, user, product, userName, content, date, rating);
     }
 
     @Override
     public String toString() {
         return "Review{" +
                 "id=" + id +
-                ", userId=" + userId +
-                ", productId=" + productId +
+                ", user=" + user +
+                ", product=" + product +
+                ", userName='" + userName + '\'' +
                 ", content='" + content + '\'' +
                 ", date=" + date +
                 ", rating=" + rating +

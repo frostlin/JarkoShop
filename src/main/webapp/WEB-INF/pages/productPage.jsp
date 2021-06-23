@@ -76,7 +76,7 @@
                 </div>
             </div>        <br/>
             <form action="controller" method="post" class="my-auto">
-                <button class="btn btn-outline-primary mx-1 mb-5" type="submit" name="command" value="add_to_cart">
+                <button class="btn btn-primary mx-1 mb-5" type="submit" name="command" value="add_to_cart">
                     <fmt:message key="catalog.addToCard"/>
                 </button>
                 <input type="hidden" name="productId" value="${currentProduct.getId()}">
@@ -119,8 +119,8 @@
                      <textarea id="review" name="review" rows="4" cols="50" disabled><fmt:message key="review.notSignedIn"/></textarea>
                 </c:when>
                 <c:otherwise>
-                    <textarea id="review" name="reviewContent" rows="4" cols="50"></textarea>
-                    <select class="form-control" name="reviewRating">
+                    <textarea id="review" name="content" rows="4" cols="50"></textarea>
+                    <select class="form-control" name="rating">
                         <c:forEach begin="1" end="10" var="digit">
                             <option  value="${digit}">${digit}</option>
                         </c:forEach>
@@ -133,5 +133,24 @@
             <br><br>
         </form>
     </div>
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col"><fmt:message key="table.review"/> </th>
+            </tr>
+            </thead>
+            <tbody>
+            <c:forEach items="${reviews}" var="review" varStatus="loop">
+                <tr>
+                    <td>
+                        <h5><c:out value="${review.getUser().getLogin()}"/></h5>
+                        <p class="my-3"><c:out value="${review.getContent()}"/></p>
+                        <p style="font-size: smaller">Rating: <c:out value="${review.getRating()}"/> / 10</p>
+                        <p style="font-size: small"><c:out value="${review.getDate()}"/></p>
+                    </td>
+                </tr>
+            </c:forEach>
+            </tbody>
+        </table>
 </body>
 </html>

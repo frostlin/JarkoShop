@@ -31,6 +31,7 @@ public enum Access {
             TO_CART,
             CHECKOUT,
             TO_PRODUCT,
+            COMMIT_REVIEW,
             ADD_TO_CART
     ).map(CommandType::getCommand).collect(Collectors.toSet())),
 
@@ -43,6 +44,7 @@ public enum Access {
             ADD_TO_CART,
             CHECKOUT,
             TO_PRODUCT,
+            COMMIT_REVIEW,
             TO_ADMIN_CONTROL_PANEL
     ).map(CommandType::getCommand).collect(Collectors.toSet()));
 

@@ -8,6 +8,8 @@ public class RequestAttribute {
     public static final String ADD_PRODUCT_TO_CART_MESSAGE = "addProductMessageKey";
     public static final String ORDER_ERROR = "errorOrderKey";
 
+    public static final String REVIEWS = "reviews";
+
 
     public RequestAttribute(){};
 }

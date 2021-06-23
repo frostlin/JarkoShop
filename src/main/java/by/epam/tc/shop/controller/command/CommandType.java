@@ -15,6 +15,7 @@ public enum CommandType {
     ADD_TO_CART             {{ this.command = new AddToCartCommand(); }},
     CHECKOUT                {{ this.command = new CheckoutCommand(); }},
     TO_PRODUCT              {{ this.command = new ToProductPageCommand(); }},
+    COMMIT_REVIEW           {{ this.command = new CommitReview(); }},
     TO_ADMIN_CONTROL_PANEL  {{ this.command = new ToAdminControlPanelCommand(); }};
 
     Command command;

@@ -19,5 +19,8 @@ public class RequestParameter {
     public static final String SHIPPING_ADDRESS = "shippingAddress";
     public static final String COMMENT = "comment";
 
+    public static final String REVIEW_CONTENT = "content" ;
+    public static final String REVIEW_RATING = "rating" ;
+
     private RequestParameter(){}
 }

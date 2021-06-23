@@ -7,40 +7,44 @@ import by.epam.tc.shop.controller.SessionAttribute;
 import by.epam.tc.shop.controller.command.Command;
 import by.epam.tc.shop.model.entity.Product;
 import by.epam.tc.shop.model.entity.Review;
-import by.epam.tc.shop.model.service.ProductService;
+import by.epam.tc.shop.model.entity.User;
 import by.epam.tc.shop.model.service.ReviewService;
 import by.epam.tc.shop.model.service.ServiceException;
-import by.epam.tc.shop.model.service.impl.ProductServiceImpl;
+import by.epam.tc.shop.model.service.UserService;
 import by.epam.tc.shop.model.service.impl.ReviewServiceImpl;
+import by.epam.tc.shop.model.service.impl.UserServiceImpl;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.sql.Date;
 import java.util.List;
 
-public class ToProductPageCommand implements Command {
-    public static final Logger logger = LogManager.getLogger();
-    private static final ProductService productService = new ProductServiceImpl();
+public class CommitReview implements Command {
+    private static final Logger logger = LogManager.getLogger();
     private static final ReviewService reviewService = new ReviewServiceImpl();
 
     @Override
     public String execute(HttpServletRequest request) {
         HttpSession session = request.getSession();
-        int productId = Integer.parseInt(request.getParameter(RequestParameter.ADDED_PRODUCT_ID));
+        int currentUserId = ((User)session.getAttribute(SessionAttribute.CURRENT_USER)).getId();
+        int currentProductId = ((Product)session.getAttribute(SessionAttribute.CURRENT_PRODUCT)).getId();
+        String content = request.getParameter(RequestParameter.REVIEW_CONTENT);
+        int rating = Integer.parseInt(request.getParameter(RequestParameter.REVIEW_RATING));
+
+        int reviewId = 0;
 
         try{
-            Product product = productService.getProductById(productId);
-            session.setAttribute(SessionAttribute.CURRENT_PRODUCT, product);
-            List<Review> reviews = reviewService.getForProduct(productId);
+
+            reviewId = reviewService.commit(currentUserId,currentProductId,content,rating);
+            List<Review> reviews = reviewService.getForProduct(currentProductId);
             request.setAttribute(RequestAttribute.REVIEWS, reviews);
-        } catch (ServiceException e){
+        } catch(ServiceException e){
             logger.error("Error occurred while getting product for product page", e);
         }
 
+
         return PagePath.TO_PRODUCT;
-
     }
-
-
 }

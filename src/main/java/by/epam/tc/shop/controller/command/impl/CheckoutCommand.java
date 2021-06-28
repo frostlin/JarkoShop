@@ -42,11 +42,13 @@ public class CheckoutCommand implements Command {
 
             user.getCart().clear();
             session.setAttribute(SessionAttribute.CART_ITEMS, new ArrayList<>());
+            session.setAttribute(SessionAttribute.SUCCESSFUL_ORDER, "t");
 
         } catch (ServiceException e){
             logger.error("Error occurred while creating order", e);
             request.setAttribute(RequestAttribute.ORDER_ERROR, "cart.deleteError");
         }
+
 
 
         return PagePath.CART;

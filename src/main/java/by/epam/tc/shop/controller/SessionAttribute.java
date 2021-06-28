@@ -1,6 +1,8 @@
 package by.epam.tc.shop.controller;
 
 public class SessionAttribute {
+    public static final String MAIN_PAGE_PRODUCTS = "currentPage";
+
     public static final String CURRENT_PAGE = "currentPage";
     public static final String LAST_PAGE = "lastPage";
     public static final String LOCALE = "currentLocale";
@@ -22,6 +24,8 @@ public class SessionAttribute {
     public static final String CART_ITEMS = "cartItems";
 
     public static final String CURRENT_PRODUCT = "currentProduct";
+    public static final String SUCCESSFUL_ORDER = "successfulOrder";
+    public static final String SEARCH_STRING = "searchString" ;
 
     private SessionAttribute(){
     }

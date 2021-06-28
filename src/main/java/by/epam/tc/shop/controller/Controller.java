@@ -34,7 +34,7 @@ public class Controller extends HttpServlet {
         HttpSession session = req.getSession();
 
         String currPage = (String)session.getAttribute(SessionAttribute.CURRENT_PAGE);
-        if (currPage == null)
+        if (currPage != null)
             session.setAttribute(SessionAttribute.LAST_PAGE, currPage);
         session.setAttribute(SessionAttribute.CURRENT_PAGE, page);
 

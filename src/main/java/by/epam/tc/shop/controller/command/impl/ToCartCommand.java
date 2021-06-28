@@ -27,7 +27,7 @@ public class ToCartCommand implements Command {
     public String execute(HttpServletRequest request) {
         HttpSession session = request.getSession();
         User user = (User)session.getAttribute(SessionAttribute.CURRENT_USER);
-
+        session.setAttribute(SessionAttribute.SUCCESSFUL_ORDER, null);
         if (request.getParameter(RequestParameter.PRODUCT_ID_TO_DELETE ) != null){
             int productId = Integer.parseInt(request.getParameter(RequestParameter.PRODUCT_ID_TO_DELETE));
             int userId = Integer.parseInt(request.getParameter(RequestParameter.USER_ID_PRODUCT_TO_DELETE));

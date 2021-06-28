@@ -21,6 +21,7 @@ public class RequestParameter {
 
     public static final String REVIEW_CONTENT = "content" ;
     public static final String REVIEW_RATING = "rating" ;
+    public static final String SUCCESSFUL_ORDER = "successfulOrder";
 
     private RequestParameter(){}
 }

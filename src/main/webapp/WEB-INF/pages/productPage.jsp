@@ -129,10 +129,14 @@
             <c:forEach items="${reviews}" var="review" varStatus="loop">
                 <tr>
                     <td>
-                        <h5><c:out value="${review.getUser().getLogin()}"/></h5>
-                        <p class="my-3"><c:out value="${review.getContent()}"/></p>
-                        <p style="font-size: smaller"><fmt:message key="review.rating"/> <c:out value="${review.getRating()}"/> / 10 <br/>
-                            <c:out value="${review.getDate()}"/></p>
+                        <div class="flex-column align-items-start">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5 class="mb-1"><c:out value="${review.getUser().getLogin()}"/></h5>
+                                <small><c:out value="${review.getDate()}"/></small>
+                            </div>
+                            <p class="my-3"><c:out value="${review.getContent()}"/></p>
+                            <p style="font-size: smaller"><fmt:message key="review.rating"/> <c:out value="${review.getRating()}"/> / 10</p>
+                        </div>
                     </td>
                 </tr>
             </c:forEach>

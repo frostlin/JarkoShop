@@ -27,6 +27,7 @@
         </thead>
         <tbody>
             <c:forEach items="${currentItemsRange}" var="order" varStatus="loop">
+                <!--<form action="controller" class="order${order.getId()}">-->
                 <tr>
                     <td><c:out value="${order.getId()}"/> </td>
                     <td><c:out value="${order.getStatus()}"/> </td>

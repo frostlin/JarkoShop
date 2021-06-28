@@ -18,7 +18,7 @@ public class ReviewDaoImpl implements ReviewDao {
 
     private static final String ADD = "INSERT INTO review (user_id,product_id,content,rating) VALUES (?,?,?,?)";
     private static final String GET_BY_PRODUCT = "SELECT id,user_id,product_id,content,date,rating" +
-            " FROM review WHERE product_id LIKE ?";
+            " FROM review WHERE product_id LIKE ? ORDER BY id DESC";
     private static final String GET_BY_USER = "SELECT id,user_id,product_id,content,date,rating" +
             " FROM review WHERE user_id LIKE ?";
 

@@ -32,6 +32,9 @@
                 </ol>
 
                 <div class="carousel-inner" style=" background-color: #EFEFEF">
+                    <div>
+
+                    </div>
                     <c:forEach items="${currentProduct.getPhotos()}" var="photo" varStatus="loop">
                         <c:choose>
                             <c:when test="${loop.index == 0}">

@@ -14,7 +14,6 @@
     <div class="container">
         <div class="row">
             <div class="col">
-
             </div>
             <div class="col-9">
                 <div class="d-flex flex-row justify-content-between align-items-center pr-0 m">
@@ -37,7 +36,7 @@
                     </c:if>
                     <form class="form-inline my-2 my-lg-0" action="controller" method="post">
                         <input class="form-control mr-sm-2" type="text" name="searchString" placeholder=<fmt:message key="header.search"/> aria-label="Search">
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit" name="command" value="search">
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit" name="command" value="to_catalog">
                             <fmt:message key="header.search"/>
                         </button>
                     </form>
@@ -45,7 +44,7 @@
                 <ul class="list-group">
                     <c:forEach var="product" items="${currentItemsRange}" varStatus="status">
                         <li class="list-group-item list-group-item-action justify-content-start d-flex align-text-top">
-                            <div class="justify-content-center" style="width:150px;height:144px" >
+                            <div class="justify-content-center" style="width:250px;height:144px" >
                                <c:if test="${!product.photos.isEmpty()}">
                                     <img class="align-self-center" src="${pageContext.request.contextPath}/assets/images/${product.id}/${product.getPhotos().get(0)}.jpeg" alt="img"  height="144">
                                 </c:if>

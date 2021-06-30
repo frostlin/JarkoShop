@@ -32,7 +32,10 @@ public enum Access {
             CHECKOUT,
             TO_PRODUCT,
             COMMIT_REVIEW,
-            ADD_TO_CART
+            TO_PROFILE,
+            ADD_TO_CART,
+            LOGOUT,
+            TO_CHANGE_PASSWORD
     ).map(CommandType::getCommand).collect(Collectors.toSet())),
 
     ADMIN(Stream.of(
@@ -45,11 +48,14 @@ public enum Access {
             CHECKOUT,
             TO_PRODUCT,
             COMMIT_REVIEW,
+            TO_PROFILE,
             TO_ADMIN_USERS,
             TO_ADMIN_ORDERS,
             TO_ADMIN_PRODUCTS,
             TO_ADMIN_DISCOUNTS,
-            TO_ADMIN_CONTROL_PANEL
+            TO_ADMIN_CONTROL_PANEL,
+            LOGOUT,
+            TO_CHANGE_PASSWORD
     ).map(CommandType::getCommand).collect(Collectors.toSet()));
 
     private final Set<Command> commands;

@@ -52,7 +52,6 @@ public class ToCatalogCommand implements Command {
             session.setAttribute(SessionAttribute.SEARCH_STRING, currentSearchString);
         }
 
-
         try {
             List<Product> range;
             int productCount = 0;

@@ -1,4 +1,13 @@
 package by.epam.tc.shop.controller.command.impl;
 
-public class ToProfileCommand {
+import by.epam.tc.shop.controller.PagePath;
+import by.epam.tc.shop.controller.command.Command;
+
+import javax.servlet.http.HttpServletRequest;
+
+public class ToProfileCommand implements Command {
+    @Override
+    public String execute(HttpServletRequest request) {
+        return PagePath.TO_PROFILE;
+    }
 }

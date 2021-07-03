@@ -23,7 +23,7 @@
         <div class="col-8">
             <div>
                 <div id="demo" class="carousel slide" data-ride="carousel" style="width: 400px; height: 400px; background-color: #EFEFEF">
-                    <ol class="carousel-indicators">
+                    <ol class="carousel-indicators" style="filter: invert(1);">
                         <c:forEach items="${currentProduct.getPhotos()}" var="photo" varStatus="loop">
                             <c:choose>
                                 <c:when test="${loop.index == 0}">
@@ -54,10 +54,10 @@
                     </div>
 
                     <a class="carousel-control-prev" href="#demo" data-slide="prev">
-                        <span class="carousel-control-prev-icon"></span>
+                        <span class="carousel-control-prev-icon" style="filter: invert(1);"></span>
                     </a>
                     <a class="carousel-control-next" href="#demo" data-slide="next">
-                        <span class="carousel-control-next-icon"></span>
+                        <span class="carousel-control-next-icon" style="filter: invert(1);"></span>
                     </a>
                 </div>
             </div><br/>

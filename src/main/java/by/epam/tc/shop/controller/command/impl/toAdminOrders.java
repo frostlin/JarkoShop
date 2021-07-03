@@ -21,18 +21,18 @@ public class toAdminOrders implements Command {
     @Override
     public String execute(HttpServletRequest request) {
         HttpSession session = request.getSession();
-        if (session.getAttribute(SessionAttribute.CURRENT_ORDERS_PAGE) == null)
-            session.setAttribute(SessionAttribute.CURRENT_ORDERS_PAGE, 1);
-        if (session.getAttribute(SessionAttribute.CURRENT_ORDERS_PER_PAGE) == null)
-            session.setAttribute(SessionAttribute.CURRENT_ORDERS_PER_PAGE, PaginationConstants.CURRENT_ORDERS_PER_PAGE);
+        if (session.getAttribute(SessionAttribute.CURRENT_ADMIN_PANEL_PAGE) == null)
+            session.setAttribute(SessionAttribute.CURRENT_ADMIN_PANEL_PAGE, 1);
+        if (session.getAttribute(SessionAttribute.CURRENT_ADMIN_PANEL_ITEMS_PER_PAGE) == null)
+            session.setAttribute(SessionAttribute.CURRENT_ADMIN_PANEL_ITEMS_PER_PAGE, PaginationConstants.CURRENT_ORDERS_PER_PAGE);
 
-        int pageNumber = (int)session.getAttribute(SessionAttribute.CURRENT_ORDERS_PAGE);
-        int itemsPerPage = (int)session.getAttribute(SessionAttribute.CURRENT_ORDERS_PER_PAGE);
+        int pageNumber = (int)session.getAttribute(SessionAttribute.CURRENT_ADMIN_PANEL_PAGE);
+        int itemsPerPage = (int)session.getAttribute(SessionAttribute.CURRENT_ADMIN_PANEL_ITEMS_PER_PAGE);
 
         String nextPageNumber = request.getParameter(RequestParameter.NEXT_ITEM_PAGE);
         if (nextPageNumber != null){
             pageNumber = Integer.parseInt(nextPageNumber);
-            session.setAttribute(SessionAttribute.CURRENT_ORDERS_PAGE, pageNumber);
+            session.setAttribute(SessionAttribute.CURRENT_ADMIN_PANEL_PAGE, pageNumber);
         }
         try {
             int orderCount = orderService.getOrderCount();

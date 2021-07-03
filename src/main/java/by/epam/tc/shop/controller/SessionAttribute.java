@@ -11,8 +11,8 @@ public class SessionAttribute {
 
     public static final String CURRENT_PRODUCTS_PAGE = "currentProductsPage";
     public static final String CURRENT_PRODUCTS_PER_PAGE = "currentProductsPerPage";
-    public static final String CURRENT_ORDERS_PAGE = "currentOrdersPage";
-    public static final String CURRENT_ORDERS_PER_PAGE = "currentOrdersPerPage";
+    public static final String CURRENT_ADMIN_PANEL_PAGE = "currentOrdersPage";
+    public static final String CURRENT_ADMIN_PANEL_ITEMS_PER_PAGE = "currentOrdersPerPage";
 
     public static final String CURRENT_ITEMS_RANGE = "currentItemsRange";
     public static final String TOTAL_PAGE_COUNT = "totalPageCount";

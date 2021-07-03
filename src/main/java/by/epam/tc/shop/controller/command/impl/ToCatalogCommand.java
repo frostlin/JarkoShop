@@ -28,7 +28,8 @@ public class ToCatalogCommand implements Command {
         if (session.getAttribute(SessionAttribute.CURRENT_PRODUCTS_PAGE) == null
                 || request.getParameter(RequestParameter.CURRENT_CATEGORY) != null
                 || request.getParameter(RequestParameter.SEARCH_STRING) != null
-                || request.getParameter(RequestParameter.FILTER_METHOD) != null){
+                || request.getParameter(RequestParameter.FILTER_METHOD) != null)
+        {
             session.setAttribute(SessionAttribute.CURRENT_PRODUCTS_PAGE, 1);
             session.setAttribute(SessionAttribute.PRODUCT_FILTER_METHOD, null);
         }
@@ -73,8 +74,11 @@ public class ToCatalogCommand implements Command {
                         case "avgRating":
                             range = productService.getProductPageSortedByAvgRating(pageNumber, itemsPerPage);
                             break;
-                        case "price":
-                            range = productService.getProductPageSortedByPrice(pageNumber, itemsPerPage);
+                        case "priceAsc":
+                            range = productService.getProductPageSortedByPrice(pageNumber, itemsPerPage, "");
+                            break;
+                        case "priceDesc":
+                            range = productService.getProductPageSortedByPrice(pageNumber, itemsPerPage, "DESC ");
                             break;
                     }
                 } else {
@@ -91,8 +95,11 @@ public class ToCatalogCommand implements Command {
                     case "avgRating":
                         range = productService.getProductPageByCategorySortedByAvgRating(pageNumber, itemsPerPage, categoryId);
                         break;
-                    case "price":
-                        range = productService.getProductPageByCategorySortedByPrice(pageNumber, itemsPerPage, categoryId);
+                    case "priceAsc":
+                        range = productService.getProductPageByCategorySortedByPrice(pageNumber, itemsPerPage, categoryId, "");
+                        break;
+                    case "priceDesc":
+                        range = productService.getProductPageByCategorySortedByPrice(pageNumber, itemsPerPage, categoryId, "DESC ");
                         break;
                 }
                 } else {

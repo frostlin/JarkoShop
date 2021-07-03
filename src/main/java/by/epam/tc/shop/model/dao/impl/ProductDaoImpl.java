@@ -88,10 +88,10 @@ public class ProductDaoImpl implements ProductDao {
     }
 
     @Override
-    public List<Product> getRangeOrderByPrice(int start, int offset) throws DaoException {
+    public List<Product> getRangeOrderByPrice(int start, int offset, String direction) throws DaoException {
         List<Product> products = new ArrayList<>();
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
-             PreparedStatement statement = connection.prepareStatement(GET_RANGE_ORDER_BY_PRICE))
+             PreparedStatement statement = connection.prepareStatement(GET_ALL + ORDER_BY_PRICE + direction + LIMIT_RANGE))
         {
             statement.setInt(1, start);
             statement.setInt(2, offset);
@@ -143,10 +143,10 @@ public class ProductDaoImpl implements ProductDao {
     }
 
     @Override
-    public List<Product> getRangeByCategoryOrderByPrice(int start, int offset, int categoryId) throws DaoException {
+    public List<Product> getRangeByCategoryOrderByPrice(int start, int offset, int categoryId, String direction) throws DaoException {
         List<Product> products = new ArrayList<>();
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
-             PreparedStatement statement = connection.prepareStatement(GET_RANGE_BY_CATEGORY_ORDER_BY_PRICE))
+             PreparedStatement statement = connection.prepareStatement(GET_ALL + " WHERE product.category_id LIKE ? " + ORDER_BY_PRICE + direction + LIMIT_RANGE))
         {
             statement.setInt(1, categoryId);
             statement.setInt(2, start);

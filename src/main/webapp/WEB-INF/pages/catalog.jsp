@@ -25,8 +25,10 @@
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <button class="dropdown-item" type="submit" name="filterMethod" value="avgRating">
                                     <fmt:message key="catalog.popularityFilter"/></button>
-                                <button class="dropdown-item" type="submit" name="filterMethod" value="price">
-                                    <fmt:message key="catalog.priceFilter"/></button>
+                                <button class="dropdown-item" type="submit" name="filterMethod" value="priceAsc">
+                                    <fmt:message key="catalog.priceFilterAsc"/></button>
+                                <button class="dropdown-item" type="submit" name="filterMethod" value="priceDesc">
+                                    <fmt:message key="catalog.priceFilterDesc"/></button>
                                 <input type="hidden" name="command" value="to_catalog">
                             </div>
                         </form>

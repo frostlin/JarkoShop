@@ -25,10 +25,10 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> getProductPageSortedByPrice(int pageNumber, int recordsPerPage) throws ServiceException {
+    public List<Product> getProductPageSortedByPrice(int pageNumber, int recordsPerPage, String direction) throws ServiceException {
         try {
             int start = (pageNumber - 1) * recordsPerPage;
-            return productDao.getRangeOrderByPrice(start, recordsPerPage);
+            return productDao.getRangeOrderByPrice(start, recordsPerPage, direction);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -54,10 +54,10 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> getProductPageByCategorySortedByPrice(int pageNumber, int recordsPerPage, int categoryId) throws ServiceException {
+    public List<Product> getProductPageByCategorySortedByPrice(int pageNumber, int recordsPerPage, int categoryId, String direction) throws ServiceException {
         try {
             int start = (pageNumber - 1) * recordsPerPage;
-            return productDao.getRangeByCategoryOrderByPrice(start, recordsPerPage, categoryId);
+            return productDao.getRangeByCategoryOrderByPrice(start, recordsPerPage, categoryId, direction);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }

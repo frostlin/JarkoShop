@@ -7,11 +7,11 @@ import java.util.List;
 public interface ProductService {
 
     List<Product> getProductPage(int pageNumber, int recordsPerPage) throws ServiceException;
-    List<Product> getProductPageSortedByPrice(int pageNumber, int recordsPerPage) throws ServiceException;
+    List<Product> getProductPageSortedByPrice(int pageNumber, int recordsPerPage, String direction) throws ServiceException;
     List<Product> getProductPageSortedByAvgRating(int pageNumber, int recordsPerPage) throws ServiceException;
 
     List<Product> getProductPageByCategory(int pageNumber, int recordsPerPage, int categoryId) throws ServiceException;
-    List<Product> getProductPageByCategorySortedByPrice(int pageNumber, int recordsPerPage, int categoryId) throws ServiceException;
+    List<Product> getProductPageByCategorySortedByPrice(int pageNumber, int recordsPerPage, int categoryId, String direction) throws ServiceException;
     List<Product> getProductPageByCategorySortedByAvgRating(int pageNumber, int recordsPerPage, int categoryId) throws ServiceException;
     List<Product> getLatest(int count) throws ServiceException;
     List<Product> getProductPageBySearch(int pageNumber, int recordsPerPage, int categoryId, String searchString) throws ServiceException;

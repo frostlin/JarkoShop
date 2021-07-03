@@ -76,11 +76,11 @@
             <c:otherwise>
             <form action="controller" method="post" class="my-auto">
                 <button class="btn btn-outline-primary mx-1" type="submit" name="command" value="to_cart">
-                    <fmt:message key="header.cart"/>
-                    <span class="badge badge-danger badge-pill mr-2"><c:out value="${currentUser.getCart().size()}"/></span>
+                    <i class='bx bxs-cart' ></i> <fmt:message key="header.cart"/>
+                    <span class="badge badge-danger"><c:out value="${currentUser.getCart().size()}"/></span>
                 </button>
                 <button class="btn btn-outline-primary mx-1" type="submit" name="command" value="to_profile">
-                    <fmt:message key="header.profile"/>
+                    <i class='bx bxs-id-card' > </i> <fmt:message key="header.profile"/>
                 </button>
                 <c:if test="${role.equals('admin')}">
                     <div class="btn-group">

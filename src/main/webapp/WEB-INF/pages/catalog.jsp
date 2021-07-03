@@ -93,9 +93,10 @@
                                 </div>
                                 <div class="align-self-end mt-4 ml-2">
                                     <form action="controller" method="post" class="my-auto">
-                                        <button class="btn btn-outline-primary mx-1" type="submit" name="command" value="add_to_cart">
-                                            <fmt:message key="catalog.addToCard"/> </button>
-                                        <span class="badge badge-success badge-pill ml-2 mb-2">$<c:out value="${product.price}"/></span>
+                                        <button class="btn btn-outline-success " type="submit" name="command" value="add_to_cart">
+                                            <i class='bx bxs-cart-download'></i>
+                                            <span class="badge badge-success ml-1">$<c:out value="${product.price}"/></span>
+                                        </button>
                                         <input type="hidden" name="productId" value="${product.getId()}">
                                     </form>
                                 </div>

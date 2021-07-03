@@ -12,7 +12,7 @@
 
 <body>
 <div class="container">
-        <div class="row">
+    <div class="row">
         <div class="col">
             <h4><fmt:message key="profile.username"/>${currentUser.getLogin()}</h4>
             <form action="controller" method="post">
@@ -26,32 +26,12 @@
                 </button>
             </form>
         </div>
+        <div class="col-9">
 
-    <div class="col-9">
 
-
+        </div>
     </div>
+</div>
 
-    <table class="table table-bordered">
-        <thead>
-        <tr><th scope="col"><fmt:message key="reviewTable.review"/> </th>`</tr>
-        </thead>
-        <tbody>
-        <c:forEach items="${reviews}" var="review" varStatus="loop">
-            <tr>
-                <td>
-                    <div class="flex-column align-items-start">
-                        <div class="d-flex w-100 justify-content-between">
-                            <h5 class="mb-1"><c:out value="${review.getUser().getLogin()}"/></h5>
-                            <small><c:out value="${review.getDate()}"/></small>
-                        </div>
-                        <p class="my-3"><c:out value="${review.getContent()}"/></p>
-                        <p style="font-size: smaller"><fmt:message key="review.rating"/> <c:out value="${review.getRating()}"/> / 10</p>
-                    </div>
-                </td>
-            </tr>
-        </c:forEach>
-        </tbody>
-    </table>
 </body>
 </html>

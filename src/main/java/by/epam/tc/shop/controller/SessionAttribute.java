@@ -26,6 +26,7 @@ public class SessionAttribute {
     public static final String CURRENT_PRODUCT = "currentProduct";
     public static final String SUCCESSFUL_ORDER = "successfulOrder";
     public static final String SEARCH_STRING = "searchString" ;
+    public static final String PRODUCT_FILTER_METHOD = "productFilterMethod";
 
     private SessionAttribute(){
     }

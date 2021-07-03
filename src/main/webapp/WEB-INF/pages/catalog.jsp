@@ -23,11 +23,11 @@
                         </a>
                         <form action="controller" method="post">
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <button class="dropdown-item" type="submit" name="changeLocale" value="en_US">
-                                    <fmt:message key="catalog.dateFilter"/></button>
-                                <button class="dropdown-item" type="submit" name="changeLocale" value="en_US">
+                                <button class="dropdown-item" type="submit" name="filterMethod" value="avgRating">
+                                    <fmt:message key="catalog.popularityFilter"/></button>
+                                <button class="dropdown-item" type="submit" name="filterMethod" value="price">
                                     <fmt:message key="catalog.priceFilter"/></button>
-                                <input type="hidden" name="command" value="change_locale">
+                                <input type="hidden" name="command" value="to_catalog">
                             </div>
                         </form>
                     </div>
@@ -44,30 +44,59 @@
                 <ul class="list-group">
                     <c:forEach var="product" items="${currentItemsRange}" varStatus="status">
                         <li class="list-group-item list-group-item-action justify-content-start d-flex align-text-top">
-                            <div class="justify-content-center" style="width:250px;height:144px" >
+                            <div class="justify-content-start" >
                                <c:if test="${!product.photos.isEmpty()}">
-                                    <img class="align-self-center" src="${pageContext.request.contextPath}/assets/images/${product.id}/${product.getPhotos().get(0)}.jpeg" alt="img"  height="144">
+                                    <img class="align-self-center" src="${pageContext.request.contextPath}/assets/images/${product.id}/${product.getPhotos().get(0)}.jpeg" alt="img"  height="177" width="auto">
                                 </c:if>
                             </div>
 
-                            <div class="justify-content-end">
+                            <div class="justify-content-end ml-3">
                                 <div class="align-self-start">
-                                    <form action="controller" method="post" class="my-auto">
+                                    <form action="controller" method="post">
                                         <button type="submit" class="btn btn-lg btn-link " name="command" value="to_product">
-                                            <c:out value="${product.getBrand()} ${product.getModel()}"/>
+                                            ${product.getBrand()} ${product.getModel()}
                                         </button>
+                                        <p class="ml-2">
+                                        <c:choose>
+                                            <c:when test="${product.getRating() < 1}">
+                                                <fmt:message key="catalog.noRating"/>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <c:forEach begin="1" end="10" var="digit">
+                                                    <c:choose>
+                                                        <c:when test="${digit <= product.getRating()}">
+                                                            <i class='bx bxs-star'></i>
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            <c:choose>
+                                                                <c:when test="${digit - 1 < product.getRating()}">
+                                                                    <i class='bx bxs-star-half' ></i>
+                                                                </c:when>
+                                                                <c:otherwise>
+                                                                    <i class='bx bx-star' ></i>
+                                                                </c:otherwise>
+                                                            </c:choose>
+                                                        </c:otherwise>
+                                                    </c:choose>
+                                                </c:forEach>
+                                            </c:otherwise>
+                                        </c:choose>
+                                        </p>
                                         <input type="hidden" name="productId" value="${product.getId()}">
                                     </form>
-                                    <c:forEach var="characteristic" items="${product.getCharacteristics()}">
-                                        <c:out value="${characteristic.getName()} ${characteristic.getValue()}, "/>
-                                    </c:forEach>
+
+                                    <div class="ml-2">
+                                        <c:forEach var="characteristic" items="${product.getCharacteristics()}">
+                                            <c:out value="${characteristic.getName()} ${characteristic.getValue()}, "/>
+                                        </c:forEach>
+                                    </div>
                                 </div>
-                                <div class="align-self-end mt-4">
-                                    <span class="badge badge-success badge-pill mr-2 mb-2">$<c:out value="${product.price}"/></span>
+                                <div class="align-self-end mt-4 ml-2">
                                     <form action="controller" method="post" class="my-auto">
-                                    <button class="btn btn-outline-primary mx-1" type="submit" name="command" value="add_to_cart">
-                                        <fmt:message key="catalog.addToCard"/>
-                                    <input type="hidden" name="productId" value="${product.getId()}">
+                                        <button class="btn btn-outline-primary mx-1" type="submit" name="command" value="add_to_cart">
+                                            <fmt:message key="catalog.addToCard"/> </button>
+                                        <span class="badge badge-success badge-pill ml-2 mb-2">$<c:out value="${product.price}"/></span>
+                                        <input type="hidden" name="productId" value="${product.getId()}">
                                     </form>
                                 </div>
                             </div>

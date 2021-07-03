@@ -11,7 +11,7 @@ public class Product implements Serializable {
     private Category category;
     private List<ProductCharacteristic> characteristics = new ArrayList<>();
     private List<String> photos = new ArrayList<>();
-
+    private double rating;
     private float price;
     private String model;
     private String description;
@@ -50,6 +50,14 @@ public class Product implements Serializable {
 
     public void setCharacteristics(List<ProductCharacteristic> characteristics) {
         this.characteristics = characteristics;
+    }
+
+    public double getRating() {
+        return rating;
+    }
+
+    public void setRating(double rating) {
+        this.rating = rating;
     }
 
     public float getPrice() {
@@ -100,17 +108,18 @@ public class Product implements Serializable {
         this.photos = photos;
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Product product = (Product) o;
-        return id == product.id && Float.compare(product.price, price) == 0 && warranty == product.warranty && stockAmount == product.stockAmount && Objects.equals(brand, product.brand) && Objects.equals(category, product.category) && Objects.equals(characteristics, product.characteristics) && Objects.equals(photos, product.photos) && Objects.equals(model, product.model) && Objects.equals(description, product.description);
+        return id == product.id && Double.compare(product.rating, rating) == 0 && Float.compare(product.price, price) == 0 && warranty == product.warranty && stockAmount == product.stockAmount && Objects.equals(brand, product.brand) && Objects.equals(category, product.category) && Objects.equals(characteristics, product.characteristics) && Objects.equals(photos, product.photos) && Objects.equals(model, product.model) && Objects.equals(description, product.description);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, brand, category, characteristics, photos, price, model, description, warranty, stockAmount);
+        return Objects.hash(id, brand, category, characteristics, photos, rating, price, model, description, warranty, stockAmount);
     }
 
     @Override
@@ -121,6 +130,7 @@ public class Product implements Serializable {
                 ", category=" + category +
                 ", characteristics=" + characteristics +
                 ", photos=" + photos +
+                ", rating=" + rating +
                 ", price=" + price +
                 ", model='" + model + '\'' +
                 ", description='" + description + '\'' +

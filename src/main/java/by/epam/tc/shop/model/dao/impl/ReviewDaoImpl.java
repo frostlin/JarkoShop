@@ -85,15 +85,11 @@ public class ReviewDaoImpl implements ReviewDao {
         Review review = new Review();
 
         int id =             resultSet.getInt(ColumnNames.REVIEW_ID);
-        int userId =         resultSet.getInt(ColumnNames.REVIEW_USER_ID);
-        int productId =      resultSet.getInt(ColumnNames.REVIEW_PRODUCT_ID);
         String content =     resultSet.getString(ColumnNames.REVIEW_CONTENT);
         Date date =          resultSet.getDate(ColumnNames.REVIEW_DATE);
         int rating =         resultSet.getInt(ColumnNames.REVIEW_RATING);
 
         review.setId(id);
-        review.setUser(userDao.getById(userId).get());
-        review.setProduct(productDao.getById(productId));
         review.setContent(content);
         review.setDate(date);
         review.setRating(rating);

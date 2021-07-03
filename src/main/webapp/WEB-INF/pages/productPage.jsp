@@ -74,7 +74,7 @@
             <thead>
             <tr>
                 <th scope="col"><fmt:message key="reviewTable.characteristic"/> </th>
-                <th scope="col"> value</th>
+                <th scope="col"><fmt:message key="reviewTable.value"/> </th>
             </tr>
             </thead>
             <tbody>
@@ -121,26 +121,39 @@
             <br><br>
         </form>
     </div>
-        <table class="table table-bordered">
-            <thead>
-            <tr><th scope="col"><fmt:message key="reviewTable.review"/> </th>`</tr>
-            </thead>
-            <tbody>
-            <c:forEach items="${reviews}" var="review" varStatus="loop">
-                <tr>
-                    <td>
-                        <div class="flex-column align-items-start">
-                            <div class="d-flex w-100 justify-content-between">
-                                <h5 class="mb-1"><c:out value="${review.getUser().getLogin()}"/></h5>
-                                <small><c:out value="${review.getDate()}"/></small>
-                            </div>
-                            <p class="my-3"><c:out value="${review.getContent()}"/></p>
-                            <p style="font-size: smaller"><fmt:message key="review.rating"/> <c:out value="${review.getRating()}"/> / 10</p>
+
+    <table class="table table-bordered">
+        <thead>
+        <tr><th scope="col"><fmt:message key="reviewTable.review"/> </th>`</tr>
+        </thead>
+        <tbody>
+        <c:forEach items="${reviews}" var="review" varStatus="loop">
+            <tr>
+                <td>
+                    <div class="flex-column align-items-start">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1"><c:out value="${review.getUser().getLogin()}"/></h5>
+
+                            <small><c:out value="${review.getDate()}"/></small>
                         </div>
-                    </td>
-                </tr>
-            </c:forEach>
-            </tbody>
-        </table>
+                        <c:forEach begin="1" end="10" var="digit">
+                            <c:choose>
+                                <c:when test="${digit <= review.getRating()}">
+                                    <i class='bx bxs-star'></i>
+                                </c:when>
+                                <c:otherwise>
+                                    <i class='bx bx-star' ></i>
+                                </c:otherwise>
+                            </c:choose>
+                        </c:forEach>
+                        <p class="my-3"><c:out value="${review.getContent()}"/></p>
+
+                    </div>
+                </td>
+            </tr>
+        </c:forEach>
+        </tbody>
+    </table>
+
 </body>
 </html>

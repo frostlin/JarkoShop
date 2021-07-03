@@ -14,7 +14,9 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 public class ToCatalogCommand implements Command {
@@ -25,8 +27,11 @@ public class ToCatalogCommand implements Command {
         HttpSession session = request.getSession();
         if (session.getAttribute(SessionAttribute.CURRENT_PRODUCTS_PAGE) == null
                 || request.getParameter(RequestParameter.CURRENT_CATEGORY) != null
-                || request.getParameter(RequestParameter.SEARCH_STRING) != null)
+                || request.getParameter(RequestParameter.SEARCH_STRING) != null
+                || request.getParameter(RequestParameter.FILTER_METHOD) != null){
             session.setAttribute(SessionAttribute.CURRENT_PRODUCTS_PAGE, 1);
+            session.setAttribute(SessionAttribute.PRODUCT_FILTER_METHOD, null);
+        }
         if (session.getAttribute(SessionAttribute.CURRENT_PRODUCTS_PER_PAGE) == null)
             session.setAttribute(SessionAttribute.CURRENT_PRODUCTS_PER_PAGE, PaginationConstants.CURRENT_PRODUCTS_PER_PAGE);
 
@@ -35,6 +40,7 @@ public class ToCatalogCommand implements Command {
         int itemsPerPage = (int)session.getAttribute(SessionAttribute.CURRENT_PRODUCTS_PER_PAGE);
         int categoryId = (int)session.getAttribute(SessionAttribute.CURRENT_CATEGORY);
         String currentSearchString = (String)session.getAttribute(SessionAttribute.SEARCH_STRING);
+        String currentFilterMethod = (String)session.getAttribute(SessionAttribute.PRODUCT_FILTER_METHOD);
 
         String nextPageNumber = request.getParameter(RequestParameter.NEXT_ITEM_PAGE);
         if (nextPageNumber != null){
@@ -51,32 +57,53 @@ public class ToCatalogCommand implements Command {
             currentSearchString = searchString;
             session.setAttribute(SessionAttribute.SEARCH_STRING, currentSearchString);
         }
+        String filterMethod = request.getParameter(RequestParameter.FILTER_METHOD);
+        if (filterMethod != null){
+            currentFilterMethod = filterMethod;
+            session.setAttribute(SessionAttribute.PRODUCT_FILTER_METHOD, currentFilterMethod);
+        }
 
         try {
-            List<Product> range;
+            List<Product> range = null;
             int productCount = 0;
-            int itemPageCount = 0;
-
             if (categoryId == 0){
                 productCount = productService.getProductCount();
-                itemPageCount = (int) Math.ceil(productCount * 1.0 / itemsPerPage);
-
-                if (searchString == null){
-                    range = productService.getProductPage(pageNumber, itemsPerPage);
+                if (currentFilterMethod != null){
+                    switch (currentFilterMethod){
+                        case "avgRating":
+                            range = productService.getProductPageSortedByAvgRating(pageNumber, itemsPerPage);
+                            break;
+                        case "price":
+                            range = productService.getProductPageSortedByPrice(pageNumber, itemsPerPage);
+                            break;
+                    }
                 } else {
-                    range = productService.getProductPageBySearch(pageNumber, itemsPerPage, categoryId, searchString);
+                    if (searchString == null){
+                        range = productService.getProductPage(pageNumber, itemsPerPage);
+                    } else {
+                        range = productService.getProductPageBySearch(pageNumber, itemsPerPage, categoryId, searchString);
+                    }
                 }
-
             } else {
                 productCount = productService.getProductCount(categoryId);
-                itemPageCount = (int) Math.ceil(productCount * 1.0 / itemsPerPage);
-
-                if (searchString == null){
-                    range = productService.getProductPageByCategory(pageNumber, itemsPerPage, categoryId);
+                if (currentFilterMethod != null){
+                    switch (currentFilterMethod){
+                    case "avgRating":
+                        range = productService.getProductPageByCategorySortedByAvgRating(pageNumber, itemsPerPage, categoryId);
+                        break;
+                    case "price":
+                        range = productService.getProductPageByCategorySortedByPrice(pageNumber, itemsPerPage, categoryId);
+                        break;
+                }
                 } else {
-                    range = productService.getProductPageBySearch(pageNumber, itemsPerPage, categoryId, searchString);
+                    if (searchString == null) {
+                        range = productService.getProductPageByCategory(pageNumber, itemsPerPage, categoryId);
+                    } else {
+                        range = productService.getProductPageBySearch(pageNumber, itemsPerPage, categoryId, searchString);
+                    }
                 }
             }
+            int itemPageCount = (int) Math.ceil(productCount * 1.0 / itemsPerPage);
 
             session.setAttribute(SessionAttribute.TOTAL_PAGE_COUNT, itemPageCount);
             session.setAttribute(SessionAttribute.TOTAL_ITEM_COUNT, productCount);

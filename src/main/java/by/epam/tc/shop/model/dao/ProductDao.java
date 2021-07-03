@@ -6,9 +6,14 @@ import java.util.List;
 
 public interface ProductDao {
 
-     List<Product> getRange(int page, int recordsPerPage) throws DaoException;
+     List<Product> getRange(int start, int offset) throws DaoException;
+     List<Product> getRangeOrderByPrice(int start, int offset) throws DaoException;
+     List<Product> getRangeOrderByAvgRating(int start, int offset) throws DaoException;
+
      List<Product> getRangeByCategory(int start, int offset, int categoryId) throws DaoException;
-     List<Product> getRangeByBrand(int start, int offset, int brandId) throws DaoException;
+     List<Product> getRangeByCategoryOrderByPrice(int start, int offset, int categoryId) throws DaoException;
+     List<Product> getRangeByCategoryOrderByAvgRating(int start, int offset, int categoryId) throws DaoException;
+
      List<Product> getBySearch(String searchString) throws DaoException;
      List<Product> getBySearch(int categoryId, String searchString) throws DaoException;
      int getProductCount() throws DaoException;

@@ -42,12 +42,28 @@
                 </form>
             </li>
         </ul>
-        <div class="nav-item dropdown mt-3" style="vertical-align:middle">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class='bx bx-world'></i>
-            </a>
+        <div class="btn-group">
+            <button class="btn btn-link dropdown-toggle" type="button" id="currencyDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class='bx bxs-dollar-circle'></i>
+            </button>
             <form action="controller" method="post">
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <div class="dropdown-menu" aria-labelledby="currencyDropdown">
+                    <button class="dropdown-item" type="submit" name="changeCurrency" value="usd">
+                        USD</button>
+                    <button class="dropdown-item" type="submit" name="changeCurrency" value="byn">
+                        BYN</button>
+                    <button class="dropdown-item" type="submit" name="changeCurrency" value="rub">
+                        RUB</button>
+                    <input type="hidden" name="command" value="change_currency">
+                </div>
+            </form>
+        </div>
+        <div class="btn-group">
+            <button class="btn btn-link dropdown-toggle" type="button" id="localeDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class='bx bx-world'></i>
+            </button>
+            <form action="controller" method="post">
+                <div class="dropdown-menu" aria-labelledby="localeDropdown">
                     <button class="dropdown-item" type="submit" name="changeLocale" value="en_US">
                         <fmt:message key="header.language_en"/></button>
                     <button class="dropdown-item" type="submit" name="changeLocale" value="ru_RU">

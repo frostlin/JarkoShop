@@ -16,6 +16,7 @@
         <div class="col">
         </div>
         <div class="col-9">
+            <br/>
             <c:choose>
                 <c:when test="${'t'.equals(successfulOrder)}">
                     <h2><fmt:message key="cart.successful"/></h2>
@@ -48,7 +49,14 @@
                                     </div>
                                     <div class="justify-content-end align-self-center">
                                         <form action="controller" method="post">
-                                            <span class="badge badge-success badge-pill mr-2 mb-2">$<c:out value="${cartItem.getProduct().getPrice()}"/></span>
+                                            <c:choose>
+                                                <c:when test="${currentLocale.equals('ru_RU')}">
+                                                    <span class="badge badge-success ml-1"><fmt:formatNumber value="${cartItem.product.price * conv}" currencyCode="BYN" currencySymbol="BYN" type="currency"/></span>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <span class="badge badge-success ml-1"><fmt:formatNumber value="${cartItem.product.price * conv}" type="currency"/></span>
+                                                </c:otherwise>
+                                            </c:choose>
                                             <button class="btn btn-outline-primary mx-1" type="submit" name="command" value="to_cart">
                                                 <fmt:message key="cart.delete"/>
                                             </button>
@@ -75,7 +83,16 @@
                                     </c:otherwise>
                                 </c:choose>
                             </div>
-                            <h2><fmt:message key="cart.totalPrice"/> ${cartPrice}</h2>
+                            <h2><fmt:message key="cart.totalPrice"/>
+                            <c:choose>
+                                <c:when test="${currentLocale.equals('ru_RU')}">
+                                    <span class="badge badge-success ml-1"><fmt:formatNumber value="${cartPrice * conv}" currencyCode="BYN" currencySymbol="BYN" type="currency"/></span>
+                                </c:when>
+                                <c:otherwise>
+                                    <span class="badge badge-success ml-1"><fmt:formatNumber value="${cartPrice * conv}" type="currency"/></span>
+                                </c:otherwise>
+                            </c:choose>
+                            </h2>
                             <button class="btn btn-outline-primary mx-1" type="submit" name="command" value="checkout">
                                 <fmt:message key="cart.checkout"/>
                             </button>

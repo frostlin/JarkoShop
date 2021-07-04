@@ -1,7 +1,6 @@
 package by.epam.tc.shop.controller.filter;
 
-import by.epam.tc.shop.controller.PaginationConstants;
-import by.epam.tc.shop.controller.RequestParameter;
+import by.epam.tc.shop.controller.CurrencyMultipliers;
 import by.epam.tc.shop.controller.SessionAttribute;
 import by.epam.tc.shop.model.dao.DaoException;
 import by.epam.tc.shop.model.dao.impl.CategoryDaoImpl;
@@ -27,6 +26,9 @@ public class CatalogFilter implements Filter {
         HttpSession session = request.getSession();
         if (session.getAttribute(SessionAttribute.LOCALE) == null) {
             session.setAttribute(SessionAttribute.LOCALE, "ru_RU");
+        }
+        if (session.getAttribute(SessionAttribute.CONVERTING_MULTIPLIER) == null) {
+            session.setAttribute(SessionAttribute.CONVERTING_MULTIPLIER, CurrencyMultipliers.BYN);
         }
         if (session.getAttribute(SessionAttribute.CURRENT_CATEGORY) == null)
             session.setAttribute(SessionAttribute.CURRENT_CATEGORY, 0);

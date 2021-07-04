@@ -97,7 +97,14 @@
                                     <form action="controller" method="post" class="my-auto">
                                         <button class="btn btn-outline-success " type="submit" name="command" value="add_to_cart">
                                             <i class='bx bxs-cart-download'></i>
-                                            <span class="badge badge-success ml-1">$<c:out value="${product.price}"/></span>
+                                            <c:choose>
+                                                <c:when test="${currentLocale.equals('ru_RU')}">
+                                                    <span class="badge badge-success ml-1"><fmt:formatNumber value="${product.price * conv}" currencyCode="BYN" currencySymbol="BYN" type="currency"/></span>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <span class="badge badge-success ml-1"><fmt:formatNumber value="${product.price * conv}" type="currency"/></span>
+                                                </c:otherwise>
+                                            </c:choose>
                                         </button>
                                         <input type="hidden" name="productId" value="${product.getId()}">
                                     </form>

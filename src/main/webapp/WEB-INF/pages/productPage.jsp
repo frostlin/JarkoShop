@@ -62,8 +62,16 @@
                 </div>
             </div><br/>
             <form action="controller" method="post" class="my-auto">
-                <button class="btn btn-primary mx-1 mb-5" type="submit" name="command" value="add_to_cart">
-                    <fmt:message key="catalog.addToCard"/>
+                <button class="btn btn-outline-success " type="submit" name="command" value="add_to_cart">
+                    <i class='bx bxs-cart-download'></i>
+                    <c:choose>
+                        <c:when test="${currentLocale.equals('ru_RU')}">
+                            <span class="badge badge-success ml-1"><fmt:formatNumber value="${currentProduct.price * conv}" currencyCode="BYN" currencySymbol="BYN" type="currency"/></span>
+                        </c:when>
+                        <c:otherwise>
+                            <span class="badge badge-success ml-1"><fmt:formatNumber value="${currentProduct.price * conv}" type="currency"/></span>
+                        </c:otherwise>
+                    </c:choose>
                 </button>
                 <input type="hidden" name="productId" value="${currentProduct.getId()}">
             </form>

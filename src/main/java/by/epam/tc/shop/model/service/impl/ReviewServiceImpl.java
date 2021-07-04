@@ -10,7 +10,11 @@ import by.epam.tc.shop.model.service.ServiceException;
 import java.util.List;
 
 public class ReviewServiceImpl implements ReviewService {
-    ReviewDao reviewDao = ReviewDaoImpl.getInstance();
+    private static final ReviewServiceImpl instance = new ReviewServiceImpl();
+    private static final ReviewDao reviewDao = ReviewDaoImpl.getInstance();
+
+    private ReviewServiceImpl(){};
+    public static ReviewServiceImpl getInstance(){return instance;}
 
     @Override
     public int commit(int userId, int productId, String content, int rating) throws ServiceException {

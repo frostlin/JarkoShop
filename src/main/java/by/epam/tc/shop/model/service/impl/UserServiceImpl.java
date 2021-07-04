@@ -14,7 +14,11 @@ import java.util.List;
 import java.util.Optional;
 
 public class UserServiceImpl implements UserService  {
-    private final UserDao userDao = UserDaoImpl.getInstance();
+    private static final UserServiceImpl instance = new UserServiceImpl();
+    private static final UserDao userDao = UserDaoImpl.getInstance();
+
+    private UserServiceImpl(){};
+    public static UserServiceImpl getInstance(){return instance;}
 
     @Override
     public List<User> getAllUsers() throws ServiceException {

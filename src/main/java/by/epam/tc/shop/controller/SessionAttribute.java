@@ -1,7 +1,7 @@
 package by.epam.tc.shop.controller;
 
 public class SessionAttribute {
-    public static final String MAIN_PAGE_PRODUCTS = "currentPage";
+    public static final String MAIN_PAGE_PRODUCTS = "mainPageProducts";
 
     public static final String CURRENT_PAGE = "currentPage";
     public static final String LAST_PAGE = "lastPage";
@@ -27,6 +27,8 @@ public class SessionAttribute {
     public static final String SUCCESSFUL_ORDER = "successfulOrder";
     public static final String SEARCH_STRING = "searchString" ;
     public static final String PRODUCT_FILTER_METHOD = "productFilterMethod";
+
+    public static final String CONVERTING_MULTIPLIER = "conv";
 
     private SessionAttribute(){
     }

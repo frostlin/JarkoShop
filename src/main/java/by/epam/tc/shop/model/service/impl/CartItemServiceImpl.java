@@ -10,7 +10,11 @@ import by.epam.tc.shop.model.service.ServiceException;
 import java.util.List;
 
 public class CartItemServiceImpl implements CartItemService {
-    private final CartItemDao cartItemDao = CartItemDaoImpl.getInstance();
+    private static final CartItemServiceImpl instance = new CartItemServiceImpl();
+    private static final CartItemDao cartItemDao = CartItemDaoImpl.getInstance();
+
+    private CartItemServiceImpl(){}
+    public static CartItemServiceImpl getInstance(){return instance;}
 
     @Override
     public boolean updateCartItemsWithOrder(List<CartItem> cart, int orderId, int userId) throws ServiceException {

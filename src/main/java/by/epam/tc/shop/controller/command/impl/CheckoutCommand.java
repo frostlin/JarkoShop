@@ -24,8 +24,9 @@ import java.util.List;
 
 public class CheckoutCommand implements Command {
     private static final Logger logger = LogManager.getLogger();
-    private static final UserService userService = new UserServiceImpl();
-    private static final OrderService orderService = new OrderServiceImpl();
+    private static final UserService userService = UserServiceImpl.getInstance();
+    private static final OrderService orderService = OrderServiceImpl.getInstance();
+
     @Override
     public String execute(HttpServletRequest request) {
         HttpSession session = request.getSession();

@@ -16,7 +16,7 @@ import javax.servlet.http.HttpSession;
 
 public class toAdminOrders implements Command {
     private static final Logger logger = LogManager.getLogger();
-    private static final OrderService orderService = new OrderServiceImpl();
+    private static final OrderService orderService = OrderServiceImpl.getInstance();
 
     @Override
     public String execute(HttpServletRequest request) {

@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 
 public class ToCatalogCommand implements Command {
     private static final Logger logger = LogManager.getLogger();
-    private final ProductServiceImpl productService = new ProductServiceImpl();
+    private final ProductServiceImpl productService = ProductServiceImpl.getInstance();
     @Override
     public String execute(HttpServletRequest request) {
         HttpSession session = request.getSession();

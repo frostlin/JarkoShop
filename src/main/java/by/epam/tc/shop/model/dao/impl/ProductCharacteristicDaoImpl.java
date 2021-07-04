@@ -19,11 +19,10 @@ public class ProductCharacteristicDaoImpl implements ProductCharacteristicDao {
 
     private static final String GET_PRODUCT_CHARACTERISTICS =
             "SELECT characteristic.name, characteristic.description, product_characteristic.value " +
-                    "FROM product_characteristic " +
-                    "JOIN characteristic ON product_characteristic.characteristic_id=characteristic.id " +
+                    "FROM characteristic " +
+                    "LEFT JOIN product_characteristic ON product_characteristic.characteristic_id=characteristic.id " +
                     "WHERE product_characteristic.product_id LIKE ? " +
-                    "AND characteristic.category_id IN ( " +
-                    "   SELECT category.id FROM category WHERE category.id LIKE ?)";
+                    "AND characteristic.category_id LIKE ?";
 
     private static final String GET_PRODUCT_CHARACTERISTICS_FOR_CATEGORY =
             "SELECT characteristic.name, characteristic.description " +

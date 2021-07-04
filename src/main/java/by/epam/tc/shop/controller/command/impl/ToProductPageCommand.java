@@ -20,9 +20,10 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 public class ToProductPageCommand implements Command {
-    public static final Logger logger = LogManager.getLogger();
-    private static final ProductService productService = new ProductServiceImpl();
-    private static final ReviewService reviewService = new ReviewServiceImpl();
+    private static final Logger logger = LogManager.getLogger();
+
+    private static final ProductService productService = ProductServiceImpl.getInstance();
+    private static final ReviewService reviewService = ReviewServiceImpl.getInstance();
 
     @Override
     public String execute(HttpServletRequest request) {

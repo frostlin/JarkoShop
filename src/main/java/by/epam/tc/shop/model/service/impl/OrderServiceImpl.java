@@ -12,8 +12,13 @@ import by.epam.tc.shop.model.service.UserService;
 import java.util.List;
 
 public class OrderServiceImpl implements OrderService {
-    OrderDaoImpl orderDao = OrderDaoImpl.getInstance();
-    CartItemService cartItemService = new CartItemServiceImpl();
+    private static final OrderServiceImpl instance = new OrderServiceImpl();
+    private static final OrderDaoImpl orderDao = OrderDaoImpl.getInstance();
+    private static final CartItemService cartItemService = CartItemServiceImpl.getInstance();
+
+    private OrderServiceImpl(){}
+    public static OrderServiceImpl getInstance(){return instance; }
+
     @Override
     public int add(int userId, int paymentMethodId, int addressId, float sumToPay, String comment, List<CartItem> cart) throws ServiceException {
         try {

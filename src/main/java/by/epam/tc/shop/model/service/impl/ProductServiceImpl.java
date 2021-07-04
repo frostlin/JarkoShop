@@ -12,7 +12,11 @@ import java.util.Arrays;
 import java.util.List;
 
 public class ProductServiceImpl implements ProductService {
-    private final ProductDao productDao = ProductDaoImpl.getInstance();
+    private static final ProductServiceImpl instance = new ProductServiceImpl();
+    private static final ProductDao productDao = ProductDaoImpl.getInstance();
+
+    private ProductServiceImpl(){};
+    public static ProductServiceImpl getInstance(){return instance; }
 
     @Override
     public List<Product> getProductPage(int pageNumber, int recordsPerPage) throws ServiceException {

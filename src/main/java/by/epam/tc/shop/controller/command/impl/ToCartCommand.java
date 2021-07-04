@@ -21,7 +21,7 @@ import javax.servlet.http.HttpSession;
 
 public class ToCartCommand implements Command {
     private static final Logger logger = LogManager.getLogger();
-    private static final CartItemService cartItemService = new CartItemServiceImpl();
+    private static final CartItemService cartItemService = CartItemServiceImpl.getInstance();
 
     @Override
     public String execute(HttpServletRequest request) {

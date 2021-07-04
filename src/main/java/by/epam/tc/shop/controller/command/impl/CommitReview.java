@@ -10,20 +10,17 @@ import by.epam.tc.shop.model.entity.Review;
 import by.epam.tc.shop.model.entity.User;
 import by.epam.tc.shop.model.service.ReviewService;
 import by.epam.tc.shop.model.service.ServiceException;
-import by.epam.tc.shop.model.service.UserService;
 import by.epam.tc.shop.model.service.impl.ReviewServiceImpl;
-import by.epam.tc.shop.model.service.impl.UserServiceImpl;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.sql.Date;
 import java.util.List;
 
 public class CommitReview implements Command {
     private static final Logger logger = LogManager.getLogger();
-    private static final ReviewService reviewService = new ReviewServiceImpl();
+    private static final ReviewService reviewService = ReviewServiceImpl.getInstance();
 
     @Override
     public String execute(HttpServletRequest request) {

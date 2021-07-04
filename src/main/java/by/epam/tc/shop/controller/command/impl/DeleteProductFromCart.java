@@ -21,7 +21,8 @@ import javax.servlet.http.HttpSession;
 
 public class DeleteProductFromCart implements Command {
     private static final Logger logger = LogManager.getLogger();
-    private static final UserService userService = new UserServiceImpl();
+    private static final UserService userService = UserServiceImpl.getInstance();
+
     @Override
     public String execute(HttpServletRequest request) {
         HttpSession session = request.getSession();

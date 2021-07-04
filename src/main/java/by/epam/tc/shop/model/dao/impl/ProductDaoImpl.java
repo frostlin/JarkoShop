@@ -11,8 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProductDaoImpl implements ProductDao {
-
     private static final ProductDaoImpl instance = new ProductDaoImpl();
+
     private static final ProductCharacteristicDaoImpl characteristicDao = ProductCharacteristicDaoImpl.getInstance();
     private static final CategoryDaoImpl categoryDao = CategoryDaoImpl.getInstance();
     private static final ReviewDaoImpl reviewDao = ReviewDaoImpl.getInstance();
@@ -63,8 +63,6 @@ public class ProductDaoImpl implements ProductDao {
     private static final String GET_BY_ID = GET_ALL + " WHERE product.id LIKE ?";
 
     private static final String GET_PHOTOS = "SELECT path FROM photo WHERE product_id LIKE ?";
-
-
 
     private ProductDaoImpl() {}
     public static ProductDaoImpl getInstance(){ return instance; }

@@ -33,12 +33,38 @@
             <tr>
                 <td><c:out value="${product.getId()}"/> </td>
                 <td><c:out value="${product.getBrand()}"/> </td>
-                <td><c:out value="${product.getModel()}"/> </td>
-                <td><c:out value="${product.get}"/> </td>
-                <td><c:out value="${product.getSumToPay()}"/> </td>
-                <td><c:out value="${product.getDateOrdered()}"/> </td>
-                <td><c:out value="${product.getDateShipping()}"/> </td>
-                <td><c:out value="${product.getComment()}"/> </td>
+                <td><form action="controller" method="post">
+                    <button type="submit" class="btn btn-sm btn-link" name="command" value="to_product">
+                            ${product.getModel()}
+                    </button>
+                    <input type="hidden" name="productId" value="${product.getId()}">
+                </form>
+                </td>
+                <td><c:out value="${product.getCategory().getName()}"/> </td>
+                <td>
+                    <c:forEach items="${product.getCharacteristics()}" var="characteristic">
+                        <c:out value="${characteristic.getName()}"/>:
+                            <c:out value="${characteristic.getValue()}"/><br/>
+                    </c:forEach>
+                </td>
+                <td>
+                    <c:choose>
+                    <c:when test="${currentLocale.equals('ru_RU')}">
+                        <fmt:formatNumber value="${product.price * conv}" currencyCode="BYN" currencySymbol="BYN" type="currency"/>
+                    </c:when>
+                    <c:otherwise>
+                        <fmt:formatNumber value="${product.price * conv}" type="currency"/>
+                    </c:otherwise>
+                </c:choose>
+                </td>
+                <td><c:out value="${product.getWarranty()}"/> </td>
+                <td><c:out value="${product.getStockAmount()}"/> </td>
+                <td><c:out value="${product.getDescription()}"/> </td>
+                <td>
+                <c:forEach items="${product.getPhotos()}" var="photo">
+                    <c:out value="${photo}"/>
+                </c:forEach>
+                </td>
             </tr>
         </c:forEach>
         </tbody>

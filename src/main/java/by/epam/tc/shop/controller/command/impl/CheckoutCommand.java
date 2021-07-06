@@ -16,7 +16,6 @@ import by.epam.tc.shop.model.service.impl.UserServiceImpl;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
@@ -24,18 +23,14 @@ import java.util.List;
 
 public class CheckoutCommand implements Command {
     private static final Logger logger = LogManager.getLogger();
-    private static final UserService userService = UserServiceImpl.getInstance();
     private static final OrderService orderService = OrderServiceImpl.getInstance();
 
     @Override
     public String execute(HttpServletRequest request) {
         HttpSession session = request.getSession();
         User user = (User)session.getAttribute(SessionAttribute.CURRENT_USER);
-        Address shippingAddress = null;
-        int orderId = 0;
-
         try{
-            orderId = orderService.add(user.getId(),1,
+            int orderId = orderService.add(user.getId(),1,
                     Integer.parseInt(request.getParameter(RequestParameter.SHIPPING_ADDRESS)),
                     (float) session.getAttribute(SessionAttribute.CART_PRICE),
                     request.getParameter(RequestParameter.COMMENT),
@@ -47,11 +42,8 @@ public class CheckoutCommand implements Command {
 
         } catch (ServiceException e){
             logger.error("Error occurred while creating order", e);
-            request.setAttribute(RequestAttribute.ORDER_ERROR, "cart.deleteError");
+            request.setAttribute(RequestAttribute.ORDER_ERROR, "cart.orderError");
         }
-
-
-
         return PagePath.CART;
     }
 }

@@ -4,7 +4,7 @@ import by.epam.tc.shop.controller.command.Command;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class toAdminDiscounts implements Command {
+public class ToAdminDiscounts implements Command {
     @Override
     public String execute(HttpServletRequest request) {
         return null;

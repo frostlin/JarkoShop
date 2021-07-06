@@ -15,7 +15,7 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-public class toAdminProducts implements Command {
+public class ToAdminProducts implements Command {
     private static final Logger logger = LogManager.getLogger();
     private static final ProductServiceImpl productService = ProductServiceImpl.getInstance();
 

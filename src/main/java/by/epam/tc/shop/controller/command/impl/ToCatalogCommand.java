@@ -13,10 +13,7 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 
 public class ToCatalogCommand implements Command {
@@ -40,7 +37,7 @@ public class ToCatalogCommand implements Command {
         int pageNumber = (int)session.getAttribute(SessionAttribute.CURRENT_PRODUCTS_PAGE);
         int itemsPerPage = (int)session.getAttribute(SessionAttribute.CURRENT_PRODUCTS_PER_PAGE);
         int categoryId = (int)session.getAttribute(SessionAttribute.CURRENT_CATEGORY);
-        String currentSearchString = (String)session.getAttribute(SessionAttribute.SEARCH_STRING);
+        //String currentSearchString = (String)session.getAttribute(SessionAttribute.SEARCH_STRING);
         String currentFilterMethod = (String)session.getAttribute(SessionAttribute.PRODUCT_FILTER_METHOD);
 
         String nextPageNumber = request.getParameter(RequestParameter.NEXT_ITEM_PAGE);
@@ -53,11 +50,11 @@ public class ToCatalogCommand implements Command {
             categoryId = Integer.parseInt(nextCategoryId);
             session.setAttribute(SessionAttribute.CURRENT_CATEGORY, categoryId);
         }
-        String searchString = request.getParameter(RequestParameter.SEARCH_STRING);
-        if (searchString != null){
-            currentSearchString = searchString;
-            session.setAttribute(SessionAttribute.SEARCH_STRING, currentSearchString);
-        }
+//        String searchString = request.getParameter(RequestParameter.SEARCH_STRING);
+//        if (searchString != null){
+//            currentSearchString = searchString;
+//            session.setAttribute(SessionAttribute.SEARCH_STRING, currentSearchString);
+//        }
         String filterMethod = request.getParameter(RequestParameter.FILTER_METHOD);
         if (filterMethod != null){
             currentFilterMethod = filterMethod;
@@ -67,48 +64,26 @@ public class ToCatalogCommand implements Command {
         try {
             List<Product> range = null;
             int productCount = 0;
-            if (categoryId == 0){
-                productCount = productService.getProductCount();
-                if (currentFilterMethod != null){
-                    switch (currentFilterMethod){
-                        case "avgRating":
-                            range = productService.getProductPageSortedByAvgRating(pageNumber, itemsPerPage);
-                            break;
-                        case "priceAsc":
-                            range = productService.getProductPageSortedByPrice(pageNumber, itemsPerPage, "");
-                            break;
-                        case "priceDesc":
-                            range = productService.getProductPageSortedByPrice(pageNumber, itemsPerPage, "DESC ");
-                            break;
-                    }
-                } else {
-                    if (searchString == null){
-                        range = productService.getProductPage(pageNumber, itemsPerPage);
-                    } else {
-                        range = productService.getProductPageBySearch(pageNumber, itemsPerPage, categoryId, searchString);
-                    }
-                }
+
+            productCount = productService.getProductCount(categoryId);
+            if (currentFilterMethod != null){
+                switch (currentFilterMethod){
+                case "avgRating":
+                    range = productService.getProductPageByCategorySortedByAvgRating(pageNumber, itemsPerPage, categoryId);
+                    break;
+                case "priceAsc":
+                    range = productService.getProductPageByCategorySortedByPrice(pageNumber, itemsPerPage, categoryId, "");
+                    break;
+                case "priceDesc":
+                    range = productService.getProductPageByCategorySortedByPrice(pageNumber, itemsPerPage, categoryId, "DESC ");
+                    break;
+            }
             } else {
-                productCount = productService.getProductCount(categoryId);
-                if (currentFilterMethod != null){
-                    switch (currentFilterMethod){
-                    case "avgRating":
-                        range = productService.getProductPageByCategorySortedByAvgRating(pageNumber, itemsPerPage, categoryId);
-                        break;
-                    case "priceAsc":
-                        range = productService.getProductPageByCategorySortedByPrice(pageNumber, itemsPerPage, categoryId, "");
-                        break;
-                    case "priceDesc":
-                        range = productService.getProductPageByCategorySortedByPrice(pageNumber, itemsPerPage, categoryId, "DESC ");
-                        break;
-                }
-                } else {
-                    if (searchString == null) {
-                        range = productService.getProductPageByCategory(pageNumber, itemsPerPage, categoryId);
-                    } else {
-                        range = productService.getProductPageBySearch(pageNumber, itemsPerPage, categoryId, searchString);
-                    }
-                }
+                //if (searchString == null) {
+                    range = productService.getProductPageByCategory(pageNumber, itemsPerPage, categoryId);
+                //} else {
+                //    range = productService.getProductPageBySearch(pageNumber, itemsPerPage, categoryId, searchString);
+                //}
             }
             int itemPageCount = (int) Math.ceil(productCount * 1.0 / itemsPerPage);
 
@@ -116,7 +91,7 @@ public class ToCatalogCommand implements Command {
             session.setAttribute(SessionAttribute.TOTAL_ITEM_COUNT, productCount);
             session.setAttribute(SessionAttribute.CURRENT_ITEMS_RANGE, range);
         } catch (ServiceException e) {
-            logger.error("Error while setting up race list", e);
+            logger.error("Error while displaying catalog", e);
         }
 
         return PagePath.CATALOG;

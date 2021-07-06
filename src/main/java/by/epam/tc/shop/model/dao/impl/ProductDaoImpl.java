@@ -30,17 +30,6 @@ public class ProductDaoImpl implements ProductDao {
     private static final String LIMIT_RANGE = "LIMIT ?, ? ";
 
     private static final String GET_RANGE = GET_ALL + ORDER_BY_ID + "DESC " + LIMIT_RANGE;
-    private static final String GET_RANGE_ORDER_BY_PRICE = GET_ALL + ORDER_BY_PRICE + "DESC " + LIMIT_RANGE;
-    private static final String GET_RANGE_ORDER_BY_AVG_RATING =
-            "SELECT product.id,price,model,product.description,warranty," +
-                    "stock_amount,brand.name,category.id,category.name," +
-                    "category.description,COALESCE(AVG(review.rating), '0') AS avgRating " +
-                    "FROM product " +
-                    "JOIN brand ON product.brand_id=brand.id " +
-                    "JOIN category ON product.category_id=category.id " +
-                    "LEFT JOIN review ON review.product_id=product.id " +
-                    "GROUP BY product.id ORDER BY avgRating DESC " +
-                    "LIMIT ?,?";
 
     private static final String GET_RANGE_BY_CATEGORY = GET_ALL + " WHERE product.category_id LIKE ? " + ORDER_BY_ID + "DESC " + LIMIT_RANGE;
     private static final String GET_RANGE_BY_CATEGORY_ORDER_BY_PRICE = GET_ALL + " WHERE product.category_id LIKE ? " +  ORDER_BY_PRICE + "DESC " + LIMIT_RANGE;
@@ -72,42 +61,6 @@ public class ProductDaoImpl implements ProductDao {
         List<Product> products = new ArrayList<>();
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
              PreparedStatement statement = connection.prepareStatement(GET_RANGE))
-        {
-            statement.setInt(1, start);
-            statement.setInt(2, offset);
-
-            ResultSet resultSet = statement.executeQuery();
-            while(resultSet.next())
-                products.add(getProductFromResultSet(resultSet));
-        } catch(SQLException e){
-            throw new DaoException("Error getting all users data ", e);
-        }
-        return products;
-    }
-
-    @Override
-    public List<Product> getRangeOrderByPrice(int start, int offset, String direction) throws DaoException {
-        List<Product> products = new ArrayList<>();
-        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
-             PreparedStatement statement = connection.prepareStatement(GET_ALL + ORDER_BY_PRICE + direction + LIMIT_RANGE))
-        {
-            statement.setInt(1, start);
-            statement.setInt(2, offset);
-
-            ResultSet resultSet = statement.executeQuery();
-            while(resultSet.next())
-                products.add(getProductFromResultSet(resultSet));
-        } catch(SQLException e){
-            throw new DaoException("Error getting all users data ", e);
-        }
-        return products;
-    }
-
-    @Override
-    public List<Product> getRangeOrderByAvgRating(int start, int offset) throws DaoException {
-        List<Product> products = new ArrayList<>();
-        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
-             PreparedStatement statement = connection.prepareStatement(GET_RANGE_ORDER_BY_AVG_RATING))
         {
             statement.setInt(1, start);
             statement.setInt(2, offset);

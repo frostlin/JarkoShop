@@ -24,7 +24,7 @@
             <li class="nav-item active">
                 <form action="controller" method="post" class="my-auto">
                     <div class="btn-group">
-                        <button class="btn btn-primary mx-1" type="submit" name="currentCategory" value="0">
+                        <button class="btn btn-primary mx-1" type="submit" name="currentCategory" value="1">
                             <fmt:message key="header.catalog"/>
                         </button>
                         <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

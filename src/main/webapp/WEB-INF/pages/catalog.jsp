@@ -33,6 +33,7 @@
                             </div>
                         </form>
                     </div>
+                    <h3><fmt:message key="category.${currentItemsRange.get(0).getCategory().getName()}"/></h3>
                     <c:if test="${addProductMessageKey != null}">
                         <label class="mt-1" style="color: red"><fmt:message key="${addProductMessageKey}"/></label>
                     </c:if>

@@ -5,9 +5,11 @@ import by.epam.tc.shop.controller.RequestAttribute;
 import by.epam.tc.shop.controller.RequestParameter;
 import by.epam.tc.shop.controller.SessionAttribute;
 import by.epam.tc.shop.controller.command.Command;
+import by.epam.tc.shop.model.entity.User;
 import by.epam.tc.shop.model.service.ServiceException;
 import by.epam.tc.shop.model.service.UserService;
 import by.epam.tc.shop.model.service.impl.UserServiceImpl;
+import by.epam.tc.shop.util.MailSender;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -35,6 +37,7 @@ public class SignUpCommand implements Command {
             try {
                 boolean isUserCreated = userService.createUser(login, password, email);
                 if (isUserCreated) {
+                    //MailSender.SendConfirmation(email, new User(email, login, password).hashCode());
                     page = PagePath.MAIN;
                 } else {
                     page = PagePath.SIGN_UP;

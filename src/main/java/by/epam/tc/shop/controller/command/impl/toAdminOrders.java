@@ -43,7 +43,7 @@ public class toAdminOrders implements Command {
             session.setAttribute(SessionAttribute.CURRENT_ITEMS_RANGE,
                     orderService.getOrdersPage(pageNumber, itemsPerPage));
         } catch (ServiceException e) {
-            logger.error("Error while setting up race list", e);
+            logger.error("Error while setting up orders list", e);
         }
         return PagePath.ADMIN_ORDERS;
     }

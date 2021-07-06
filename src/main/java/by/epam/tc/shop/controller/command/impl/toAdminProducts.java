@@ -44,7 +44,7 @@ public class toAdminProducts implements Command {
             session.setAttribute(SessionAttribute.CURRENT_ITEMS_RANGE,
                     productService.getProductPage(pageNumber, itemsPerPage));
         } catch (ServiceException e) {
-            logger.error("Error while setting up race list", e);
+            logger.error("Error while setting up products list", e);
         }
         return PagePath.ADMIN_PRODUCTS;
     }

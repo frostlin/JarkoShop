@@ -31,6 +31,8 @@ public class AccessFilter implements Filter {
         if (session.getAttribute(SessionAttribute.ROLE) == null) {
             session.setAttribute(SessionAttribute.ROLE, "guest");
         }
+//        response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
+//        response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
 
         String commandName = request.getParameter(RequestParameter.COMMAND);
         Command command = CommandProvider.defineCommand(commandName);

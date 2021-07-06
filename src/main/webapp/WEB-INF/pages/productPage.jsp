@@ -12,6 +12,9 @@
 <jsp:include page="modules/header.jsp"/>
 <body>
 <div class="container">
+    <c:if test="${errorCommitReview != null}">
+    <label style="color: red"><fmt:message key="${errorCommitReview}"/></label>
+    </c:if>
     <c:if test="${addProductMessageKey != null}">
     <label style="color: red"><fmt:message key="${addProductMessageKey}"/></label>
     </c:if>

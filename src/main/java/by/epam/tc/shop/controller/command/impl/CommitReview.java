@@ -33,14 +33,13 @@ public class CommitReview implements Command {
         int reviewId = 0;
 
         try{
-
             reviewId = reviewService.commit(currentUserId,currentProductId,content,rating);
             List<Review> reviews = reviewService.getForProduct(currentProductId);
             request.setAttribute(RequestAttribute.REVIEWS, reviews);
         } catch(ServiceException e){
-            logger.error("Error occurred while getting product for product page", e);
+            logger.error("Error occurred while committing review for product " + currentProductId, e);
+            request.setAttribute(RequestAttribute.REVIEW_COMMIT_ERROR, "review.commitError");
         }
-
 
         return PagePath.TO_PRODUCT;
     }

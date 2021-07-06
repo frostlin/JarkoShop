@@ -31,6 +31,7 @@ public enum Access {
             TO_CART,
             CHECKOUT,
             TO_PRODUCT,
+            DELETE_CART_ITEM,
             COMMIT_REVIEW,
             TO_PROFILE,
             ADD_TO_CART,
@@ -44,6 +45,7 @@ public enum Access {
             CHANGE_LOCALE,
             SEARCH,
             TO_CART,
+            DELETE_CART_ITEM,
             ADD_TO_CART,
             CHECKOUT,
             TO_PRODUCT,
@@ -53,7 +55,6 @@ public enum Access {
             TO_ADMIN_ORDERS,
             TO_ADMIN_PRODUCTS,
             TO_ADMIN_DISCOUNTS,
-            TO_ADMIN_CONTROL_PANEL,
             LOGOUT,
             TO_CHANGE_PASSWORD
     ).map(CommandType::getCommand).collect(Collectors.toSet()));

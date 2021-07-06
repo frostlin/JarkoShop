@@ -9,17 +9,14 @@ import by.epam.tc.shop.model.entity.CartItem;
 import by.epam.tc.shop.model.entity.User;
 import by.epam.tc.shop.model.service.CartItemService;
 import by.epam.tc.shop.model.service.ServiceException;
-import by.epam.tc.shop.model.service.UserService;
 import by.epam.tc.shop.model.service.impl.CartItemServiceImpl;
-import by.epam.tc.shop.model.service.impl.UserServiceImpl;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-public class ToCartCommand implements Command {
+public class DeleteCartItem implements Command {
     private static final Logger logger = LogManager.getLogger();
     private static final CartItemService cartItemService = CartItemServiceImpl.getInstance();
 
@@ -27,7 +24,19 @@ public class ToCartCommand implements Command {
     public String execute(HttpServletRequest request) {
         HttpSession session = request.getSession();
         User user = (User)session.getAttribute(SessionAttribute.CURRENT_USER);
-        session.setAttribute(SessionAttribute.SUCCESSFUL_ORDER, null);
+        if (request.getParameter(RequestParameter.PRODUCT_ID_TO_DELETE ) != null){
+            int productId = Integer.parseInt(request.getParameter(RequestParameter.PRODUCT_ID_TO_DELETE));
+            int userId = ((User)session.getAttribute(SessionAttribute.CURRENT_USER)).getId();
+
+            try{
+                cartItemService.deleteCartItem(productId, userId);
+                user.getCart().removeIf(c -> c.getProduct().getId() == productId);
+                session.setAttribute(SessionAttribute.CURRENT_USER, user);
+            } catch (ServiceException e){
+                logger.error("Error occurred while deleting cart item productId = " + productId + " userId = " + userId, e);
+                request.setAttribute(RequestAttribute.DELETE_CART_ITEM, "cart.deleteError");
+            }
+        }
 
         float cartPrice = 0.0f;
         for (CartItem item : user.getCart())

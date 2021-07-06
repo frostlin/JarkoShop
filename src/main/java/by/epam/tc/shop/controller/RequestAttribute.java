@@ -9,6 +9,8 @@ public class RequestAttribute {
     public static final String ORDER_ERROR = "errorOrderKey";
 
     public static final String REVIEWS = "reviews";
+    public static final String DELETE_CART_ITEM = "errorDeleteCartItem";
+    public static final String REVIEW_COMMIT_ERROR = "errorCommitReview";
 
 
     public RequestAttribute(){};

@@ -10,6 +10,7 @@ public enum CommandType {
     SIGN_IN                 {{ this.command = new SignInCommand(); }},
     SIGN_UP                 {{ this.command = new SignUpCommand(); }},
     SEARCH                  {{ this.command = new SearchCommand(); }},
+    DELETE_CART_ITEM        {{ this.command = new DeleteCartItem(); }},
     TO_CATALOG              {{ this.command = new ToCatalogCommand(); }},
     TO_CART                 {{ this.command = new ToCartCommand(); }},
     ADD_TO_CART             {{ this.command = new AddToCartCommand(); }},
@@ -22,8 +23,7 @@ public enum CommandType {
     TO_ADMIN_USERS          {{ this.command = new toAdminUsers(); }},
     TO_ADMIN_ORDERS         {{ this.command = new toAdminOrders(); }},
     TO_ADMIN_PRODUCTS       {{ this.command = new toAdminProducts(); }},
-    TO_ADMIN_DISCOUNTS      {{ this.command = new toAdminDiscounts(); }},
-    TO_ADMIN_CONTROL_PANEL  {{ this.command = new ToAdminControlPanelCommand(); }};
+    TO_ADMIN_DISCOUNTS      {{ this.command = new toAdminDiscounts(); }};
 
     Command command;
     public Command getCommand(){

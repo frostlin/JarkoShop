@@ -5,7 +5,6 @@ import by.epam.tc.shop.controller.SessionAttribute;
 import by.epam.tc.shop.controller.command.Command;
 import by.epam.tc.shop.model.dao.DaoException;
 import by.epam.tc.shop.model.dao.impl.CategoryDaoImpl;
-import by.epam.tc.shop.model.service.ServiceException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -25,10 +24,10 @@ public class ToMainPageCommand implements Command {
         if (session.getAttribute(SessionAttribute.LOCALE) == null) {
             session.setAttribute(SessionAttribute.LOCALE, "ru_RU");
         }
-        if (session.getAttribute(SessionAttribute.CATEGORIES) == null){
+        if (session.getAttribute(SessionAttribute.CATEGORY_LIST) == null){
             CategoryDaoImpl categoryDao = CategoryDaoImpl.getInstance();
             try{
-                session.setAttribute(SessionAttribute.CATEGORIES, categoryDao.getCategories());
+                session.setAttribute(SessionAttribute.CATEGORY_LIST, categoryDao.getCategories());
             } catch (DaoException e) {
                 logger.error("Error while setting up race list", e);
             }

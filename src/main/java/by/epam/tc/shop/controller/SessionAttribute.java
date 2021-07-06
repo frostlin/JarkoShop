@@ -18,7 +18,8 @@ public class SessionAttribute {
     public static final String TOTAL_PAGE_COUNT = "totalPageCount";
     public static final String TOTAL_ITEM_COUNT = "totalItemCount";
 
-    public static final String CATEGORIES = "categories";
+    public static final String CATEGORY_LIST = "categoryList";
+    public static final String BRAND_LIST = "brandList";
     public static final String CURRENT_CATEGORY = "currentCategory";
     public static final String CART_PRICE = "cartPrice";
     public static final String CART_ITEMS = "cartItems";

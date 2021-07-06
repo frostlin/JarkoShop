@@ -10,7 +10,7 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
 </head>
-<jsp:include page="../modules/header.jsp"/>
+<jsp:include page="WEB-INF/pages/modules/header.jsp"/>
 
 <body>
 <div class="container">

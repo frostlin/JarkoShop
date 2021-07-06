@@ -111,17 +111,22 @@ public class Address implements Serializable {
         return Objects.hash(id, country, region, city, street, building, apartment, index);
     }
 
+//    @Override
+//    public String toString() {
+//        return "Address{" +
+//                "id=" + id +
+//                ", country='" + country + '\'' +
+//                ", region='" + region + '\'' +
+//                ", city='" + city + '\'' +
+//                ", street='" + street + '\'' +
+//                ", building='" + building + '\'' +
+//                ", apartment='" + apartment + '\'' +
+//                ", index='" + index + '\'' +
+//                '}';
+//    }
     @Override
     public String toString() {
-        return "Address{" +
-                "id=" + id +
-                ", country='" + country + '\'' +
-                ", region='" + region + '\'' +
-                ", city='" + city + '\'' +
-                ", street='" + street + '\'' +
-                ", building='" + building + '\'' +
-                ", apartment='" + apartment + '\'' +
-                ", index='" + index + '\'' +
-                '}';
+        return index + ", " + country + ", " + region + ", " + city + ", " + street + ", " + building + ", " + apartment;
+
     }
 }

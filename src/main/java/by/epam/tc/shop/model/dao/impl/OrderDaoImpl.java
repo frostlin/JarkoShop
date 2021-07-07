@@ -1,8 +1,6 @@
 package by.epam.tc.shop.model.dao.impl;
 
-import by.epam.tc.shop.model.dao.ColumnNames;
-import by.epam.tc.shop.model.dao.DaoException;
-import by.epam.tc.shop.model.dao.OrderDao;
+import by.epam.tc.shop.model.dao.*;
 import by.epam.tc.shop.model.entity.Order;
 import by.epam.tc.shop.model.pool.ConnectionPool;
 
@@ -15,6 +13,7 @@ public class OrderDaoImpl implements OrderDao {
     private static final OrderDaoImpl instance = new OrderDaoImpl();
     private static final UserDaoImpl userDao = UserDaoImpl.getInstance();
     private static final AddressDaoImpl addressDao = AddressDaoImpl.getInstance();
+    private static final CartItemDaoImpl cartItemDao = CartItemDaoImpl.getInstance();
 
     private static final String GET_ALL =
             "SELECT orders.id,user_id,method,address_id,'status',sum_to_pay,payed_sum,date_ordered,date_shipping,'comment'" +
@@ -27,7 +26,6 @@ public class OrderDaoImpl implements OrderDao {
 
     private static final String GET_BY_ID = GET_ALL + "WHERE orders.id LIKE ?";
     private static final String GET_BY_USER = GET_ALL + "WHERE orders.user_id LIKE ? ORDER BY orders.id";
-    private static final String GET_LAST = GET_ALL + "WHERE o.id LIKE ? ORDER BY o.id DESC LIMIT 1";
 
     private static final String GET_RANGE = GET_ALL + "ORDER BY orders.id LIMIT ?, ?";
     private static final String GET_RANGE_BY_USER = GET_BY_USER + " LIMIT ?, ?";
@@ -164,6 +162,7 @@ public class OrderDaoImpl implements OrderDao {
         String comment =     resultSet.getString(ColumnNames.ORDER_COMMENT);
 
         order.setId(id);
+        order.setProducts(cartItemDao.getOrderItems(id));
         order.setUser(userDao.getById(userId).get());
         order.setAddress(addressDao.getById(addressId));
         order.setPaymentMethod(method);
@@ -173,7 +172,6 @@ public class OrderDaoImpl implements OrderDao {
         order.setDateOrdered(dateOrdered);
         order.setDateShipping(dateShipping);
         order.setComment(comment);
-
         return order;
     }
 

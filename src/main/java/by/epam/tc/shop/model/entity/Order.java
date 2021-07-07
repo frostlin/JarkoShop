@@ -2,6 +2,7 @@ package by.epam.tc.shop.model.entity;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.List;
 import java.util.Objects;
 
 public class Order implements Serializable {
@@ -9,6 +10,7 @@ public class Order implements Serializable {
     private User user;
     private Address address;
     private String paymentMethod;
+    private List<CartItem> products;
 
     private String status;
     private float sumToPay;
@@ -17,19 +19,7 @@ public class Order implements Serializable {
     private Date dateShipping;
     private String comment;
 
-    public Order(){}
-
-    public Order(int id, User user, Address address, String paymentMethod, String status, float sumToPay, float payedSum, Date dateOrdered, Date dateShipping, String comment) {
-        this.id = id;
-        this.user = user;
-        this.address = address;
-        this.paymentMethod = paymentMethod;
-        this.status = status;
-        this.sumToPay = sumToPay;
-        this.payedSum = payedSum;
-        this.dateOrdered = dateOrdered;
-        this.dateShipping = dateShipping;
-        this.comment = comment;
+    public Order() {
     }
 
     public String getPaymentMethod() {
@@ -112,17 +102,25 @@ public class Order implements Serializable {
         this.comment = comment;
     }
 
+    public List<CartItem> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<CartItem> products) {
+        this.products = products;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Order order = (Order) o;
-        return id == order.id && Float.compare(order.sumToPay, sumToPay) == 0 && Float.compare(order.payedSum, payedSum) == 0 && Objects.equals(user, order.user) && Objects.equals(address, order.address) && Objects.equals(paymentMethod, order.paymentMethod) && Objects.equals(status, order.status) && Objects.equals(dateOrdered, order.dateOrdered) && Objects.equals(dateShipping, order.dateShipping) && Objects.equals(comment, order.comment);
+        return id == order.id && Float.compare(order.sumToPay, sumToPay) == 0 && Float.compare(order.payedSum, payedSum) == 0 && Objects.equals(user, order.user) && Objects.equals(address, order.address) && Objects.equals(paymentMethod, order.paymentMethod) && Objects.equals(products, order.products) && Objects.equals(status, order.status) && Objects.equals(dateOrdered, order.dateOrdered) && Objects.equals(dateShipping, order.dateShipping) && Objects.equals(comment, order.comment);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, user, address, paymentMethod, status, sumToPay, payedSum, dateOrdered, dateShipping, comment);
+        return Objects.hash(id, user, address, paymentMethod, products, status, sumToPay, payedSum, dateOrdered, dateShipping, comment);
     }
 
     @Override
@@ -132,6 +130,7 @@ public class Order implements Serializable {
                 ", user=" + user +
                 ", address=" + address +
                 ", paymentMethod='" + paymentMethod + '\'' +
+                ", products=" + products +
                 ", status='" + status + '\'' +
                 ", sumToPay=" + sumToPay +
                 ", payedSum=" + payedSum +

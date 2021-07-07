@@ -17,7 +17,7 @@ public class RequestParameter {
     public static final String PRODUCT_ID_TO_DELETE = "productIdToDelete";
     public static final String FILTER_METHOD = "filterMethod";
     public static final String USER_ID_PRODUCT_TO_DELETE = "userIdCartItemToDelete";
-    public static final String SHIPPING_ADDRESS = "shippingAddress";
+    public static final String SHIPPING_ADDRESS_ID = "shippingAddress";
     public static final String COMMENT = "comment";
 
     public static final String REVIEW_CONTENT = "content" ;

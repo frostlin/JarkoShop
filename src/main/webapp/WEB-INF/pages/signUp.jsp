@@ -20,10 +20,10 @@
         <img class="mb-4" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
         <h1 class="h3 mb-3 font-weight-normal"><fmt:message key="header.sign_up"/></h1>
 
-        <input type="email" name = "email" id="inputEmail" class="form-control" placeholder="<fmt:message key="signup.emailPlaceholder"/>" required autofocus pattern="^[\w\.]{3,13}@\w{3,10}\.\w{2,5}$">
-        <input type="text" name = "login" id="inputLogin" class="form-control" placeholder="<fmt:message key="signup.loginPlaceholder"/>" required autofocus pattern="^(?=.*[A-Za-z0-9]$)[A-Za-z][\w.-]{0,19}$">
-        <input type="password" name="password" id="inputPassword" class="form-control" placeholder="<fmt:message key="signup.passwordPlaceholder"/>" required pattern="^[\w]{3,20}$">
-        <input type="password" name="confirmedPassword" id="inputConfirmPassword" class="form-control" placeholder="<fmt:message key="signup.passwordRepeatPlaceholder"/>" required pattern="^[\w]{3,20}$">
+        <input type="email" name = "email" id="inputEmail" class="form-control mb-2" placeholder="<fmt:message key="signup.emailPlaceholder"/>" required autofocus pattern="^[\w\.]{3,13}@\w{3,10}\.\w{2,5}$">
+        <input type="text" name = "login" id="inputLogin" class="form-control mb-2" placeholder="<fmt:message key="signup.loginPlaceholder"/>" required autofocus pattern="^(?=.*[A-Za-z0-9]$)[A-Za-z][\w.-]{0,19}$">
+        <input type="password" name="password" id="inputPassword" class="form-control mb-2" placeholder="<fmt:message key="signup.passwordPlaceholder"/>" required pattern="^[\w]{3,20}$">
+        <input type="password" name="confirmedPassword" id="inputConfirmPassword" class="form-control mb-3" placeholder="<fmt:message key="signup.passwordRepeatPlaceholder"/>" required pattern="^[\w]{3,20}$">
 
         <c:if test="${errorSignUpMessageKey != null}">
             <label style="color: red"><fmt:message key="${errorSignUpMessageKey}"/></label>

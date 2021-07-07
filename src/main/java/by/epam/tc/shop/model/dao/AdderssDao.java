@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface AdderssDao {
 
-    public List<Address> getByUser(int userId) throws DaoException;
+    List<Address> getByUser(int userId) throws DaoException;
     Address getById(int addressId) throws DaoException;
 }

@@ -37,7 +37,6 @@ public class SignUpCommand implements Command {
             try {
                 boolean isUserCreated = userService.createUser(login, password, email);
                 if (isUserCreated) {
-                    //MailSender.SendConfirmation(email, new User(email, login, password).hashCode());
                     page = PagePath.MAIN;
                 } else {
                     page = PagePath.SIGN_UP;

@@ -28,14 +28,16 @@ public class AccessFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
         HttpSession session = request.getSession();
+
+            response.setHeader("Cache-Control", "private, must-revalidate"); // HTTP 1.1.
+            response.setDateHeader("Expires", 0);
+
         if (session.getAttribute(SessionAttribute.ROLE) == null) {
             session.setAttribute(SessionAttribute.ROLE, "guest");
         }
-//        response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
-//        response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
 
         String commandName = request.getParameter(RequestParameter.COMMAND);
-        Command command = CommandProvider.defineCommand(commandName);
+        Command command = CommandProvider.getCommand(commandName);
 
         String roleName = (String)session.getAttribute(SessionAttribute.ROLE);
         UserRole userRole;
@@ -53,8 +55,8 @@ public class AccessFilter implements Filter {
         };
         if (!commands.contains(command)) {
             logger.info("Role {} tried to access {} command", roleName, commandName);
-            RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher(PagePath.SIGN_IN);
-            dispatcher.forward(request, response);
+            response.sendRedirect(PagePath.REDIRECT_SIGN_IN);
+            return;
         }
         chain.doFilter(servletRequest, servletResponse);
     }

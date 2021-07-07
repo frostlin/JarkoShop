@@ -31,7 +31,7 @@
                             <span class="sr-only">Toggle Dropdown</span>
                         </button>
                         <div class="dropdown-menu">
-                            <c:forEach var="category" items="${categories}">
+                            <c:forEach var="category" items="${categoryList}">
                                 <button class="dropdown-item" type="submit" name="currentCategory" value="${category.getId()}">
                                     <fmt:message key="category.${category.getName()}"/></button>
                             </c:forEach>

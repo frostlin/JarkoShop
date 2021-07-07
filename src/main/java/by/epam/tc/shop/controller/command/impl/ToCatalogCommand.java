@@ -19,6 +19,7 @@ import java.util.List;
 public class ToCatalogCommand implements Command {
     private static final Logger logger = LogManager.getLogger();
     private final ProductServiceImpl productService = ProductServiceImpl.getInstance();
+
     @Override
     public String execute(HttpServletRequest request) {
         HttpSession session = request.getSession();
@@ -34,17 +35,16 @@ public class ToCatalogCommand implements Command {
             session.setAttribute(SessionAttribute.CURRENT_PRODUCTS_PER_PAGE, PaginationConstants.CURRENT_PRODUCTS_PER_PAGE);
 
 
-        int pageNumber = (int)session.getAttribute(SessionAttribute.CURRENT_PRODUCTS_PAGE);
-        int itemsPerPage = (int)session.getAttribute(SessionAttribute.CURRENT_PRODUCTS_PER_PAGE);
-        int categoryId = (int)session.getAttribute(SessionAttribute.CURRENT_CATEGORY);
         //String currentSearchString = (String)session.getAttribute(SessionAttribute.SEARCH_STRING);
-        String currentFilterMethod = (String)session.getAttribute(SessionAttribute.PRODUCT_FILTER_METHOD);
 
+        int pageNumber = (int)session.getAttribute(SessionAttribute.CURRENT_PRODUCTS_PAGE);
         String nextPageNumber = request.getParameter(RequestParameter.NEXT_ITEM_PAGE);
         if (nextPageNumber != null){
             pageNumber = Integer.parseInt(nextPageNumber);
             session.setAttribute(SessionAttribute.CURRENT_PRODUCTS_PAGE, pageNumber);
         }
+
+        int categoryId = (int)session.getAttribute(SessionAttribute.CURRENT_CATEGORY);
         String nextCategoryId = request.getParameter(RequestParameter.CURRENT_CATEGORY);
         if (nextCategoryId != null){
             categoryId = Integer.parseInt(nextCategoryId);
@@ -55,6 +55,8 @@ public class ToCatalogCommand implements Command {
 //            currentSearchString = searchString;
 //            session.setAttribute(SessionAttribute.SEARCH_STRING, currentSearchString);
 //        }
+
+        String currentFilterMethod = (String)session.getAttribute(SessionAttribute.PRODUCT_FILTER_METHOD);
         String filterMethod = request.getParameter(RequestParameter.FILTER_METHOD);
         if (filterMethod != null){
             currentFilterMethod = filterMethod;
@@ -64,7 +66,7 @@ public class ToCatalogCommand implements Command {
         try {
             List<Product> range = null;
             int productCount = 0;
-
+            int itemsPerPage = (int)session.getAttribute(SessionAttribute.CURRENT_PRODUCTS_PER_PAGE);
             productCount = productService.getProductCount(categoryId);
             if (currentFilterMethod != null){
                 switch (currentFilterMethod){

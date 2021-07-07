@@ -19,8 +19,8 @@
     <form class="form-signin" action="controller" method="post">
         <img class="mb-4" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
         <h1 class="h3 mb-3 font-weight-normal"><fmt:message key="header.sign_in"/></h1>
-        <input type="text" name = "login" id="inputLogin" class="form-control" placeholder="<fmt:message key="signup.loginPlaceholder"/>" required autofocus pattern="^(?=.*[A-Za-z0-9]$)[A-Za-z][\w.-]{0,19}$">
-        <input type="password" name="password" id="inputPassword" class="form-control" placeholder="<fmt:message key="signup.passwordPlaceholder"/>" required pattern="^[\w]{3,20}$">
+        <input type="text" name = "login" id="inputLogin" class="form-control mb-2" placeholder="<fmt:message key="signup.loginPlaceholder"/>" required autofocus pattern="^(?=.*[A-Za-z0-9]$)[A-Za-z][\w.-]{0,19}$">
+        <input type="password" name="password" id="inputPassword" class="form-control mb-3" placeholder="<fmt:message key="signup.passwordPlaceholder"/>" required pattern="^[\w]{3,20}$">
         <c:if test="${errorSignInMessageKey != null}">
             <label style="color: red"><fmt:message key="${errorSignInMessageKey}"/></label>
         </c:if>
@@ -34,7 +34,6 @@
         <button class="btn btn-lg btn-outline-primary btn-block" type="submit" name="command" value="to_sign_up">
             <fmt:message key="header.sign_up"/>
         </button>
-        <p class="mt-5 mb-3 text-muted">&copy; 2017-2018</p>
     </form>
 </body>
 

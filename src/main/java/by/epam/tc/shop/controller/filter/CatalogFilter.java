@@ -33,10 +33,10 @@ public class CatalogFilter implements Filter {
         if (session.getAttribute(SessionAttribute.CURRENT_CATEGORY) == null)
             session.setAttribute(SessionAttribute.CURRENT_CATEGORY, 0);
 
-        if (session.getAttribute(SessionAttribute.CATEGORIES) == null){
+        if (session.getAttribute(SessionAttribute.CATEGORY_LIST) == null){
             CategoryDaoImpl categoryDao = CategoryDaoImpl.getInstance();
             try{
-                session.setAttribute(SessionAttribute.CATEGORIES, categoryDao.getCategories());
+                session.setAttribute(SessionAttribute.CATEGORY_LIST, categoryDao.getCategories());
             } catch (DaoException e) {
                 logger.error("Error while setting up race list", e);
             }

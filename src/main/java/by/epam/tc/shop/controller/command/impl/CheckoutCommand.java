@@ -5,14 +5,11 @@ import by.epam.tc.shop.controller.RequestAttribute;
 import by.epam.tc.shop.controller.RequestParameter;
 import by.epam.tc.shop.controller.SessionAttribute;
 import by.epam.tc.shop.controller.command.Command;
-import by.epam.tc.shop.model.entity.Address;
 import by.epam.tc.shop.model.entity.CartItem;
 import by.epam.tc.shop.model.entity.User;
 import by.epam.tc.shop.model.service.OrderService;
 import by.epam.tc.shop.model.service.ServiceException;
-import by.epam.tc.shop.model.service.UserService;
 import by.epam.tc.shop.model.service.impl.OrderServiceImpl;
-import by.epam.tc.shop.model.service.impl.UserServiceImpl;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -31,10 +28,10 @@ public class CheckoutCommand implements Command {
         User user = (User)session.getAttribute(SessionAttribute.CURRENT_USER);
         try{
             int orderId = orderService.add(user.getId(),1,
-                    Integer.parseInt(request.getParameter(RequestParameter.SHIPPING_ADDRESS)),
+                    Integer.parseInt(request.getParameter(RequestParameter.SHIPPING_ADDRESS_ID)),
                     (float) session.getAttribute(SessionAttribute.CART_PRICE),
                     request.getParameter(RequestParameter.COMMENT),
-                    (List<CartItem>) session.getAttribute(SessionAttribute.CART_ITEMS));
+                    (List<CartItem>)session.getAttribute(SessionAttribute.CART_ITEMS));
 
             user.getCart().clear();
             session.setAttribute(SessionAttribute.CART_ITEMS, new ArrayList<>());

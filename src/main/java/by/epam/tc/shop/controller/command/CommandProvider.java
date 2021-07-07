@@ -10,7 +10,7 @@ public class CommandProvider {
     private static final Logger logger = LogManager.getLogger();
     private CommandProvider(){}
 
-    public static Command defineCommand(String commandName){
+    public static Command getCommand(String commandName){
         Command currentCommand;
 
         if (commandName != null){

@@ -20,10 +20,12 @@ public class CartItemDaoImpl implements CartItemDao {
             "SELECT product_id,count FROM cart_item " +
                     "WHERE (order_id IS NULL) AND (user_id LIKE ?)";
     private static final String GET_CART_ITEM = GET_CART + " AND (product_id LIKE ?)";
+    private static final String GET_ORDER_ITEMS =
+            "SELECT product_id,count FROM cart_item WHERE order_id LIKE ?";
 
     private static final String ADD_CART_ITEM = "INSERT INTO cart_item (product_id,user_id) VALUES (?,?)";
     private static final String UPDATE_CART_ITEM_TO_ORDER = "UPDATE cart_item SET order_id = ? " +
-            "WHERE product_id LIKE ? AND user_id LIKE ?";
+            "WHERE product_id LIKE ? AND user_id LIKE ? AND order_id IS NULL";
 
     private static final String DELETE_CART = "DELETE FROM cart_item WHERE user_id LIKE ?";
     private static final String DELETE_CART_ITEM = DELETE_CART + " AND product_id LIKE ?";
@@ -100,19 +102,37 @@ public class CartItemDaoImpl implements CartItemDao {
         }
         return items;
     }
+
     @Override
-    public boolean deleteCartItem(int user_id, int product_id) throws DaoException{
+    public List<CartItem> getOrderItems(int orderId) throws DaoException{
+        List<CartItem> items = new ArrayList<>();
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(GET_ORDER_ITEMS))
+        {
+            statement.setInt(1, orderId);
+            ResultSet resultSet = statement.executeQuery();
+
+            while(resultSet.next())
+                items.add(getUserCartItemFromResultSet(resultSet));
+        } catch(SQLException e){
+            throw new DaoException("Error getting all users data ", e);
+        }
+        return items;
+    }
+
+    @Override
+    public boolean deleteCartItem(int userId, int productId) throws DaoException{
         boolean isSuccessful = false;
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
              PreparedStatement statement = connection.prepareStatement(DELETE_CART_ITEM);)
         {
-            statement.setInt(1, user_id);
-            statement.setInt(2, product_id);
+            statement.setInt(1, userId);
+            statement.setInt(2, productId);
 
             statement.executeUpdate();
             isSuccessful = true;
         } catch(SQLException e){
-            throw new DaoException("Error deleting cart items for user " + user_id, e);
+            throw new DaoException("Error deleting cart items for user " + userId, e);
         }
         return isSuccessful;
     }

@@ -1,9 +1,8 @@
 package by.epam.tc.shop.model.entity;
 
-import java.io.Serializable;
 import java.util.Objects;
 
-public class ProductCharacteristic implements Serializable {
+public class ProductCharacteristic  {
     private int id;
     private String name;
     private String value;

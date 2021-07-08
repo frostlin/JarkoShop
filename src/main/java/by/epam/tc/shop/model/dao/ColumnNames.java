@@ -46,12 +46,12 @@ public class ColumnNames {
     public static final String ORDER_USER_ID = "user_id";
     public static final String ORDER_PAYMENT_METHOD = "method";
     public static final String ORDER_ADDRESS_ID = "address_id";
-    public static final String ORDER_STATUS = "status";
+    public static final String ORDER_STATUS = "orders.status";
     public static final String ORDER_SUM_TO_PAY = "sum_to_pay";
     public static final String ORDER_PAYED_SUM = "payed_sum";
     public static final String ORDER_DATE_ORDERED = "date_ordered";
     public static final String ORDER_DATE_SHIPPING = "date_shipping";
-    public static final String ORDER_COMMENT = "comment";
+    public static final String ORDER_COMMENT = "orders.comment";
 
     public static final String REVIEW_ID = "review.id";
     public static final String REVIEW_USER_ID = "user_id";

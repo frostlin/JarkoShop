@@ -7,6 +7,7 @@ import java.io.IOException;
 public class PaginationTag extends TagSupport {
     private int totalPageCount;
     private int currentPage;
+    private String command;
 
     public void setTotalPageCount(int totalPageCount) {
         this.totalPageCount = totalPageCount;
@@ -14,6 +15,10 @@ public class PaginationTag extends TagSupport {
 
     public void setCurrentPage(int currentPage) {
         this.currentPage = currentPage;
+    }
+
+    public void setCommand(String command) {
+        this.command = command;
     }
 
     @Override
@@ -27,7 +32,7 @@ public class PaginationTag extends TagSupport {
                         pageContext.getOut().write("<button class=\"btn btn-primary mx-1\" type=\"submit\" disabled>" + i + "</button></form></li>");
                     } else {
                         pageContext.getOut().write("<button class=\"btn btn-outline-primary mx-1\" type=\"submit\" name=\"nextItemPage\" value=\"" + i + "\">" + i + "</button>" +
-                                "<input type=\"hidden\" name=\"command\" value=\"to_catalog\">\n</form></li>");
+                                "<input type=\"hidden\" name=\"command\" value=\"" + command + "\">\n</form></li>");
                     }
                 }
             pageContext.getOut().write("</ul>" );

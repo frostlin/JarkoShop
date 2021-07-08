@@ -1,11 +1,10 @@
 package by.epam.tc.shop.model.entity;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class Product implements Serializable {
+public class Product  {
     private int id;
     private String brand;
     private Category category;

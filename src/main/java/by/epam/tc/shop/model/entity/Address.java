@@ -1,9 +1,8 @@
 package by.epam.tc.shop.model.entity;
 
-import java.io.Serializable;
 import java.util.Objects;
 
-public class Address implements Serializable {
+public class Address  {
     private int id;
 
     private String country;

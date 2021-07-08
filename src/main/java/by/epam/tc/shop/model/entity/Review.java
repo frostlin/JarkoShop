@@ -1,10 +1,9 @@
 package by.epam.tc.shop.model.entity;
 
-import java.io.Serializable;
 import java.sql.Date;
 import java.util.Objects;
 
-public class Review implements Serializable {
+public class Review  {
     private int id;
     private User user;
     private Product product;

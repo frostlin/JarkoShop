@@ -1,12 +1,10 @@
 package by.epam.tc.shop.model.entity;
 
-import java.io.Serializable;
 import java.sql.Date;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class User implements Serializable {
+public class User  {
 
     private int id;
     private String email;

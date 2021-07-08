@@ -1,12 +1,9 @@
 package by.epam.tc.shop.model.entity;
 
-import by.epam.tc.shop.controller.PagePath;
-
-import java.io.Serializable;
 import java.sql.Date;
 import java.util.Objects;
 
-public class PaymentCard implements Serializable {
+public class PaymentCard  {
     private int number;
     private String ownerName;
     private Date date;

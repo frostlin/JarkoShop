@@ -1,9 +1,8 @@
 package by.epam.tc.shop.model.entity;
 
-import java.io.Serializable;
 import java.util.Objects;
 
-public class CartItem implements Serializable {
+public class CartItem  {
     private int id;
     private Product product;
     private Discount discount;

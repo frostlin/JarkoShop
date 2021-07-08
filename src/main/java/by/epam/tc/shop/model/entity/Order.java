@@ -1,11 +1,10 @@
 package by.epam.tc.shop.model.entity;
 
-import java.io.Serializable;
 import java.sql.Date;
 import java.util.List;
 import java.util.Objects;
 
-public class Order implements Serializable {
+public class Order  {
     private int id;
     private User user;
     private Address address;

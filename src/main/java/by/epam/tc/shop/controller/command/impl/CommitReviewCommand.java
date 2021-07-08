@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
-public class CommitReview implements Command {
+public class CommitReviewCommand implements Command {
     private static final Logger logger = LogManager.getLogger();
     private static final ReviewService reviewService = ReviewServiceImpl.getInstance();
 

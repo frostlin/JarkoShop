@@ -7,7 +7,7 @@ import by.epam.tc.shop.controller.command.Command;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-public class Logout implements Command {
+public class LogoutCommand implements Command {
     @Override
     public String execute(HttpServletRequest request) {
         HttpSession session = request.getSession();

@@ -16,7 +16,7 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-public class DeleteCartItem implements Command {
+public class DeleteCartItemCommand implements Command {
     private static final Logger logger = LogManager.getLogger();
     private static final CartItemService cartItemService = CartItemServiceImpl.getInstance();
 

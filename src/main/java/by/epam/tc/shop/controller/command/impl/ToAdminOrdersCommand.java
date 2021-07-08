@@ -8,16 +8,15 @@ import by.epam.tc.shop.controller.command.Command;
 import by.epam.tc.shop.model.service.OrderService;
 import by.epam.tc.shop.model.service.ServiceException;
 import by.epam.tc.shop.model.service.impl.OrderServiceImpl;
-import by.epam.tc.shop.model.service.impl.ProductServiceImpl;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-public class ToAdminProducts implements Command {
+public class ToAdminOrdersCommand implements Command {
     private static final Logger logger = LogManager.getLogger();
-    private static final ProductServiceImpl productService = ProductServiceImpl.getInstance();
+    private static final OrderService orderService = OrderServiceImpl.getInstance();
 
     @Override
     public String execute(HttpServletRequest request) {
@@ -36,16 +35,16 @@ public class ToAdminProducts implements Command {
             session.setAttribute(SessionAttribute.CURRENT_ADMIN_PANEL_PAGE, pageNumber);
         }
         try {
-            int productCount = productService.getProductCount();
-            int itemPageCount = (int) Math.ceil(productCount * 1.0 / itemsPerPage);
+            int orderCount = orderService.getOrderCount();
+            int itemPageCount = (int) Math.ceil(orderCount * 1.0 / itemsPerPage);
 
             session.setAttribute(SessionAttribute.TOTAL_PAGE_COUNT, itemPageCount);
-            session.setAttribute(SessionAttribute.TOTAL_ITEM_COUNT, productCount);
+            session.setAttribute(SessionAttribute.TOTAL_ITEM_COUNT, orderCount);
             session.setAttribute(SessionAttribute.CURRENT_ITEMS_RANGE,
-                    productService.getProductPage(pageNumber, itemsPerPage));
+                    orderService.getOrdersPage(pageNumber, itemsPerPage));
         } catch (ServiceException e) {
-            logger.error("Error while setting up products list", e);
+            logger.error("Error while setting up orders list", e);
         }
-        return PagePath.ADMIN_PRODUCTS;
+        return PagePath.ADMIN_ORDERS;
     }
 }

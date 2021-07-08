@@ -83,6 +83,6 @@
             </c:forEach>
         </tbody>
     </table>
-    <custom:pagination totalPageCount="${totalPageCount}" currentPage="${currentOrdersPage}"/>
+    <custom:pagination totalPageCount="${totalPageCount}" currentPage="${currentAdminOrdersPage}" command="to_admin_orders"/>
 </body>
 </html>

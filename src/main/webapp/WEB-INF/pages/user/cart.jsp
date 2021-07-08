@@ -33,10 +33,10 @@
                             <h2><fmt:message key="cart.successful"/></h2>
                         </c:when>
                         <c:otherwise>
-                        <ul class="list-group">
-                            <li class="list-group-item active">
+                        <ul class="list-group mb-3">
+                            <li class="list-group-item" style="background-color: whitesmoke">
                                 <h2><fmt:message key="cart.yourItems"/></h2>
-                                <ul class="list-group">
+                                <ul class="list-group mb-2">
                                     <c:forEach var="cartItem" items="${cartItems}" varStatus="status">
                                         <li class="list-group-item list-group-item-action justify-content-between d-flex align-text-top">
                                             <div class="justify-content-start">
@@ -71,13 +71,14 @@
                                             </div>
                                         </li>
                                     </c:forEach>
-
-                                </ul><br/>
+                                </ul>
                             </li>
-                            <li class="list-group-item d-flex align-text-top">
+                        </ul>
+                            <ul class="list-group mb-3">
+                            <li class="list-group-item d-flex align-text-top"  style="background-color: whitesmoke">
                                 <form action="controller" method="post" id="checkoutAddress">
                                     <div>
-                                        <h2><fmt:message key="cart.address"/></h2>
+                                        <h3><fmt:message key="cart.address"/></h3>
                                         <c:choose>
                                             <c:when test="${currentUser.getAddresses().size() != 0}">
                                                 <select class="form-control" name="shippingAddress" form="checkout">
@@ -94,9 +95,16 @@
                                     </div>
                                 </form>
                             </li>
-                            <li class="list-group-item d-flex align-text-top">
-                                <form action="controller" method="post" id="checkout">
-                                <h2><fmt:message key="cart.totalPrice"/>
+                            </ul>
+                            <ul class="list-group mb-3">
+                            <li class="list-group-item d-flex align-text-top" style="background-color: whitesmoke">
+                                <h3><fmt:message key="orderTable.comment"/>:</h3>
+                                <textarea form="checkout" name="comment" rows="4" cols="50"></textarea><br/>
+                            </li>
+                            </ul>
+                            <form action="controller" method="post" id="checkout">
+                                <div class="d-flex justify-content-between">
+                                    <h2><fmt:message key="cart.totalPrice"/>
                                         <c:choose>
                                             <c:when test="${currentLocale.equals('ru_RU')}">
                                                 <span class="badge badge-success ml-1"><fmt:formatNumber value="${cartPrice * conv}" currencyCode="BYN" currencySymbol="BYN" type="currency"/></span>
@@ -105,15 +113,14 @@
                                                 <span class="badge badge-success ml-1"><fmt:formatNumber value="${cartPrice * conv}" type="currency"/></span>
                                             </c:otherwise>
                                         </c:choose>
-                                        </h2>
-                                        <button class="btn btn-outline-primary mx-1" type="submit" name="command" value="checkout">
-                                            <fmt:message key="cart.checkout"/>
-                                        </button>
-                                        <input type="hidden" name="productIdToDelete" value="${cartItem.getProduct().getId()}">
-                                        <input type="hidden" name="comment" value="test comment">
-                                </form>
-                            </li>
-                        </ul>
+                                    </h2>
+                                    <button class="btn btn-outline-primary mx-1" type="submit" name="command" value="checkout">
+                                        <fmt:message key="cart.checkout"/><i class='bx bxs-right-arrow-circle'></i>
+                                    </button>
+                                    <input type="hidden" name="productIdToDelete" value="${cartItem.getProduct().getId()}">
+                                </div>
+                            </form>
+
                             <br/>
                          </c:otherwise>
                     </c:choose>

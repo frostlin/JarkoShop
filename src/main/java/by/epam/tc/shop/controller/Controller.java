@@ -28,13 +28,14 @@ public class Controller extends HttpServlet {
 
     private void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String commandName = req.getParameter(RequestParameter.COMMAND);
-        Command command = CommandProvider.defineCommand(commandName);
+        Command command = CommandProvider.getCommand(commandName);
         String page = command.execute(req);
 
-        HttpSession session = req.getSession();
-        session.setAttribute(SessionAttribute.CURRENT_PAGE, page);
-
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(page);
-        dispatcher.forward(req, resp);
+        if(page != null){
+            HttpSession session = req.getSession();
+            session.setAttribute(SessionAttribute.CURRENT_PAGE, page);
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(page);
+            dispatcher.forward(req, resp);
+        }
     }
 }

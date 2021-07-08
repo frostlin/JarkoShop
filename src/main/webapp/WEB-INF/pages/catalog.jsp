@@ -91,7 +91,9 @@
 
                                     <div class="ml-2">
                                         <c:forEach var="characteristic" items="${product.getCharacteristics()}">
-                                            <c:out value="${characteristic.getName()} ${characteristic.getValue()}, "/>
+                                            <c:if test="${characteristic.getValue() != null}">
+                                                <c:out value="${characteristic.getValue()}, "/>
+                                            </c:if>
                                         </c:forEach>
                                     </div>
                                 </div>
@@ -119,7 +121,7 @@
                     </c:if>
                 </ul>
                 <br/>
-                <custom:pagination totalPageCount="${totalPageCount}" currentPage="${currentProductsPage}"/>
+                <custom:pagination totalPageCount="${totalPageCount}" currentPage="${currentProductsPage}" command="to_catalog"/>
             </div>
             <div class="col">
 

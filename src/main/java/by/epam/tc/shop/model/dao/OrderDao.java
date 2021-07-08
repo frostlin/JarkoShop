@@ -11,7 +11,11 @@ public interface OrderDao {
     List<Order> getRange(int page, int recordsPerPage) throws DaoException;
     List<Order> getRangeByUser(int start, int offset, int userId) throws DaoException;
     int getOrderCount() throws DaoException;
+    int getActiveOrderCountByUser(int userId) throws DaoException;
+    int getNotActiveOrderCountByUser(int userId) throws DaoException;
     List<Order> getByUser(int userId) throws DaoException;
     Order getById(int orderId) throws DaoException;
 
+    List<Order> getRangeActive(int start, int offset) throws DaoException;
+    List<Order> getRangeNotActive(int start, int offset) throws DaoException;
 }

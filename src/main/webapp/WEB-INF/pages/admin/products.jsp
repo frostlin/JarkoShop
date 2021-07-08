@@ -57,7 +57,7 @@
                     <c:if test="${currentLocale.equals('ru_RU')}">
                         <fmt:formatNumber value="${product.price * conv}" currencyCode="BYN" currencySymbol="BYN" type="currency"/>
                     </c:if>
-                    <c:if test="${currentLocale.!equals('ru_RU')}">
+                    <c:if test="${!currentLocale.equals('ru_RU')}">
                         <fmt:formatNumber value="${product.price * conv}" type="currency"/>
                     </c:if>
                 </td>
@@ -73,6 +73,6 @@
         </c:forEach>
         </tbody>
     </table>
-    <custom:pagination totalPageCount="${totalPageCount}" currentPage="${currentProductsPage}"/>
+    <custom:pagination totalPageCount="${totalPageCount}" currentPage="${currentAdminProductsPage}" command="to_admin_products"/>
 </body>
 </html>

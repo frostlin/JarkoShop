@@ -8,6 +8,7 @@ import by.epam.tc.shop.model.pool.ConnectionPool;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class ProductDaoImpl implements ProductDao {
@@ -17,7 +18,10 @@ public class ProductDaoImpl implements ProductDao {
     private static final CategoryDaoImpl categoryDao = CategoryDaoImpl.getInstance();
     private static final ReviewDaoImpl reviewDao = ReviewDaoImpl.getInstance();
 
-    private static final String ADD = "INSERT INTO user (role_id,email,login,password) VALUES (?,?,?,?)";
+    private static final String ADD = "INSERT INTO product (brand_id,category_id,price,model,description,warranty,stock_amount)" +
+            " VALUES (?,?,?,?,?,?,?)";
+    private static final String ADD_BRAND = "INSERT INTO brand (name) VALUES ?";
+    private static final String ADD_PHOTO = "INSERT INTO photo (product_id,path) VALUES (?,?)";
 
     private static final String GET_ALL =
             "SELECT product.id,price,model,product.description,warranty," +
@@ -32,7 +36,6 @@ public class ProductDaoImpl implements ProductDao {
     private static final String GET_RANGE = GET_ALL + ORDER_BY_ID + "DESC " + LIMIT_RANGE;
 
     private static final String GET_RANGE_BY_CATEGORY = GET_ALL + " WHERE product.category_id LIKE ? " + ORDER_BY_ID + "DESC " + LIMIT_RANGE;
-    private static final String GET_RANGE_BY_CATEGORY_ORDER_BY_PRICE = GET_ALL + " WHERE product.category_id LIKE ? " +  ORDER_BY_PRICE + "DESC " + LIMIT_RANGE;
     private static final String GET_RANGE_BY_CATEGORY_ORDER_BY_AVG_RATING =
             "SELECT product.id,price,model,product.description,warranty," +
                     "stock_amount,brand.name,category.id,category.name," +
@@ -51,10 +54,75 @@ public class ProductDaoImpl implements ProductDao {
     private static final String GET_BY_BRAND = GET_ALL + " WHERE brand.id LIKE ?";
     private static final String GET_BY_ID = GET_ALL + " WHERE product.id LIKE ?";
 
-    private static final String GET_PHOTOS = "SELECT path FROM photo WHERE product_id LIKE ?";
+    private static final String GET_PHOTO_LIST = "SELECT path FROM photo WHERE product_id LIKE ?";
+    private static final String GET_BRAND_LIST = "SELECT * FROM brand";
 
     private ProductDaoImpl() {}
-    public static ProductDaoImpl getInstance(){ return instance; }
+    public static ProductDaoImpl getInstance(){ return instance ; }
+
+    @Override
+    public int add(int brandId, int categoryId, float price, String model, String description, int warranty, int amount_stock) throws DaoException {
+        int id = 0;
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(ADD,Statement.RETURN_GENERATED_KEYS))
+        {
+            statement.setInt(1, brandId);
+            statement.setInt(2, categoryId);
+            statement.setFloat(3, price);
+            statement.setString(4, model);
+            statement.setString(5, description);
+            statement.setInt(6, warranty);
+            statement.setInt(7, amount_stock);
+
+            statement.executeUpdate();
+            ResultSet resultSet = statement.getGeneratedKeys();
+            if (resultSet.next())
+                id = resultSet.getInt(1);
+
+        } catch(SQLException e){
+            throw new DaoException("Error adding product " + model, e);
+        }
+        return id;
+    }
+
+    @Override
+    public int addBrand(String name) throws DaoException {
+        int id = 0;
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(ADD_BRAND,Statement.RETURN_GENERATED_KEYS))
+        {
+            statement.setString(1, name);
+            statement.executeUpdate();
+
+            ResultSet resultSet = statement.getGeneratedKeys();
+            if (resultSet.next())
+                id = resultSet.getInt(1);
+
+        } catch(SQLException e){
+            throw new DaoException("Error adding brand " + name, e);
+        }
+        return id;
+    }
+
+    @Override
+    public int addPhoto(int productId, String name) throws DaoException {
+        int id = 0;
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(ADD_PHOTO,Statement.RETURN_GENERATED_KEYS))
+        {
+            statement.setInt(1, productId);
+            statement.setString(1, name);
+            statement.executeUpdate();
+
+            ResultSet resultSet = statement.getGeneratedKeys();
+            if (resultSet.next())
+                id = resultSet.getInt(1);
+
+        } catch(SQLException e){
+            throw new DaoException("Error adding photo for product " + productId, e);
+        }
+        return id;
+    }
 
     @Override
     public List<Product> getRange(int start, int offset) throws DaoException {
@@ -243,7 +311,7 @@ public class ProductDaoImpl implements ProductDao {
     public List<String> getProductPhotos(int productId) throws DaoException {
         List<String> photos = new ArrayList<>();
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
-             PreparedStatement statement = connection.prepareStatement(GET_PHOTOS))
+             PreparedStatement statement = connection.prepareStatement(GET_PHOTO_LIST))
         {
             statement.setInt(1, productId);
 
@@ -253,9 +321,27 @@ public class ProductDaoImpl implements ProductDao {
             }
 
         } catch(SQLException e){
-            throw new DaoException("Error getting all users data ", e);
+            throw new DaoException("Error getting photos for product " + productId, e);
         }
         return photos;
+    }
+    @Override
+    public List<Brand> getBrandList() throws DaoException {
+        List<Brand> brands = new ArrayList<>();
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(GET_BRAND_LIST);
+             ResultSet resultSet = statement.executeQuery())
+        {
+            while(resultSet.next()){
+                Brand brand = new Brand();
+                brand.setId(resultSet.getInt("id"));
+                brand.setName(resultSet.getString(ColumnNames.PRODUCT_BRAND_NAME));
+                brands.add(brand);
+            }
+        } catch(SQLException e){
+            throw new DaoException("Error getting brands ", e);
+        }
+        return brands;
     }
 
 }

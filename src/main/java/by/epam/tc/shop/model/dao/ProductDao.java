@@ -1,10 +1,16 @@
 package by.epam.tc.shop.model.dao;
 
+import by.epam.tc.shop.model.entity.Brand;
 import by.epam.tc.shop.model.entity.Product;
+import com.mysql.cj.conf.ConnectionUrlParser;
 
+import java.util.HashMap;
 import java.util.List;
 
 public interface ProductDao {
+     int add(int brandId, int categoryId, float price, String model, String description, int warranty, int amount_stock) throws DaoException;
+     int addBrand(String name) throws DaoException;
+     int addPhoto(int productId, String name)throws DaoException;
 
      List<Product> getRange(int start, int offset) throws DaoException;
 
@@ -18,5 +24,6 @@ public interface ProductDao {
      int getProductCount(int categoryId) throws DaoException;
      Product getById(int productId) throws DaoException;
 
+     List<Brand>  getBrandList() throws DaoException;
 
 }

@@ -47,6 +47,8 @@ public enum Access {
             TO_CART,
             DELETE_CART_ITEM,
             ADD_TO_CART,
+            ADD_NEW_PRODUCT,
+            TO_ADD_NEW_PRODUCT,
             CHECKOUT,
             TO_PRODUCT,
             COMMIT_REVIEW,

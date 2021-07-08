@@ -24,5 +24,17 @@ public class RequestParameter {
     public static final String REVIEW_RATING = "rating" ;
     public static final String SUCCESSFUL_ORDER = "successfulOrder";
 
+    public static final String ADD_PRODUCT_NEW_CATEGORY = "newCategory";
+    public static final String ADD_PRODUCT_SELECTED_CATEGORY = "selectedCategory";
+    public static final String ADD_PRODUCT_NEW_BRAND = "newBrand";
+    public static final String ADD_PRODUCT_SELECTED_BRAND = "selectedBrand";
+    public static final String ADD_PRODUCT_PRICE = "price";
+    public static final String ADD_PRODUCT_MODEL = "model";
+    public static final String ADD_PRODUCT_DESCRIPTION = "description";
+    public static final String ADD_PRODUCT_WARRANTY = "warranty";
+    public static final String ADD_PRODUCT_AMOUNT_STOCK = "amountStock";
+    public static final String ADD_PRODUCT_PHOTO = "photo";
+
+
     private RequestParameter(){}
 }

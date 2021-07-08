@@ -23,25 +23,25 @@ public class ToCatalogCommand implements Command {
     @Override
     public String execute(HttpServletRequest request) {
         HttpSession session = request.getSession();
-        if (session.getAttribute(SessionAttribute.CURRENT_PRODUCTS_PAGE) == null
+        if (session.getAttribute(SessionAttribute.CURRENT_CATALOG_PRODUCTS_PAGE) == null
                 || request.getParameter(RequestParameter.CURRENT_CATEGORY) != null
                 || request.getParameter(RequestParameter.SEARCH_STRING) != null
                 || request.getParameter(RequestParameter.FILTER_METHOD) != null)
         {
-            session.setAttribute(SessionAttribute.CURRENT_PRODUCTS_PAGE, 1);
+            session.setAttribute(SessionAttribute.CURRENT_CATALOG_PRODUCTS_PAGE, 1);
             session.setAttribute(SessionAttribute.PRODUCT_FILTER_METHOD, null);
         }
-        if (session.getAttribute(SessionAttribute.CURRENT_PRODUCTS_PER_PAGE) == null)
-            session.setAttribute(SessionAttribute.CURRENT_PRODUCTS_PER_PAGE, PaginationConstants.CURRENT_PRODUCTS_PER_PAGE);
+        if (session.getAttribute(SessionAttribute.CURRENT_CATALOG_PRODUCTS_PER_PAGE) == null)
+            session.setAttribute(SessionAttribute.CURRENT_CATALOG_PRODUCTS_PER_PAGE, PaginationConstants.CURRENT_CATALOG_PRODUCTS_PER_PAGE);
 
 
         //String currentSearchString = (String)session.getAttribute(SessionAttribute.SEARCH_STRING);
 
-        int pageNumber = (int)session.getAttribute(SessionAttribute.CURRENT_PRODUCTS_PAGE);
+        int pageNumber = (int)session.getAttribute(SessionAttribute.CURRENT_CATALOG_PRODUCTS_PAGE);
         String nextPageNumber = request.getParameter(RequestParameter.NEXT_ITEM_PAGE);
         if (nextPageNumber != null){
             pageNumber = Integer.parseInt(nextPageNumber);
-            session.setAttribute(SessionAttribute.CURRENT_PRODUCTS_PAGE, pageNumber);
+            session.setAttribute(SessionAttribute.CURRENT_CATALOG_PRODUCTS_PAGE, pageNumber);
         }
 
         int categoryId = (int)session.getAttribute(SessionAttribute.CURRENT_CATEGORY);
@@ -66,7 +66,7 @@ public class ToCatalogCommand implements Command {
         try {
             List<Product> range = null;
             int productCount = 0;
-            int itemsPerPage = (int)session.getAttribute(SessionAttribute.CURRENT_PRODUCTS_PER_PAGE);
+            int itemsPerPage = (int)session.getAttribute(SessionAttribute.CURRENT_CATALOG_PRODUCTS_PER_PAGE);
             productCount = productService.getProductCount(categoryId);
             if (currentFilterMethod != null){
                 switch (currentFilterMethod){

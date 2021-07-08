@@ -1,5 +1,6 @@
 package by.epam.tc.shop.model.service;
 
+import by.epam.tc.shop.model.dao.DaoException;
 import by.epam.tc.shop.model.entity.CartItem;
 import by.epam.tc.shop.model.entity.Order;
 
@@ -10,6 +11,10 @@ public interface OrderService {
     List<Order> getOrdersPage(int page, int recordsPerPage) throws ServiceException;
     List<Order> getRangeByUser(int start, int offset, int userId) throws ServiceException;
     int getOrderCount() throws ServiceException;
+    int getActiveOrderCountByUser(int userId) throws ServiceException;
     List<Order> getByUser(int userId) throws ServiceException;
     Order getById(int orderId) throws ServiceException;
+
+    List<Order> getRangeActive(int start, int offset) throws ServiceException;
+    List<Order> getRangeArchived(int start, int offset) throws ServiceException;
 }

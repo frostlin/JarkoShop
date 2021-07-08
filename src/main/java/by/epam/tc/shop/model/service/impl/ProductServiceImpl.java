@@ -1,22 +1,51 @@
 package by.epam.tc.shop.model.service.impl;
 
 import by.epam.tc.shop.model.dao.DaoException;
+import by.epam.tc.shop.model.dao.ProductCharacteristicDao;
 import by.epam.tc.shop.model.dao.ProductDao;
+import by.epam.tc.shop.model.dao.impl.ProductCharacteristicDaoImpl;
 import by.epam.tc.shop.model.dao.impl.ProductDaoImpl;
+import by.epam.tc.shop.model.entity.Brand;
 import by.epam.tc.shop.model.entity.Product;
 import by.epam.tc.shop.model.service.ProductService;
 import by.epam.tc.shop.model.service.ServiceException;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 public class ProductServiceImpl implements ProductService {
     private static final ProductServiceImpl instance = new ProductServiceImpl();
     private static final ProductDao productDao = ProductDaoImpl.getInstance();
+    private static final ProductCharacteristicDao productCharacteristicDao = ProductCharacteristicDaoImpl.getInstance();
 
     private ProductServiceImpl(){};
     public static ProductServiceImpl getInstance(){return instance; }
+
+    @Override
+    public int addNewProduct(int brandId, int categoryId, float price, String model, String description, int warranty, int amount_stock) throws ServiceException {
+        try {
+            int productId = productDao.add(brandId,categoryId,price,model,description,warranty,amount_stock);
+            List<Integer> ids = productCharacteristicDao.getCharacteristicsIdByCategory(categoryId);
+            for (int id : ids)
+                productCharacteristicDao.initializeProductCharacteristic(id,productId);
+            return productId;
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+
+    }
+
+    @Override
+    public int addNewBrand(String name) throws ServiceException {
+        return 0;
+    }
+
+    @Override
+    public int addPhotos(int productId, String name) throws ServiceException {
+        return 0;
+    }
 
     @Override
     public List<Product> getProductPage(int pageNumber, int recordsPerPage) throws ServiceException {
@@ -91,6 +120,15 @@ public class ProductServiceImpl implements ProductService {
             int start = (pageNumber - 1) * recordsPerPage;
 
             return productDao.getRange(1, 1);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public List<Brand> getBrandList() throws ServiceException {
+        try {
+            return productDao.getBrandList();
         } catch (DaoException e) {
             throw new ServiceException(e);
         }

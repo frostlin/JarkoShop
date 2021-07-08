@@ -15,22 +15,25 @@ public class OrderDaoImpl implements OrderDao {
     private static final AddressDaoImpl addressDao = AddressDaoImpl.getInstance();
     private static final CartItemDaoImpl cartItemDao = CartItemDaoImpl.getInstance();
 
-    private static final String GET_ALL =
-            "SELECT orders.id,user_id,method,address_id,'status',sum_to_pay,payed_sum,date_ordered,date_shipping,'comment'" +
-                    "FROM orders " +
-                    "JOIN payment_method ON orders.payment_method_id=payment_method.id ";
-
     private static final String ADD = "INSERT INTO orders " +
             " (user_id,payment_method_id,address_id,sum_to_pay,comment) " +
             "VALUES (?,?,?,?,?)";
-
-    private static final String GET_BY_ID = GET_ALL + "WHERE orders.id LIKE ?";
+    private static final String GET_ALL =
+            "SELECT orders.id,user_id,method,address_id,orders.status,sum_to_pay,payed_sum,date_ordered,date_shipping,orders.comment " +
+                    "FROM orders " +
+                    "JOIN payment_method ON orders.payment_method_id=payment_method.id ";
     private static final String GET_BY_USER = GET_ALL + "WHERE orders.user_id LIKE ? ORDER BY orders.id";
+    private static final String GET_BY_ID = GET_ALL + "WHERE orders.id LIKE ?";
+    private static final String GET_ACTIVE = GET_ALL + "WHERE orders.status NOT IN ('successful','canceled','refunded')";
+    private static final String GET_NOT_ACTIVE = GET_ALL + "WHERE orders.status IN ('successful','canceled','refunded')";
 
     private static final String GET_RANGE = GET_ALL + "ORDER BY orders.id LIMIT ?, ?";
     private static final String GET_RANGE_BY_USER = GET_BY_USER + " LIMIT ?, ?";
+    private static final String GET_RANGE_ACTIVE = GET_ACTIVE + "LIMIT ?, ?";
+    private static final String GET_RANGE_NOT_ACTIVE = GET_NOT_ACTIVE + "LIMIT ?, ?";
 
     private static final String GET_ORDER_COUNT = "SELECT COUNT(id) AS recordCount FROM orders";
+    private static final String GET_ACTIVE_ORDER_COUNT_BY_USER = "SELECT COUNT(id) AS recordCount FROM orders WHERE user_id LIKE ?";
 
     private OrderDaoImpl() {}
     public static OrderDaoImpl getInstance(){ return instance; }
@@ -95,6 +98,43 @@ public class OrderDaoImpl implements OrderDao {
     }
 
     @Override
+    public List<Order> getRangeActive(int start, int offset) throws DaoException {
+        List<Order> orders = new ArrayList<>();
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(GET_RANGE_ACTIVE))
+        {
+            statement.setInt(1, start);
+            statement.setInt(2, offset);
+
+            ResultSet resultSet = statement.executeQuery();
+            while(resultSet.next())
+                orders.add(getOrderFromResultSet(resultSet));
+        } catch(SQLException e){
+            throw new DaoException("Error getting all orders data ", e);
+        }
+        return orders;
+    }
+
+    @Override
+    public List<Order> getRangeNotActive(int start, int offset) throws DaoException {
+        List<Order> orders = new ArrayList<>();
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(GET_RANGE_NOT_ACTIVE))
+        {
+            statement.setInt(1, start);
+            statement.setInt(2, offset);
+
+            ResultSet resultSet = statement.executeQuery();
+            while(resultSet.next())
+                orders.add(getOrderFromResultSet(resultSet));
+        } catch(SQLException e){
+            throw new DaoException("Error getting all orders data ", e);
+        }
+        return orders;
+    }
+
+
+    @Override
     public Order getById(int id) throws DaoException {
         Order order = null;
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
@@ -141,11 +181,31 @@ public class OrderDaoImpl implements OrderDao {
         } catch(SQLException e){
             throw new DaoException("Error getting order count ", e);
         }
-
         return size;
     }
 
+    @Override
+    public int getActiveOrderCountByUser(int userId) throws DaoException {
+        int size = 0;
 
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(GET_ACTIVE_ORDER_COUNT_BY_USER))
+        {
+            statement.setInt(1, userId);
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next())
+                size = resultSet.getInt("recordCount");
+        } catch(SQLException e){
+            throw new DaoException("Error getting order count ", e);
+        }
+        return size;
+    }
+
+    @Override
+    public int getNotActiveOrderCountByUser(int userId) throws DaoException {
+        return 0;
+    }
 
     private Order getOrderFromResultSet(ResultSet resultSet) throws SQLException, DaoException{
         Order order = new Order();

@@ -5,9 +5,7 @@ import by.epam.tc.shop.controller.PaginationConstants;
 import by.epam.tc.shop.controller.RequestParameter;
 import by.epam.tc.shop.controller.SessionAttribute;
 import by.epam.tc.shop.controller.command.Command;
-import by.epam.tc.shop.model.service.OrderService;
 import by.epam.tc.shop.model.service.ServiceException;
-import by.epam.tc.shop.model.service.impl.OrderServiceImpl;
 import by.epam.tc.shop.model.service.impl.ProductServiceImpl;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -22,18 +20,18 @@ public class ToAdminProductsCommand implements Command {
     @Override
     public String execute(HttpServletRequest request) {
         HttpSession session = request.getSession();
-        if (session.getAttribute(SessionAttribute.CURRENT_ADMIN_PANEL_PAGE) == null)
-            session.setAttribute(SessionAttribute.CURRENT_ADMIN_PANEL_PAGE, 1);
-        if (session.getAttribute(SessionAttribute.CURRENT_ADMIN_PANEL_ITEMS_PER_PAGE) == null)
-            session.setAttribute(SessionAttribute.CURRENT_ADMIN_PANEL_ITEMS_PER_PAGE, PaginationConstants.CURRENT_ORDERS_PER_PAGE);
+        if (session.getAttribute(SessionAttribute.CURRENT_ADMIN_PRODUCTS_PAGE) == null)
+            session.setAttribute(SessionAttribute.CURRENT_ADMIN_PRODUCTS_PAGE, 1);
+        if (session.getAttribute(SessionAttribute.CURRENT_ADMIN_PRODUCTS_PER_PAGE) == null)
+            session.setAttribute(SessionAttribute.CURRENT_ADMIN_PRODUCTS_PER_PAGE, PaginationConstants.CURRENT_ADMIN_PRODUCTS_PER_PAGE);
 
-        int pageNumber = (int)session.getAttribute(SessionAttribute.CURRENT_ADMIN_PANEL_PAGE);
-        int itemsPerPage = (int)session.getAttribute(SessionAttribute.CURRENT_ADMIN_PANEL_ITEMS_PER_PAGE);
+        int pageNumber = (int)session.getAttribute(SessionAttribute.CURRENT_ADMIN_PRODUCTS_PAGE);
+        int itemsPerPage = (int)session.getAttribute(SessionAttribute.CURRENT_ADMIN_PRODUCTS_PER_PAGE);
 
         String nextPageNumber = request.getParameter(RequestParameter.NEXT_ITEM_PAGE);
         if (nextPageNumber != null){
             pageNumber = Integer.parseInt(nextPageNumber);
-            session.setAttribute(SessionAttribute.CURRENT_ADMIN_PANEL_PAGE, pageNumber);
+            session.setAttribute(SessionAttribute.CURRENT_ADMIN_PRODUCTS_PAGE, pageNumber);
         }
         try {
             int productCount = productService.getProductCount();

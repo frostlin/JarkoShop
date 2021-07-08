@@ -7,6 +7,7 @@ import java.util.List;
 
 public interface ProductCharacteristicDao {
     List<ProductCharacteristic> getProductCharacteristicsForCategory(int categoryId) throws DaoException;
-    public List<ProductCharacteristic> getProductCharacteristics(int productId, int categoryId) throws DaoException;
-
+    List<ProductCharacteristic> getProductCharacteristics(int productId, int categoryId) throws DaoException;
+    List<Integer> getCharacteristicsIdByCategory(int categoryId)throws DaoException;
+    void initializeProductCharacteristic(int characteristicId, int productId) throws DaoException;
 }

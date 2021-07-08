@@ -51,9 +51,39 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public List<Order> getRangeActive(int pageNumber, int recordsPerPage ) throws ServiceException {
+        try {
+            int start = (pageNumber - 1) * recordsPerPage;
+            return orderDao.getRangeActive(start, recordsPerPage);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+
+    @Override
+    public List<Order> getRangeArchived(int pageNumber, int recordsPerPage ) throws ServiceException {
+        try {
+            int start = (pageNumber - 1) * recordsPerPage;
+            return orderDao.getRangeNotActive(start, recordsPerPage);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
     public int getOrderCount() throws ServiceException {
         try {
             return orderDao.getOrderCount();
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public int getActiveOrderCountByUser(int userId) throws ServiceException {
+        try {
+            return orderDao.getActiveOrderCountByUser(userId);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }

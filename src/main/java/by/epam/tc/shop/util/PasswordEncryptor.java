@@ -9,12 +9,24 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Optional;
 
+/**
+ * The {@code PasswordEncryptor} is used to encrypt passwords with SHA-256 algo
+ *
+ * @author Pavel Voronin
+ * @version 1.0
+ */
 public class PasswordEncryptor {
     private static final Logger logger = LogManager.getLogger();
     private static final String ENCRYPTOR_ALGORITHM = "SHA-256";
 
     private PasswordEncryptor(){}
 
+    /**
+     * Encrypt Password
+     *
+     * @param password not encrypted password string
+     * @return encrypted
+     */
     public static Optional<String> encryptPassword(String password){
         Optional<String> encPassword = Optional.empty();
         try {

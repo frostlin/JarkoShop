@@ -1,5 +1,12 @@
 package by.epam.tc.shop.controller;
 
+
+/**
+ * The {@code SessionAttribute} class represents constants for session attributes
+ *
+ * @author Pavel Voronin
+ * @version 1.0
+ */
 public class SessionAttribute {
     public static final String MAIN_PAGE_PRODUCTS = "mainPageProducts";
 
@@ -17,6 +24,8 @@ public class SessionAttribute {
     public static final String CURRENT_ADMIN_ORDERS_PER_PAGE = "currentAdminOrdersPerPage";
     public static final String CURRENT_ADMIN_PRODUCTS_PAGE = "currentAdminProductsPage";
     public static final String CURRENT_ADMIN_PRODUCTS_PER_PAGE = "currentAdminProductsPerPage";
+    public static final String CURRENT_ADMIN_USERS_PAGE = "currentAdminUsersPage";
+    public static final String CURRENT_ADMIN_USERS_PER_PAGE = "currentAdminUsersPerPage";
 
     public static final String CURRENT_ITEMS_RANGE = "currentItemsRange";
     public static final String TOTAL_PAGE_COUNT = "totalPageCount";

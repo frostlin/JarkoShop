@@ -1,5 +1,11 @@
 package by.epam.tc.shop.controller;
 
+/**
+ * The {@code RequestParameter} class represents constants for request parameters
+ *
+ * @author Pavel Voronin
+ * @version 1.0
+ */
 public class RequestParameter {
     public static final String COMMAND = "command";
     public static final String NEW_LOCALE = "newLocale";
@@ -11,7 +17,7 @@ public class RequestParameter {
 
     public static final String SEARCH_STRING = "searchString";
     public static final String NEXT_ITEM_PAGE = "nextItemPage";
-    public static final String ADDED_PRODUCT_ID = "productId";
+    public static final String PRODUCT_ID = "productId";
     public static final String CURRENT_CATEGORY = "currentCategory";
 
     public static final String PRODUCT_ID_TO_DELETE = "productIdToDelete";
@@ -34,6 +40,11 @@ public class RequestParameter {
     public static final String ADD_PRODUCT_WARRANTY = "warranty";
     public static final String ADD_PRODUCT_AMOUNT_STOCK = "amountStock";
     public static final String ADD_PRODUCT_PHOTO = "photo";
+    public static final String CHARACTERISTIC_VALUE = "characteristicValue";
+    public static final String CHARACTERISTIC_NAME = "characteristicName";
+    public static final String CHARACTERISTIC_DESCRIPTION = "characteristicDesc";
+    public static final String CHARACTERISTIC_ID = "characteristicId";
+    public static final String CATEGORY_ID = "categoryId";
 
 
     private RequestParameter(){}

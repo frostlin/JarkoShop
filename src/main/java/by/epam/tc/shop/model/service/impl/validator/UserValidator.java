@@ -9,19 +9,15 @@ public class UserValidator {
     public static boolean isIdCorrect(String id) {
         return isStringCorrect(id, ID_REGEX);
     }
-
     public static boolean isLoginCorrect(String login) {
         return isStringCorrect(login, LOGIN_REGEX);
     }
-
     public static boolean isEmailCorrect(String email) {
         return isStringCorrect(email, EMAIL_REGEX);
     }
-
     public static boolean isPasswordCorrect(String password) {
         return isStringCorrect(password, PASSWORD_REGEX);
     }
-
 
     private static boolean isStringCorrect(String line, String regex) {
         if (line != null)

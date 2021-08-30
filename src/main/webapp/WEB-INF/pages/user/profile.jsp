@@ -31,7 +31,7 @@
     </div>
     <fmt:message key="profile.activeOrders"/>
 
-    <table class="table table-bordered mt-2">
+    <table class="table mt-2">
         <thead>
         <tr>
             <th><fmt:message key="orderTable.id"/></th>

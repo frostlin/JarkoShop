@@ -36,6 +36,6 @@ public class AddNewProductCommand implements Command {
         }
 
 
-        return PagePath.ADD_NEW_PRODUCT;
+        return PagePath.TO_PRODUCT;
     }
 }

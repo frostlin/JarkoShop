@@ -23,6 +23,7 @@ public interface ProductDao {
      int getProductCount() throws DaoException;
      int getProductCount(int categoryId) throws DaoException;
      Product getById(int productId) throws DaoException;
+     Product getLatest() throws DaoException;
 
      List<Brand>  getBrandList() throws DaoException;
 

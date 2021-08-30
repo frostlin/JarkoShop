@@ -4,6 +4,7 @@ import by.epam.tc.shop.model.dao.DaoException;
 import by.epam.tc.shop.model.dao.UserDao;
 import by.epam.tc.shop.model.dao.impl.UserDaoImpl;
 import by.epam.tc.shop.model.entity.CartItem;
+import by.epam.tc.shop.model.entity.Product;
 import by.epam.tc.shop.model.entity.User;
 import by.epam.tc.shop.model.service.ServiceException;
 import by.epam.tc.shop.model.service.UserService;
@@ -70,6 +71,25 @@ public class UserServiceImpl implements UserService  {
             throw new ServiceException(e);
         }
         return user;
+    }
+
+    @Override
+    public List<User> getUserPage(int pageNumber, int recordsPerPage) throws ServiceException {
+        try {
+            int start = (pageNumber - 1) * recordsPerPage;
+            return userDao.getRange(start, recordsPerPage);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public int getUserCount() throws ServiceException {
+        try {
+            return userDao.getUserCount();
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
     }
 
 

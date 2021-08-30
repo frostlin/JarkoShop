@@ -1,5 +1,11 @@
 package by.epam.tc.shop.controller;
 
+/**
+ * The {@code PagePath} class contains constants that represent paths to jsp files
+ *
+ * @author Pavel Voronin
+ * @version 1.0
+ */
 public class PagePath {
         public static final String HOME = "/index.jsp";
         public static final String MAIN = "/WEB-INF/pages/main.jsp";

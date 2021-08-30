@@ -89,50 +89,104 @@
             </tr>
             </thead>
             <tbody>
-            <c:forEach items="${currentProduct.getCharacteristics()}" var="characteristic" varStatus="loop">
+            <c:forEach items="${currentProduct.getCategory().getCharacteristics()}" var="characteristic" varStatus="loop">
                 <tr>
                     <th>
-                        <h5><c:out value="${characteristic.getName()}"/></h5>
-                        <c:out value="${characteristic.getDescription()}"/>
+                        <c:if test="${role.equals('admin')}">
+                            <div class="d-flex flex-row justify-content-between">
+                                <form action="controller" method="post" class="align-content-end">
+                                    <h5><c:out value="${characteristic.getName()}"/></h5>
+                                    <input type="text" name="characteristicName" class="form-control" placeholder="<fmt:message key="reviewTable.characteristic"/>" autofocus>
+
+                                    <c:out value="${characteristic.getDescription()}"/>
+                                    <input type="text" name="characteristicDesc" class="form-control" placeholder="<fmt:message key="productTable.description"/>" autofocus>
+
+                                    <button class="btn btn-lg btn-primary btn-block" type="submit" name="command" value="edit_characteristic">
+                                        <fmt:message key="productTable.editCharacteristic"/>
+                                    </button>
+                                    <input type="hidden" name="characteristicId" value="${characteristic.getId()}">
+                                    <input type="hidden" name="productId" value="${currentProduct.getId()}">
+
+                                </form>
+                            </div>
+                        </c:if>
+                        <c:if test="${!role.equals('admin')}">
+                            <h5><c:out value="${characteristic.getName()}"/></h5>
+                            <c:out value="${characteristic.getDescription()}"/>
+                        </c:if>
                     </th>
                     <td>
+                        <div class="d-flex flex-row justify-content-between ">
                         <c:choose>
-                            <c:when test="${characteristic.getValue() != null}">
-                                <c:out value="${characteristic.getValue()}"/>
+                            <c:when test="${loop.index < currentProduct.getCharacteristics().size() && currentProduct.getCharacteristics().get(loop.index).getValue() != null}">
+                                <c:out value="${currentProduct.getCharacteristics().get(loop.index).getValue()}"/>
                             </c:when>
                             <c:otherwise>
                                 <fmt:message key="reviewTable.noInfo"/>
                             </c:otherwise>
                         </c:choose>
+                        <c:if test="${role.equals('admin')}"> <br/>
+                            <form action="controller" method="post" class="align-content-end">
+                                <input type="text" name="characteristicValue" id="inputCharacteristic" class="form-control" placeholder="<fmt:message key="reviewTable.characteristic"/>" autofocus>
+                                <input type="hidden" name="characteristicId" value="${characteristic.getId()}">
+                                <input type="hidden" name="productId" value="${currentProduct.getId()}">
+
+                                <button class="btn btn-lg btn-primary btn-block" type="submit" name="command" value="edit_product_characteristic">
+                                    <fmt:message key="productTable.editCharacteristic"/>
+                                </button>
+                            </form>
+                        </c:if>
                     </td>
                 </tr>
             </c:forEach>
             </tbody>
         </table>
 
+        <div class="d-flex flex-column">
+            <c:if test="${role.equals('admin')}">
+                <br/>
+                <h5>Добавить новую характеристику</h5>
+                    <form action="controller" method="post" class="my-auto">
+                        <div>
+                            <input type="text" name="characteristicName" id="inputCharacteristicName" class="form-control" placeholder="<fmt:message key="reviewTable.characteristic"/>" autofocus>
+                            <textarea id="charDesc" name="characteristicDesc" rows="4" cols="50" placeholder=<fmt:message key="productTable.description"/>></textarea>
+                        </div>
+                        <div>
+                            <input type="hidden" name="categoryId" value="${currentProduct.getCategory().getId()}">
+                            <input type="hidden" name="productId" value="${currentProduct.getId()}">
+                            <button class="btn btn-outline-primary mx-1 mb-5" type="submit" name="command" value="add_new_characteristic">
+                                <fmt:message key="productTable.addNewCharacteristic"/> <fmt:message key="product.${currentProduct.getCategory().getName()}"/>
+                            </button>
+                        </div>
+                    </form>
+            </c:if>
+            <br/>
 
-        <br/><br/><br/><br/><br/>
-        <form action="controller" method="post">
-            <c:choose>
-                <c:when test="${role.equals('guest')}">
-                     <textarea id="review" name="review" rows="4" cols="50" disabled><fmt:message key="review.notSignedIn"/></textarea>
-                </c:when>
-                <c:otherwise>
-                    <textarea id="review" name="content" rows="4" cols="50"></textarea>
-                    <select class="form-control" name="rating">
-                        <c:forEach begin="1" end="10" var="digit">
-                            <option  value="${digit}">${digit}</option>
-                        </c:forEach>
-                    </select>
-                    <button class="btn btn-outline-primary mx-1 mb-5" type="submit" name="command" value="commit_review">
-                        <fmt:message key="review.commit"/>
-                    </button>
-                </c:otherwise>
-            </c:choose>
-            <br><br>
-        </form>
+
+            <h5><fmt:message key="reviewTable.leaveReview"/></h5>
+            <form action="controller" method="post">
+                <c:choose>
+                    <c:when test="${role.equals('guest')}">
+                         <textarea id="review" name="review" rows="4" cols="50" disabled><fmt:message key="review.notSignedIn"/></textarea>
+                    </c:when>
+                    <c:otherwise>
+                        <textarea id="review" name="content" rows="4" cols="50"></textarea>
+                        <select class="form-control" name="rating">
+                            <c:forEach begin="1" end="10" var="digit">
+                                <option  value="${digit}">${digit}</option>
+                            </c:forEach>
+                        </select>
+                        <button class="btn btn-outline-primary mx-1 mb-5" type="submit" name="command" value="commit_review">
+                            <fmt:message key="review.commit"/>
+                        </button>
+                    </c:otherwise>
+                </c:choose>
+                <br>
+            </form>
+        </div>
     </div>
 
+    </div>
     <table class="table table-bordered">
         <thead>
         <tr><th scope="col"><fmt:message key="reviewTable.review"/> </th>`</tr>
@@ -165,6 +219,5 @@
         </c:forEach>
         </tbody>
     </table>
-
 </body>
 </html>

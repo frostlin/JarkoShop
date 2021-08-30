@@ -97,6 +97,15 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public Product getLatest() throws ServiceException {
+        try {
+            return productDao.getLatest();
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
     public int getProductCount() throws ServiceException {
         try {
             return productDao.getProductCount();
@@ -129,6 +138,33 @@ public class ProductServiceImpl implements ProductService {
     public List<Brand> getBrandList() throws ServiceException {
         try {
             return productDao.getBrandList();
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public boolean updateProductCharacteristic(int characteristicId, int productId, String value) throws ServiceException {
+        try {
+            return productCharacteristicDao.updateProductCharacteristic(characteristicId, productId, value);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public boolean updateCharacteristic(int characteristicId, String productName, String productDesc) throws ServiceException {
+        try {
+            return productCharacteristicDao.updateCharacteristic(characteristicId, productName, productDesc);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public int addNewCharacteristic(int categoryId, String name, String desc) throws ServiceException {
+        try {
+            return productCharacteristicDao.add(categoryId, name, desc);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }

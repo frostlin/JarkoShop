@@ -4,6 +4,12 @@ import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import java.io.IOException;
 
+/**
+ * The {@code RoleAccessFilter} class represents encoding filter
+ *
+ * @author Pavel Voronin
+ * @version 1.0
+ */
 @WebFilter(urlPatterns = "/controller")
 public class EncodingFilter implements Filter {
     @Override

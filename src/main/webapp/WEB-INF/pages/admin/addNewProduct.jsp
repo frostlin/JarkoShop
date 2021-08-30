@@ -24,7 +24,7 @@
             </c:forEach>
         </select><br/>
 
-        <input type="text" name = "newBrand" id="inputBrand" class="form-control" placeholder="<fmt:message key="productTable.brand"/>" autofocus>
+        <input type="text" name="newBrand" id="inputBrand" class="form-control" placeholder="<fmt:message key="productTable.brand"/>" autofocus>
         <select class="form-control" name="selectedBrand">
             <c:forEach items="${brandList}" var="brand">
                 <option  value="${brand.getId()}">
@@ -34,10 +34,10 @@
         </select><br/>
 
         <input type="number" step="0.01" name = "price" id="inputPrice" class="form-control" placeholder="<fmt:message key="productTable.price"/>" autofocus>
-        <input type="text" name = "model" id="inputModel" class="form-control" placeholder="<fmt:message key="productTable.model"/>" autofocus>
-        <input type="text" name = "description" id="inputDescription" class="form-control" placeholder="<fmt:message key="productTable.description"/>" autofocus>
-        <input type="number" name = "warranty" id="inputWarranty" class="form-control" placeholder="<fmt:message key="productTable.warranty"/>" autofocus>
-        <input type="number" name = "amountStock" id="inputAmountStock" class="form-control" placeholder="<fmt:message key="productTable.stockAmount"/>" autofocus>
+        <input type="text" name="model" id="inputModel" class="form-control" placeholder="<fmt:message key="productTable.model"/>" autofocus>
+        <input type="text" name="description" id="inputDescription" class="form-control" placeholder="<fmt:message key="productTable.description"/>" autofocus>
+        <input type="number" name="warranty" id="inputWarranty" class="form-control" placeholder="<fmt:message key="productTable.warranty"/>" autofocus>
+        <input type="number" name="amountStock" id="inputAmountStock" class="form-control" placeholder="<fmt:message key="productTable.stockAmount"/>" autofocus>
 
         <input type="file" name="photo" size = "50" />
 

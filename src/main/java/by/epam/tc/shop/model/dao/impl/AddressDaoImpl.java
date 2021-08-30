@@ -1,6 +1,6 @@
 package by.epam.tc.shop.model.dao.impl;
 
-import by.epam.tc.shop.model.dao.AdderssDao;
+import by.epam.tc.shop.model.dao.AddressDao;
 import by.epam.tc.shop.model.dao.ColumnNames;
 import by.epam.tc.shop.model.dao.DaoException;
 import by.epam.tc.shop.model.entity.Address;
@@ -13,7 +13,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AddressDaoImpl implements AdderssDao {
+public class AddressDaoImpl implements AddressDao {
     private static final AddressDaoImpl instance = new AddressDaoImpl();
 
     private static final String GET_BY_USER_ID = "SELECT * FROM address WHERE user_id LIKE ?";

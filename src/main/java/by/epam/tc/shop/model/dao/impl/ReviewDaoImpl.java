@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ReviewDaoImpl implements ReviewDao {
+    private static final UserDaoImpl userDao = UserDaoImpl.getInstance();
     private static final ReviewDaoImpl instance = new ReviewDaoImpl();
     private static final String ADD = "INSERT INTO review (user_id,product_id,content,rating) VALUES (?,?,?,?)";
     private static final String GET_BY_PRODUCT = "SELECT id,user_id,product_id,content,date,rating" +
@@ -85,11 +86,13 @@ public class ReviewDaoImpl implements ReviewDao {
         String content =     resultSet.getString(ColumnNames.REVIEW_CONTENT);
         Date date =          resultSet.getDate(ColumnNames.REVIEW_DATE);
         int rating =         resultSet.getInt(ColumnNames.REVIEW_RATING);
+        int userId =         resultSet.getInt(ColumnNames.REVIEW_USER_ID);
 
         review.setId(id);
         review.setContent(content);
         review.setDate(date);
         review.setRating(rating);
+        review.setUser(userDao.getById(userId).get());
         return review;
     }
 }

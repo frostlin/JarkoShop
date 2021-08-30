@@ -24,7 +24,7 @@
             <li class="nav-item active">
                 <form action="controller" method="post" class="my-auto">
                     <div class="btn-group">
-                        <button class="btn btn-primary mx-1" type="submit" name="currentCategory" value="1">
+                        <button class="btn btn-primary mx-1" type="submit" name="currentCategory" value="${currentCategory}">
                             <fmt:message key="header.catalog"/>
                         </button>
                         <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -42,25 +42,6 @@
                 </form>
             </li>
         </ul>
-<%--        <div class="btn-group">--%>
-<%--            <button class="btn btn-link dropdown-toggle" type="button" id="currencyDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">--%>
-<%--                <i class='bx bxs-dollar-circle'></i>--%>
-<%--            </button>--%>
-<%--            <form action="controller" method="post">--%>
-<%--                <div class="dropdown-menu" aria-labelledby="currencyDropdown">--%>
-<%--                    <button class="dropdown-item" type="submit" name="changeCurrency" value="usd">--%>
-<%--                        USD</button>--%>
-<%--                    <button class="dropdown-item" type="submit" name="changeCurrency" value="byn">--%>
-<%--                        BYN</button>--%>
-<%--                    <button class="dropdown-item" type="submit" name="changeCurrency" value="rub">--%>
-<%--                        RUB</button>--%>
-<%--                    <button class="dropdown-item" type="submit" name="changeCurrency" value="jpy">--%>
-<%--                        JPY</button>--%>
-<%--                    <input type="hidden" name="command" value="change_currency">--%>
-<%--                </div>--%>
-<%--            </form>--%>
-<%--        </div>--%>
-
         <div class="btn-group">
             <button class="btn btn-link dropdown-toggle" type="button" id="localeDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class='bx bx-world'></i>

@@ -4,10 +4,7 @@ import by.epam.tc.shop.model.dao.CartItemDao;
 import by.epam.tc.shop.model.dao.ColumnNames;
 import by.epam.tc.shop.model.dao.DaoException;
 import by.epam.tc.shop.model.dao.UserDao;
-import by.epam.tc.shop.model.entity.Address;
-import by.epam.tc.shop.model.entity.CartItem;
-import by.epam.tc.shop.model.entity.User;
-import by.epam.tc.shop.model.entity.UserRole;
+import by.epam.tc.shop.model.entity.*;
 import by.epam.tc.shop.model.pool.ConnectionPool;
 
 import java.sql.*;
@@ -25,9 +22,12 @@ public class UserDaoImpl implements UserDao {
             "SELECT user.id,role.name,email,login,password,surname,user.name,lastname,telephone,date_registered " +
             "FROM user " +
             "JOIN role ON user.role_id=role.id";
+    private static final String GET_RANGE = GET_ALL + " LIMIT ?,?";
     private static final String GET_BY_LOGIN = GET_ALL + " WHERE login LIKE ?";
     private static final String GET_BY_EMAIL = GET_ALL + " WHERE email LIKE ?";
     private static final String GET_BY_ID = GET_ALL + " WHERE user.id LIKE ?";
+
+    private static final String GET_COUNT = "SELECT COUNT(id) AS recordCount FROM user";
 
 
     private UserDaoImpl() {}
@@ -66,6 +66,25 @@ public class UserDaoImpl implements UserDao {
         }
         return users;
     }
+
+    @Override
+    public List<User> getRange(int start, int offset) throws DaoException {
+        List<User> users = new ArrayList<>();
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(GET_RANGE))
+        {
+            statement.setInt(1, start);
+            statement.setInt(2, offset);
+
+            ResultSet resultSet = statement.executeQuery();
+            while(resultSet.next())
+                users.add(getUserFromResultSet(resultSet));
+        } catch(SQLException e){
+            throw new DaoException("Error getting all users data ", e);
+        }
+        return users;
+    }
+
 
     @Override
     public Optional<User> getByLogin(String login) throws DaoException {
@@ -115,6 +134,23 @@ public class UserDaoImpl implements UserDao {
             throw new DaoException("Error getting all users data ", e);
         }
         return user;
+    }
+
+    @Override
+    public int getUserCount() throws DaoException {
+        int size = 0;
+
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(GET_COUNT);
+             ResultSet resultSet = statement.executeQuery())
+        {
+            if (resultSet.next())
+                size = resultSet.getInt("recordCount");
+        } catch(SQLException e){
+            throw new DaoException("Error getting all users data ", e);
+        }
+
+        return size;
     }
 
     private User getUserFromResultSet(ResultSet resultSet) throws DaoException, SQLException {

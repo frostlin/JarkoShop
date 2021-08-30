@@ -10,4 +10,8 @@ public interface ProductCharacteristicDao {
     List<ProductCharacteristic> getProductCharacteristics(int productId, int categoryId) throws DaoException;
     List<Integer> getCharacteristicsIdByCategory(int categoryId)throws DaoException;
     void initializeProductCharacteristic(int characteristicId, int productId) throws DaoException;
+    boolean updateProductCharacteristic(int characteristicId, int productId, String value) throws DaoException;
+    boolean updateCharacteristic(int characteristicId, String characteristicName, String characteristicDesc) throws DaoException;
+    int add(int categoryId, String name, String desc) throws DaoException;
+
 }

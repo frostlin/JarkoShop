@@ -15,12 +15,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.List;
 import java.util.Set;
 
+/**
+ * The {@code AccessFilter} class represents user asses filter by roles
+ *
+ * @author Pavel Voronin
+ * @version 1.0
+ */
 @WebFilter(urlPatterns = "/controller")
 public class AccessFilter implements Filter {
     private static final Logger logger = LogManager.getLogger();
-    private static final int ACCESS_FORBIDDEN_ERROR = 403;
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain chain)
@@ -28,9 +34,6 @@ public class AccessFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
         HttpSession session = request.getSession();
-
-            response.setHeader("Cache-Control", "private, must-revalidate"); // HTTP 1.1.
-            response.setDateHeader("Expires", 0);
 
         if (session.getAttribute(SessionAttribute.ROLE) == null) {
             session.setAttribute(SessionAttribute.ROLE, "guest");
@@ -48,7 +51,7 @@ public class AccessFilter implements Filter {
             userRole = UserRole.valueOf(roleName.toUpperCase());
 
 
-        Set<Command> commands = switch (userRole) {
+        List<Command> commands = switch (userRole) {
             case GUEST -> Access.GUEST.getCommands();
             case USER -> Access.USER.getCommands();
             case ADMIN -> Access.ADMIN.getCommands();

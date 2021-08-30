@@ -91,7 +91,7 @@
                                                 <fmt:message key="cart.noAddresses"/>
                                             </c:otherwise>
                                         </c:choose>
-                                        <fmt:message key="cart.newAddress"/>
+<%--                                        <fmt:message key="cart.newAddress"/>--%>
                                     </div>
                                 </form>
                             </li>

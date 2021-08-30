@@ -50,12 +50,14 @@ public class ProductDaoImpl implements ProductDao {
 
     private static final String GET_PRODUCT_COUNT = "SELECT COUNT(id) AS recordCount FROM product";
     private static final String GET_PRODUCT_COUNT_FOR_CATEGORY = GET_PRODUCT_COUNT + " WHERE category_id LIKE ?";
+    private static final String GET_LATEST = GET_ALL + " ORDER BY product.id DESC LIMIT 1";
 
     private static final String GET_BY_BRAND = GET_ALL + " WHERE brand.id LIKE ?";
     private static final String GET_BY_ID = GET_ALL + " WHERE product.id LIKE ?";
 
     private static final String GET_PHOTO_LIST = "SELECT path FROM photo WHERE product_id LIKE ?";
     private static final String GET_BRAND_LIST = "SELECT * FROM brand";
+
 
     private ProductDaoImpl() {}
     public static ProductDaoImpl getInstance(){ return instance ; }
@@ -236,6 +238,21 @@ public class ProductDaoImpl implements ProductDao {
     }
 
     @Override
+    public Product getLatest() throws DaoException {
+        Product product = null;
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(GET_LATEST);
+             ResultSet resultSet = statement.executeQuery())
+        {
+            if (resultSet.next())
+                product = getProductFromResultSet(resultSet);
+        } catch(SQLException e){
+            throw new DaoException("Error getting latest product", e);
+        }
+        return product;
+    }
+
+    @Override
     public int getProductCount() throws DaoException {
         int size = 0;
 
@@ -343,5 +360,6 @@ public class ProductDaoImpl implements ProductDao {
         }
         return brands;
     }
+
 
 }

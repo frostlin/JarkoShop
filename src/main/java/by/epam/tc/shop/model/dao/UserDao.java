@@ -11,10 +11,11 @@ import java.util.Optional;
 public interface UserDao {
     boolean add(int role_id, String email , String login, String password) throws DaoException;
     List<User> getAll() throws DaoException;
+    List<User> getRange(int start, int offset) throws DaoException;
     Optional<User> getByLogin(String login) throws DaoException;
     Optional<User> getByEmail(String login) throws DaoException;
     Optional<User> getById(int id) throws DaoException;
-
+    int getUserCount() throws DaoException;
 
 
 }

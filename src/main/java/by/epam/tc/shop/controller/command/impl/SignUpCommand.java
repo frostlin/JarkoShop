@@ -9,7 +9,6 @@ import by.epam.tc.shop.model.entity.User;
 import by.epam.tc.shop.model.service.ServiceException;
 import by.epam.tc.shop.model.service.UserService;
 import by.epam.tc.shop.model.service.impl.UserServiceImpl;
-import by.epam.tc.shop.util.MailSender;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

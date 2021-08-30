@@ -23,7 +23,7 @@ public class AddToCartCommand implements Command {
         HttpSession session = request.getSession();
 
         User user = (User)session.getAttribute(SessionAttribute.CURRENT_USER);
-        int productId = Integer.parseInt(request.getParameter(RequestParameter.ADDED_PRODUCT_ID));
+        int productId = Integer.parseInt(request.getParameter(RequestParameter.PRODUCT_ID));
         try {
             if (cartItemService.getCartItem(productId, user.getId()) != null){
                 request.setAttribute(RequestAttribute.ADD_PRODUCT_TO_CART_MESSAGE,"catalog.alreadyAdded");

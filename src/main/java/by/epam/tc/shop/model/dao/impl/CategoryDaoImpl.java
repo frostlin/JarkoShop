@@ -62,33 +62,13 @@ public class CategoryDaoImpl implements CategoryDao {
         int id =             resultSet.getInt(ColumnNames.CATEGORY_ID);
         String name  =       resultSet.getString(ColumnNames.CATEGORY_NAME);
         String desc =        resultSet.getString(ColumnNames.CATEGORY_DESCRIPTION);
-        int subId =          resultSet.getInt(ColumnNames.CATEGORY_SUBCATEGORY_ID);
-//        List<Category> subCategories = null;
-//        if (subId > 0)
-//            subCategories = getSubCategories(id);
         List<ProductCharacteristic> characteristics = characteristicDao.getProductCharacteristicsForCategory(id);
-
 
         category.setId(id);
         category.setName(name);
         category.setCharacteristics(characteristics);
         category.setDescription(desc);
-        //category.setCategories(subCategories);
         return category;
     }
-    public List<Category> getSubCategories(int categoryId) throws DaoException {
-        List<Category> categories = new ArrayList<>();
-        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
-             PreparedStatement statement = connection.prepareStatement(GET_SUBCATEGORIES))
-        {
-            statement.setInt(1, categoryId);
-            ResultSet resultSet = statement.executeQuery();
 
-            while(resultSet.next())
-                categories.add(getCategoryFromResultSet(resultSet));
-        } catch(SQLException e){
-            throw new DaoException("Error getting all users data ", e);
-        }
-        return categories;
-    }
 }

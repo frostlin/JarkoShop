@@ -6,37 +6,29 @@ import by.epam.tc.shop.controller.RequestParameter;
 import by.epam.tc.shop.controller.SessionAttribute;
 import by.epam.tc.shop.controller.command.Command;
 import by.epam.tc.shop.model.entity.Product;
-import by.epam.tc.shop.model.entity.Review;
-import by.epam.tc.shop.model.service.ProductService;
-import by.epam.tc.shop.model.service.ReviewService;
 import by.epam.tc.shop.model.service.ServiceException;
 import by.epam.tc.shop.model.service.impl.ProductServiceImpl;
-import by.epam.tc.shop.model.service.impl.ReviewServiceImpl;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.List;
 
-public class ToProductPageCommand implements Command {
-    private static final Logger logger = LogManager.getLogger();
-
-    private static final ProductService productService = ProductServiceImpl.getInstance();
-    private static final ReviewService reviewService = ReviewServiceImpl.getInstance();
+public class EditProductCharacteristicCommand implements Command {
+    ProductServiceImpl productService = ProductServiceImpl.getInstance();
 
     @Override
     public String execute(HttpServletRequest request) {
         HttpSession session = request.getSession();
+
+        String characteristicValue = request.getParameter(RequestParameter.CHARACTERISTIC_VALUE);
+        int characteristicId = Integer.parseInt(request.getParameter(RequestParameter.CHARACTERISTIC_ID));
         int productId = Integer.parseInt(request.getParameter(RequestParameter.PRODUCT_ID));
+
         try{
+            productService.updateProductCharacteristic(characteristicId, productId, characteristicValue);
             Product product = productService.getProductById(productId);
             session.setAttribute(SessionAttribute.CURRENT_PRODUCT, product);
-
-            List<Review> reviews = reviewService.getForProduct(productId);
-            request.setAttribute(RequestAttribute.REVIEWS, reviews);
         } catch (ServiceException e){
-            logger.error("Error occurred while getting product for product page", e);
+            request.setAttribute(RequestAttribute.ORDER_ERROR, "cart.orderError");
         }
 
         return PagePath.TO_PRODUCT;

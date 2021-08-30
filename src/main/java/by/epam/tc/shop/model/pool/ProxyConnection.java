@@ -5,6 +5,12 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.Executor;
 
+/**
+ * The {@code ProxyConnection} class represents a proxy class for java.sql.Connection for use in connection pool
+ *
+ * @author Pavel Voronin
+ * @version 1.0
+ */
 public class ProxyConnection implements Connection {
     private Connection connection;
 
